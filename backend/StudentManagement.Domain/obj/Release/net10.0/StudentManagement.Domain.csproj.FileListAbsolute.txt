@@ -1,0 +1,12 @@
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/obj/Release/net10.0/StudentManagement.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/bin/Release/net10.0/StudentManagement.Domain.deps.json
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/bin/Release/net10.0/StudentManagement.Domain.dll
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/bin/Release/net10.0/StudentManagement.Domain.pdb
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/obj/Release/net10.0/StudentManagement.Domain.AssemblyInfoInputs.cache
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/obj/Release/net10.0/StudentManagement.Domain.AssemblyInfo.cs
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/obj/Release/net10.0/StudentManagement.Domain.csproj.CoreCompileInputs.cache
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/obj/Release/net10.0/StudentManagement.Domain.sourcelink.json
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/obj/Release/net10.0/StudentManagement.Domain.dll
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/obj/Release/net10.0/refint/StudentManagement.Domain.dll
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/obj/Release/net10.0/StudentManagement.Domain.pdb
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/obj/Release/net10.0/ref/StudentManagement.Domain.dll

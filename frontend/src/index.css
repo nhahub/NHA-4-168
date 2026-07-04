@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+
+@theme {
+  /* ── Colors ── */
+  --color-surface: #fbf8fa;
+  --color-surface-dim: #dcd9db;
+  --color-surface-lowest: #ffffff;
+  --color-surface-low: #f5f3f4;
+  --color-surface-container: #f0edef;
+  --color-surface-high: #eae7e9;
+  --color-surface-highest: #e4e2e3;
+  --color-surface-variant: #e4e2e3;
+  --color-surface-tint: #545f73;
+
+  --color-on-surface: #1b1b1d;
+  --color-on-surface-variant: #45474c;
+
+  --color-outline: #75777d;
+  --color-outline-variant: #c5c6cd;
+
+  --color-primary: #091426;
+  --color-primary-container: #1e293b;
+  --color-on-primary: #ffffff;
+  --color-on-primary-container: #8590a6;
+
+  --color-secondary: #0058be;
+  --color-secondary-container: #2170e4;
+  --color-on-secondary: #ffffff;
+  --color-on-secondary-container: #fefcff;
+
+  --color-error: #ba1a1a;
+  --color-error-container: #ffdad6;
+  --color-on-error: #ffffff;
+
+  --color-background: #fbf8fa;
+  --color-on-background: #1b1b1d;
+
+  --color-status-success: #16a34a;
+  --color-status-success-container: #dcfce7;
+  --color-status-warning: #d97706;
+  --color-status-warning-container: #fef3c7;
+  --color-status-danger: #ba1a1a;
+  --color-status-danger-container: #ffdad6;
+  --color-status-info: #0058be;
+  --color-status-info-container: #d8e2ff;
+  --color-status-neutral: #45474c;
+  --color-status-neutral-container: #e4e2e3;
+
+  --color-card-border: #e2e8f0;
+  --color-input-border: #d1d5db;
+  --color-input-border-focus: #0058be;
+  --color-sidebar-bg: #1e293b;
+  --color-sidebar-inactive: #8590a6;
+  --color-sidebar-active-accent: #0058be;
+  --color-table-row-hover: #f1f5f9;
+
+  /* ── Font family ── */
+  --font-sans: 'Inter', system-ui, sans-serif;
+
+  /* ── Font sizes ── */
+  --font-size-display-lg: 36px;
+  --font-size-display-lg-mobile: 28px;
+  --font-size-headline-md: 24px;
+  --font-size-title-sm: 18px;
+  --font-size-body-md: 16px;
+  --font-size-body-sm: 14px;
+  --font-size-label-caps: 12px;
+  --font-size-table-header: 13px;
+
+  /* ── Spacing ── */
+  --spacing-sidebar: 280px;
+  --spacing-topbar: 64px;
+  --spacing-section: 32px;
+  --spacing-container: 24px;
+  --spacing-stack: 16px;
+  --spacing-gutter: 24px;
+
+  /* ── Border radius ── */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* ── Shadows ── */
+  --shadow-card: 0px 1px 3px rgba(0, 0, 0, 0.10);
+  --shadow-modal: 0px 10px 15px -3px rgba(0, 0, 0, 0.10);
+  --shadow-focus: 0 0 0 3px rgba(0, 88, 190, 0.25);
+}
+
+/* ── Base ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--color-background);
+  color: var(--color-on-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

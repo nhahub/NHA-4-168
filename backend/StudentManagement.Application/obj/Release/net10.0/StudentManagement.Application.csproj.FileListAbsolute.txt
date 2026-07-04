@@ -1,0 +1,16 @@
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Application/bin/Release/net10.0/StudentManagement.Application.deps.json
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Application/bin/Release/net10.0/StudentManagement.Application.dll
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Application/bin/Release/net10.0/StudentManagement.Application.pdb
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Application/bin/Release/net10.0/StudentManagement.Domain.dll
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Application/bin/Release/net10.0/StudentManagement.Domain.pdb
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Application/obj/Release/net10.0/StudentManagement.Application.csproj.AssemblyReference.cache
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Application/obj/Release/net10.0/StudentManagement.Application.GeneratedMSBuildEditorConfig.editorconfig
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Application/obj/Release/net10.0/StudentManagement.Application.AssemblyInfoInputs.cache
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Application/obj/Release/net10.0/StudentManagement.Application.AssemblyInfo.cs
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Application/obj/Release/net10.0/StudentManagement.Application.csproj.CoreCompileInputs.cache
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Application/obj/Release/net10.0/StudentManagement.Application.sourcelink.json
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Application/obj/Release/net10.0/StudentM.589D761C.Up2Date
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Application/obj/Release/net10.0/StudentManagement.Application.dll
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Application/obj/Release/net10.0/refint/StudentManagement.Application.dll
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Application/obj/Release/net10.0/StudentManagement.Application.pdb
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Application/obj/Release/net10.0/ref/StudentManagement.Application.dll
