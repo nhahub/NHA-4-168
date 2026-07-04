@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/amr3006khaled/Documents/NHA-4-168/student-management-system/backend/StudentManagement.Domain/StudentManagement.Domain.csproj",
+      "projectUniqueName": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/StudentManagement.Domain.csproj",
       "projectName": "StudentManagement.Domain",
-      "projectPath": "/Users/amr3006khaled/Documents/NHA-4-168/student-management-system/backend/StudentManagement.Domain/StudentManagement.Domain.csproj",
+      "projectPath": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/StudentManagement.Domain.csproj",
       "packagesPath": "/Users/amr3006khaled/.nuget/packages/",
-      "outputPath": "/Users/amr3006khaled/Documents/NHA-4-168/student-management-system/backend/StudentManagement.Domain/obj/",
+      "outputPath": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/amr3006khaled/.nuget/NuGet/NuGet.Config"

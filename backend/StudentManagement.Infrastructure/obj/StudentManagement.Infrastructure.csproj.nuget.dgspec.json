@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/amr3006khaled/Documents/NHA-4-168/student-management-system/backend/StudentManagement.Infrastructure/StudentManagement.Infrastructure.csproj": {}
+    "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Infrastructure/StudentManagement.Infrastructure.csproj": {}
   },
   "projects": {
-    "/Users/amr3006khaled/Documents/NHA-4-168/student-management-system/backend/StudentManagement.Application/StudentManagement.Application.csproj": {
+    "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Application/StudentManagement.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/amr3006khaled/Documents/NHA-4-168/student-management-system/backend/StudentManagement.Application/StudentManagement.Application.csproj",
+        "projectUniqueName": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Application/StudentManagement.Application.csproj",
         "projectName": "StudentManagement.Application",
-        "projectPath": "/Users/amr3006khaled/Documents/NHA-4-168/student-management-system/backend/StudentManagement.Application/StudentManagement.Application.csproj",
+        "projectPath": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Application/StudentManagement.Application.csproj",
         "packagesPath": "/Users/amr3006khaled/.nuget/packages/",
-        "outputPath": "/Users/amr3006khaled/Documents/NHA-4-168/student-management-system/backend/StudentManagement.Application/obj/",
+        "outputPath": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Application/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/amr3006khaled/.nuget/NuGet/NuGet.Config"
@@ -28,8 +28,8 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "/Users/amr3006khaled/Documents/NHA-4-168/student-management-system/backend/StudentManagement.Domain/StudentManagement.Domain.csproj": {
-                "projectPath": "/Users/amr3006khaled/Documents/NHA-4-168/student-management-system/backend/StudentManagement.Domain/StudentManagement.Domain.csproj"
+              "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/StudentManagement.Domain.csproj": {
+                "projectPath": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/StudentManagement.Domain.csproj"
               }
             }
           }
@@ -354,14 +354,14 @@
         }
       }
     },
-    "/Users/amr3006khaled/Documents/NHA-4-168/student-management-system/backend/StudentManagement.Domain/StudentManagement.Domain.csproj": {
+    "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/StudentManagement.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/amr3006khaled/Documents/NHA-4-168/student-management-system/backend/StudentManagement.Domain/StudentManagement.Domain.csproj",
+        "projectUniqueName": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/StudentManagement.Domain.csproj",
         "projectName": "StudentManagement.Domain",
-        "projectPath": "/Users/amr3006khaled/Documents/NHA-4-168/student-management-system/backend/StudentManagement.Domain/StudentManagement.Domain.csproj",
+        "projectPath": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/StudentManagement.Domain.csproj",
         "packagesPath": "/Users/amr3006khaled/.nuget/packages/",
-        "outputPath": "/Users/amr3006khaled/Documents/NHA-4-168/student-management-system/backend/StudentManagement.Domain/obj/",
+        "outputPath": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/amr3006khaled/.nuget/NuGet/NuGet.Config"
@@ -690,14 +690,14 @@
         }
       }
     },
-    "/Users/amr3006khaled/Documents/NHA-4-168/student-management-system/backend/StudentManagement.Infrastructure/StudentManagement.Infrastructure.csproj": {
+    "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Infrastructure/StudentManagement.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/amr3006khaled/Documents/NHA-4-168/student-management-system/backend/StudentManagement.Infrastructure/StudentManagement.Infrastructure.csproj",
+        "projectUniqueName": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Infrastructure/StudentManagement.Infrastructure.csproj",
         "projectName": "StudentManagement.Infrastructure",
-        "projectPath": "/Users/amr3006khaled/Documents/NHA-4-168/student-management-system/backend/StudentManagement.Infrastructure/StudentManagement.Infrastructure.csproj",
+        "projectPath": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Infrastructure/StudentManagement.Infrastructure.csproj",
         "packagesPath": "/Users/amr3006khaled/.nuget/packages/",
-        "outputPath": "/Users/amr3006khaled/Documents/NHA-4-168/student-management-system/backend/StudentManagement.Infrastructure/obj/",
+        "outputPath": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Infrastructure/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/amr3006khaled/.nuget/NuGet/NuGet.Config"
@@ -714,11 +714,11 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "/Users/amr3006khaled/Documents/NHA-4-168/student-management-system/backend/StudentManagement.Application/StudentManagement.Application.csproj": {
-                "projectPath": "/Users/amr3006khaled/Documents/NHA-4-168/student-management-system/backend/StudentManagement.Application/StudentManagement.Application.csproj"
+              "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Application/StudentManagement.Application.csproj": {
+                "projectPath": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Application/StudentManagement.Application.csproj"
               },
-              "/Users/amr3006khaled/Documents/NHA-4-168/student-management-system/backend/StudentManagement.Domain/StudentManagement.Domain.csproj": {
-                "projectPath": "/Users/amr3006khaled/Documents/NHA-4-168/student-management-system/backend/StudentManagement.Domain/StudentManagement.Domain.csproj"
+              "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/StudentManagement.Domain.csproj": {
+                "projectPath": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/StudentManagement.Domain.csproj"
               }
             }
           }

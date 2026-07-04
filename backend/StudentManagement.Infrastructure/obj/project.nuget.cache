@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "l9P2kDv0dGI=",
+  "dgSpecHash": "pzMk03KoJpg=",
   "success": true,
-  "projectFilePath": "/Users/amr3006khaled/Documents/NHA-4-168/student-management-system/backend/StudentManagement.Infrastructure/StudentManagement.Infrastructure.csproj",
+  "projectFilePath": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Infrastructure/StudentManagement.Infrastructure.csproj",
   "expectedPackageFiles": [
     "/Users/amr3006khaled/.nuget/packages/automapper/16.2.0/automapper.16.2.0.nupkg.sha512",
     "/Users/amr3006khaled/.nuget/packages/azure.core/1.47.1/azure.core.1.47.1.nupkg.sha512",
