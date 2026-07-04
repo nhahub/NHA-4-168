@@ -1,6 +1,6 @@
 # Student Management
 
-## Backend Structure
+## Project Structure
 
 ```text
 .
@@ -32,43 +32,6 @@
 ├── docs
 └── frontend
     ├── node_modules
-    ├── public
-    └── src
-        ├── assets
-        ├── components
-        ├── features
-        ├── hooks
-        ├── lib
-        ├── pages
-        ├── routes
-        ├── services
-        ├── store
-        └── theme
-```
-
-## Frontend Structure
-
-```text
-.
-├── backend
-│   ├── StudentManagement.API
-│   │   ├── Controllers
-│   │   ├── Middleware
-│   │   └── Properties
-│   ├── StudentManagement.Application
-│   │   ├── DTOs
-│   │   ├── Interfaces
-│   │   ├── Mappings
-│   │   ├── Services
-│   │   └── Validators
-│   ├── StudentManagement.Domain
-│   │   ├── Entities
-│   │   └── Enums
-│   └── StudentManagement.Infrastructure
-│       ├── Data
-│       └── Repositories
-├── docs
-└── frontend
     ├── public
     └── src
         ├── assets
