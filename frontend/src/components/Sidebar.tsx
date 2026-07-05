@@ -1,6 +1,6 @@
 import { BusFront, BookOpen, GraduationCap, LayoutDashboard, LifeBuoy, Users, Wallet, X } from 'lucide-react'
 
-type AdminSidebarProps = {
+type SidebarProps = {
   isOpen: boolean
   onClose: () => void
 }
@@ -17,7 +17,7 @@ const navigationItems = [
   { label: 'Ride Bookings', icon: BusFront },
 ]
 
-function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
+function Sidebar({ isOpen, onClose }: SidebarProps) {
   return (
     <>
       <aside
@@ -85,4 +85,4 @@ function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
   )
 }
 
-export default AdminSidebar
+export default Sidebar

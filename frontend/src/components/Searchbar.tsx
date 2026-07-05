@@ -1,12 +1,12 @@
 import { Bell, HelpCircle, Menu, Search, Settings } from 'lucide-react'
 
-type AdminSearchBarProps = {
+type SearchbarProps = {
   query: string
   onQueryChange: (value: string) => void
   onMenuClick: () => void
 }
 
-function AdminSearchBar({ query, onQueryChange, onMenuClick }: AdminSearchBarProps) {
+function Searchbar({ query, onQueryChange, onMenuClick }: SearchbarProps) {
   return (
     <header className="sticky top-0 z-30 border-b border-outline-variant bg-surface/95 backdrop-blur">
       <div className="flex h-16 items-center justify-between gap-4 px-4 sm:px-6 lg:pl-[calc(280px+24px)] lg:pr-6">
@@ -48,4 +48,4 @@ function AdminSearchBar({ query, onQueryChange, onMenuClick }: AdminSearchBarPro
   )
 }
 
-export default AdminSearchBar
+export default Searchbar
