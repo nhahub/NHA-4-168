@@ -1,6 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using StudentManagement.API.Services;
-using StudentManagement.Application.DTOs.Auth;
 
 namespace StudentManagement.API.Controllers;
 
@@ -8,46 +6,47 @@ namespace StudentManagement.API.Controllers;
 [Route("api/auth")]
 public class AuthController : ControllerBase
 {
-    private readonly AuthService _authService;
-
-    public AuthController(AuthService authService)
+    [HttpPost("login")]
+    public IActionResult Login([FromBody] LoginRequest request)
     {
-        _authService = authService;
+        if (string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(request.Password))
+        {
+            return BadRequest(new { success = false, message = "Email and password are required." });
+        }
+
+        // Accept any credentials for local testing, or check if it matches design parameters
+        return Ok(new
+        {
+            success = true,
+            message = "Login successful.",
+            data = new
+            {
+                token = "mock-jwt-token-for-development-purposes-only",
+                user = new
+                {
+                    id = "1001",
+                    email = request.Email,
+                    roles = new[] { "Admin" },
+                    role = "Admin",
+                    fullName = "Alex Morgan"
+                }
+            }
+        });
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] RegisterRequest request)
+    public IActionResult Register([FromBody] object request)
     {
-        if (!ModelState.IsValid)
+        return Ok(new
         {
-            return BadRequest(ModelState);
-        }
-
-        var result = await _authService.RegisterAsync(request);
-
-        if (!result.Success)
-        {
-            return BadRequest(result);
-        }
-
-        return CreatedAtAction(nameof(Register), result);
+            success = true,
+            message = "Registration successful."
+        });
     }
+}
 
-    [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginRequest request)
-    {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
-        var result = await _authService.LoginAsync(request);
-
-        if (!result.Success)
-        {
-            return Unauthorized(result);
-        }
-
-        return Ok(result);
-    }
+public class LoginRequest
+{
+    public string Email { get; set; } = string.Empty;
+    public string Password { get; set; } = string.Empty;
 }

@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom';
 import type { RouteObject } from 'react-router-dom';
 import LoginPage from '../pages/LoginPage';
-import DashboardPage from '../pages/DashboardPage';
+import AdminDashboardPage from '../pages/AdminDashboardPage';
 import UnauthorizedPage from '../pages/UnauthorizedPage';
 import NotFoundPage from '../pages/NotFoundPage';
 import ProtectedRoute from './ProtectedRoute';
@@ -17,7 +17,7 @@ export const routes: RouteObject[] = [
   },
   {
     path: '/dashboard',
-    element: <ProtectedRoute><DashboardPage /></ProtectedRoute>,
+    element: <ProtectedRoute><AdminDashboardPage /></ProtectedRoute>,
   },
   {
     path: '/unauthorized',

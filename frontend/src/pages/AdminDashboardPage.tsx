@@ -25,7 +25,7 @@ const studentRows = [
 
 function AdminDashboardPage() {
   return (
-    <main className="px-4 pb-12 pt-6 sm:px-6 lg:ml-[280px] lg:px-8 lg:pt-8">
+    <main className="px-4 pb-12 pt-6 sm:px-6 lg:px-8 lg:pt-8">
       <section className="flex justify-between items-end mb-8">
         <div>
           <h2 className="text-[36px] leading-[44px] tracking-[-0.02em] font-bold text-on-background">Admin Dashboard</h2>
