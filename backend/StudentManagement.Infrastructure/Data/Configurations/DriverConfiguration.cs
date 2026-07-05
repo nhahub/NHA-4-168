@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using StudentManagement.Domain.Entities;
@@ -20,5 +21,12 @@ public class DriverConfiguration : IEntityTypeConfiguration<Driver>
         builder.Property(d => d.CarModel).HasMaxLength(50);
         builder.Property(d => d.CarPlate).HasMaxLength(20);
         builder.Property(d => d.Rating).HasColumnType("decimal(3,2)");
+        builder.Property(d => d.UserId);
+
+        builder.HasOne(d => d.User)
+               .WithMany()
+               .HasForeignKey(d => d.UserId)
+               .OnDelete(DeleteBehavior.SetNull)
+               .IsRequired(false);
     }
 }

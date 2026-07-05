@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using StudentManagement.Domain.Entities;
@@ -18,6 +19,13 @@ public class StudentConfiguration : IEntityTypeConfiguration<Student>
         builder.Property(s => s.Phone).HasMaxLength(20);
         builder.Property(s => s.Address).HasMaxLength(255);
         builder.Property(s => s.Status).IsRequired().HasMaxLength(20).HasDefaultValue("Active");
+        builder.Property(s => s.UserId);
+
+        builder.HasOne(s => s.User)
+               .WithMany()
+               .HasForeignKey(s => s.UserId)
+               .OnDelete(DeleteBehavior.SetNull)
+               .IsRequired(false);
 
         builder.HasMany(s => s.Enrollments)
                .WithOne(e => e.Student)

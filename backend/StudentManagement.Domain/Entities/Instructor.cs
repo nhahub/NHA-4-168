@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Identity;
+
 namespace StudentManagement.Domain.Entities;
 
 public class Instructor
@@ -10,6 +12,8 @@ public class Instructor
     public string?   Specialization { get; set; }
     public DateTime? HireDate       { get; set; }
     public decimal?  Rating         { get; set; }
+    public string?   UserId         { get; set; }
 
     public ICollection<CourseInstructor> CourseInstructors { get; set; } = [];
+    public IdentityUser? User { get; set; }
 }

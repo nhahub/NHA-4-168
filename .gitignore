@@ -42,3 +42,6 @@ packages/
 
 # Generated publish output
 publish/
+
+# Mac related
+.DS_Store
