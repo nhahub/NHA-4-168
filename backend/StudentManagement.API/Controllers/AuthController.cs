@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using StudentManagement.API.Services;
 using StudentManagement.Application.DTOs.Auth;
-using StudentManagement.Application.Services;
 
 namespace StudentManagement.API.Controllers;
 

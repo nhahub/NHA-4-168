@@ -11,10 +11,11 @@ public static class SeedTestData
     /// Seeds sample students, instructors, drivers, courses, and services for local
     /// development/testing. Safe to call on every startup — each block checks for
     /// existing data before inserting.
+    /// Call as: await app.Services.SeedTestDataAsync();
     /// </summary>
-    public static async Task SeedTestDataAsync(this WebApplication app)
+    public static async Task SeedTestDataAsync(this IServiceProvider serviceProvider)
     {
-        using var scope = app.Services.CreateScope();
+        using var scope = serviceProvider.CreateScope();
         var services = scope.ServiceProvider;
 
         var context = services.GetRequiredService<AppDbContext>();
@@ -69,12 +70,14 @@ public static class SeedTestData
             ("Mona", "Fathy", "mona.fathy@student.example.com"),
         };
 
+        var nextSsn = 100001;
         foreach (var (firstName, lastName, email) in seedStudents)
         {
             var user = await GetOrCreateUserAsync(userManager, email, "Student");
 
             context.Students.Add(new Student
             {
+                StudentSsn = nextSsn++,
                 FirstName = firstName,
                 LastName = lastName,
                 Email = email,
@@ -102,12 +105,14 @@ public static class SeedTestData
             ("Dina", "Wahid", "dina.wahid@instructor.example.com", "UI/UX Design"),
         };
 
+        var nextSsn = 200001;
         foreach (var (firstName, lastName, email, specialization) in seedInstructors)
         {
             var user = await GetOrCreateUserAsync(userManager, email, "Instructor");
 
             context.Instructors.Add(new Instructor
             {
+                InstructorSsn = nextSsn++,
                 FirstName = firstName,
                 LastName = lastName,
                 Email = email,
@@ -134,12 +139,14 @@ public static class SeedTestData
             ("Heba", "Younes", "heba.younes@driver.example.com", "LIC-10589", "Hyundai Elantra", "XYZ-5678", 2022),
         };
 
+        var nextSsn = 300001;
         foreach (var (firstName, lastName, email, license, carModel, carPlate, carYear) in seedDrivers)
         {
             var user = await GetOrCreateUserAsync(userManager, email, "Driver");
 
             context.Drivers.Add(new Driver
             {
+                DriverSsn = nextSsn++,
                 FirstName = firstName,
                 LastName = lastName,
                 Phone = "+2010" + Random.Shared.Next(10000000, 99999999),

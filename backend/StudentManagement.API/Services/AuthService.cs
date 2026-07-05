@@ -8,7 +8,7 @@ using StudentManagement.Application.DTOs.Auth;
 using StudentManagement.Domain.Entities;
 using StudentManagement.Infrastructure.Data;
 
-namespace StudentManagement.Application.Services;
+namespace StudentManagement.API.Services;
 
 public class AuthService
 {

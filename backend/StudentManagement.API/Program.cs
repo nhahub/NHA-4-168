@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using StudentManagement.API.Middleware;
-using StudentManagement.Application.Services;
+using StudentManagement.API.Services;
 using StudentManagement.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -75,11 +75,11 @@ builder.Services.AddScoped<AuthService>();
 
 var app = builder.Build();
 
-await app.SeedRolesAsync();
+await app.Services.SeedRolesAsync();
 
 if (app.Environment.IsDevelopment())
 {
-    await app.SeedTestDataAsync();
+    await app.Services.SeedTestDataAsync();
     app.UseSwagger();
     app.UseSwaggerUI();
 }

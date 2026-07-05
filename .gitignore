@@ -45,3 +45,4 @@ publish/
 
 # Mac related
 .DS_Store
+frontend/.env

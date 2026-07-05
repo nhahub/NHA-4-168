@@ -9,10 +9,11 @@ public static class SeedData
 
     /// <summary>
     /// Ensures the fixed application roles exist. Safe to call on every startup.
+    /// Call as: await app.Services.SeedRolesAsync();
     /// </summary>
-    public static async Task SeedRolesAsync(this WebApplication app)
+    public static async Task SeedRolesAsync(this IServiceProvider serviceProvider)
     {
-        using var scope = app.Services.CreateScope();
+        using var scope = serviceProvider.CreateScope();
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
         foreach (var roleName in Roles)
