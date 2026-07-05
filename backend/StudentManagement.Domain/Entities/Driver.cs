@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Identity;
+
 namespace StudentManagement.Domain.Entities;
 
 public class Driver
@@ -11,6 +13,8 @@ public class Driver
     public string?  CarPlate      { get; set; }
     public int?     CarYear       { get; set; }
     public decimal? Rating        { get; set; }
+    public string?  UserId        { get; set; }
 
     public ICollection<RideBooking> RideBookings { get; set; } = [];
+    public IdentityUser? User { get; set; }
 }

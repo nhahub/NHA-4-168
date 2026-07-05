@@ -1,3 +1,12 @@
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/obj/Debug/net10.0/StudentManagement.API.csproj.AssemblyReference.cache
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/obj/Debug/net10.0/rpswa.dswa.cache.json
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/obj/Debug/net10.0/StudentManagement.API.GeneratedMSBuildEditorConfig.editorconfig
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/obj/Debug/net10.0/StudentManagement.API.AssemblyInfoInputs.cache
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/obj/Debug/net10.0/StudentManagement.API.AssemblyInfo.cs
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/obj/Debug/net10.0/StudentManagement.API.csproj.CoreCompileInputs.cache
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/obj/Debug/net10.0/StudentManagement.API.MvcApplicationPartsAssemblyInfo.cs
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/obj/Debug/net10.0/StudentManagement.API.MvcApplicationPartsAssemblyInfo.cache
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/obj/Debug/net10.0/StudentManagement.API.sourcelink.json
 /Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/bin/Debug/net10.0/appsettings.Development.json
 /Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/bin/Debug/net10.0/appsettings.json
 /Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/bin/Debug/net10.0/StudentManagement.API.staticwebassets.endpoints.json
@@ -12,6 +21,7 @@
 /Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/bin/Debug/net10.0/FluentValidation.dll
 /Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/bin/Debug/net10.0/Humanizer.dll
 /Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/bin/Debug/net10.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/bin/Debug/net10.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 /Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/bin/Debug/net10.0/Microsoft.Bcl.AsyncInterfaces.dll
 /Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/bin/Debug/net10.0/Microsoft.Bcl.Cryptography.dll
 /Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/bin/Debug/net10.0/Microsoft.Build.Framework.dll
@@ -144,15 +154,6 @@
 /Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/bin/Debug/net10.0/StudentManagement.Application.pdb
 /Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/bin/Debug/net10.0/StudentManagement.Infrastructure.pdb
 /Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/bin/Debug/net10.0/StudentManagement.Domain.pdb
-/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/obj/Debug/net10.0/StudentManagement.API.csproj.AssemblyReference.cache
-/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/obj/Debug/net10.0/rpswa.dswa.cache.json
-/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/obj/Debug/net10.0/StudentManagement.API.GeneratedMSBuildEditorConfig.editorconfig
-/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/obj/Debug/net10.0/StudentManagement.API.AssemblyInfoInputs.cache
-/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/obj/Debug/net10.0/StudentManagement.API.AssemblyInfo.cs
-/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/obj/Debug/net10.0/StudentManagement.API.csproj.CoreCompileInputs.cache
-/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/obj/Debug/net10.0/StudentManagement.API.MvcApplicationPartsAssemblyInfo.cs
-/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/obj/Debug/net10.0/StudentManagement.API.MvcApplicationPartsAssemblyInfo.cache
-/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/obj/Debug/net10.0/StudentManagement.API.sourcelink.json
 /Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/obj/Debug/net10.0/rjimswa.dswa.cache.json
 /Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/obj/Debug/net10.0/rjsmrazor.dswa.cache.json
 /Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/obj/Debug/net10.0/rjsmcshtml.dswa.cache.json

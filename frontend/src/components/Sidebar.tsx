@@ -1,4 +1,6 @@
-import { BusFront, BookOpen, GraduationCap, LayoutDashboard, LifeBuoy, Users, Wallet, X } from 'lucide-react'
+import { BusFront, BookOpen, GraduationCap, LayoutDashboard, LifeBuoy, LogOut, Users, Wallet, X } from 'lucide-react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useAuth } from '../contexts/AuthContext'
 
 type SidebarProps = {
   isOpen: boolean
@@ -6,18 +8,33 @@ type SidebarProps = {
 }
 
 const navigationItems = [
-  { label: 'Dashboard', icon: LayoutDashboard, active: true },
-  { label: 'Students', icon: GraduationCap },
-  { label: 'Instructors', icon: Users },
-  { label: 'Courses', icon: BookOpen },
-  { label: 'Enrollments', icon: BookOpen },
-  { label: 'Payments', icon: Wallet },
-  { label: 'Services', icon: LifeBuoy },
-  { label: 'Drivers', icon: BusFront },
-  { label: 'Ride Bookings', icon: BusFront },
+  { label: 'Dashboard', icon: LayoutDashboard, to: '/dashboard' },
+  { label: 'Students', icon: GraduationCap, to: '/students' },
+  { label: 'Instructors', icon: Users, to: '/instructors' },
+  { label: 'Courses', icon: BookOpen, to: '/courses' },
+  { label: 'Enrollments', icon: BookOpen, to: '/enrollments' },
+  { label: 'Payments', icon: Wallet, to: '/payments' },
+  { label: 'Services', icon: LifeBuoy, to: '/services' },
+  { label: 'Drivers', icon: BusFront, to: '/drivers' },
+  { label: 'Ride Bookings', icon: BusFront, to: '/rides' },
 ]
 
 function Sidebar({ isOpen, onClose }: SidebarProps) {
+  const location = useLocation()
+  const navigate = useNavigate()
+  const { user, logout } = useAuth()
+
+  const handleLogout = () => {
+    logout()
+    navigate('/login')
+  }
+
+  const firstName = (user as any)?.firstName || user?.email?.split('@')[0] || 'User'
+  const lastName = (user as any)?.lastName || ''
+  const displayName = `${firstName}${lastName ? ' ' + lastName : ''}`
+  const roleLabel = user?.roles?.join(', ') || 'User'
+  const avatarChar = firstName.charAt(0).toUpperCase()
+
   return (
     <>
       <aside
@@ -43,32 +60,42 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
             <ul className="space-y-1">
               {navigationItems.map((item) => {
                 const Icon = item.icon
+                const active = location.pathname === item.to
 
                 return (
                   <li key={item.label}>
-                    <a
-                      href="#"
-                      className={`flex items-center gap-3 border-l-4 px-6 py-3 transition-colors ${item.active ? 'border-secondary bg-white/10 text-on-primary font-semibold' : 'border-transparent text-sidebar-inactive hover:bg-white/5 hover:text-on-primary'}`}
+                    <Link
+                      to={item.to}
+                      onClick={onClose}
+                      className={`flex items-center gap-3 border-l-4 px-6 py-3 transition-colors ${active ? 'border-secondary bg-white/10 text-on-primary font-semibold' : 'border-transparent text-sidebar-inactive hover:bg-white/5 hover:text-on-primary'}`}
                     >
                       <Icon className="h-4 w-4 shrink-0" />
                       <span className="text-[12px] font-semibold uppercase tracking-[0.08em]">{item.label}</span>
-                    </a>
+                    </Link>
                   </li>
                 )
               })}
             </ul>
           </nav>
 
-          <div className="mt-auto p-6">
+          <div className="mt-auto space-y-2 p-6">
             <div className="flex items-center gap-3 rounded-xl bg-white/5 p-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary/20 text-sm font-semibold text-on-primary">
-                AM
+                {avatarChar}
               </div>
               <div className="min-w-0 overflow-hidden">
-                <p className="truncate text-[14px] font-bold leading-5 text-on-primary">Alex Morgan</p>
-                <p className="text-[11px] uppercase tracking-[0.12em] text-on-primary-container/80">Super Admin</p>
+                <p className="truncate text-[14px] font-bold leading-5 text-on-primary">{displayName}</p>
+                <p className="truncate text-[11px] uppercase tracking-[0.12em] text-on-primary-container/80">{roleLabel}</p>
               </div>
             </div>
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="flex w-full items-center justify-center gap-2 rounded-lg bg-error px-4 py-2 text-[13px] font-semibold text-on-error transition-opacity hover:opacity-90"
+            >
+              <LogOut className="h-4 w-4" />
+              Logout
+            </button>
           </div>
         </div>
       </aside>

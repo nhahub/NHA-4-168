@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Identity;
+
 namespace StudentManagement.Domain.Entities;
 
 public class Student
@@ -11,8 +13,10 @@ public class Student
     public string?   Address         { get; set; }
     public DateTime? EnrollmentDate  { get; set; }
     public string    Status          { get; set; } = "Active";
+    public string?   UserId          { get; set; }
 
     public ICollection<Enrollment>     Enrollments     { get; set; } = [];
     public ICollection<StudentService> StudentServices { get; set; } = [];
     public ICollection<RideBooking>    RideBookings    { get; set; } = [];
+    public IdentityUser? User { get; set; }
 }

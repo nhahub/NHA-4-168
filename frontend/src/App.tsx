@@ -1,18 +1,26 @@
-import { useState } from 'react'
-import { Searchbar, Sidebar } from './components'
-import AdminDashboardPage from './pages/AdminDashboardPage'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { routes } from './routes';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { setupAuthInterceptor } from './services/api/axiosInstance';
+import { useEffect } from 'react';
 
-function App() {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [searchQuery, setSearchQuery] = useState('')
+function AppContent() {
+  const { getToken, logout } = useAuth();
 
-  return (
-    <div className="min-h-svh bg-background text-on-surface">
-      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-      <Searchbar query={searchQuery} onQueryChange={setSearchQuery} onMenuClick={() => setSidebarOpen(true)} />
-      <AdminDashboardPage />
-    </div>
-  )
+  useEffect(() => {
+    setupAuthInterceptor(getToken, logout);
+  }, [getToken, logout]);
+
+  const router = createBrowserRouter(routes);
+  return <RouterProvider router={router} />;
 }
 
-export default App
+function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
+  );
+}
+
+export default App;

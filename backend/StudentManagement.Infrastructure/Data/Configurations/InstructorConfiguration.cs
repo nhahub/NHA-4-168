@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using StudentManagement.Domain.Entities;
@@ -18,5 +19,12 @@ public class InstructorConfiguration : IEntityTypeConfiguration<Instructor>
         builder.Property(i => i.Phone).HasMaxLength(20);
         builder.Property(i => i.Specialization).HasMaxLength(100);
         builder.Property(i => i.Rating).HasColumnType("decimal(3,2)");
+        builder.Property(i => i.UserId);
+
+        builder.HasOne(i => i.User)
+               .WithMany()
+               .HasForeignKey(i => i.UserId)
+               .OnDelete(DeleteBehavior.SetNull)
+               .IsRequired(false);
     }
 }
