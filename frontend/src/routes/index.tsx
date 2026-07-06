@@ -9,15 +9,19 @@ import ProtectedRoute from './ProtectedRoute';
 export const routes: RouteObject[] = [
   {
     path: '/',
-    element: <Navigate to="/dashboard" replace />,
+    element: <Navigate to="/admin" replace />,
   },
   {
     path: '/login',
     element: <LoginPage />,
   },
   {
+    path: '/admin',
+    element: <ProtectedRoute><AdminDashboardPage /></ProtectedRoute>, // TODO: re-add allowedRoles={['Admin']} once backend returns correct role claim
+  },
+  {
     path: '/dashboard',
-    element: <ProtectedRoute><AdminDashboardPage /></ProtectedRoute>,
+    element: <Navigate to="/admin" replace />,
   },
   {
     path: '/unauthorized',

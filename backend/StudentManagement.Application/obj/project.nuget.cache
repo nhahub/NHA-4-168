@@ -29,15 +29,5 @@
     "C:\\Users\\mosta\\.nuget\\packages\\microsoft.identitymodel.logging\\8.14.0\\microsoft.identitymodel.logging.8.14.0.nupkg.sha512",
     "C:\\Users\\mosta\\.nuget\\packages\\microsoft.identitymodel.tokens\\8.14.0\\microsoft.identitymodel.tokens.8.14.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "message": "Problem reading the cache file D:\\Programing\\NHA-4-168\\backend\\StudentManagement.Application\\obj\\project.nuget.cache : '<' is an invalid start of a property name. Expected a '\"'. Path: $ | LineNumber: 2 | BytePositionInLine: 0.",
-      "projectPath": "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj",
-      "warningLevel": 1,
-      "filePath": "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj",
-      "targetGraphs": []
-    }
-  ]
+  "logs": []
 }

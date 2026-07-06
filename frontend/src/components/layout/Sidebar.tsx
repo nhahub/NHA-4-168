@@ -8,7 +8,7 @@ type SidebarProps = {
 }
 
 const navigationItems = [
-  { label: 'Dashboard', icon: LayoutDashboard, to: '/dashboard' },
+  { label: 'Dashboard', icon: LayoutDashboard, to: '/admin' },
   { label: 'Students', icon: GraduationCap, to: '/students' },
   { label: 'Instructors', icon: Users, to: '/instructors' },
   { label: 'Courses', icon: BookOpen, to: '/courses' },

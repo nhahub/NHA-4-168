@@ -1,76 +1,96 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using StudentManagement.API.Models;
+using StudentManagement.Application.DTOs.Dashboard;
+using StudentManagement.Application.Services;
 using System.Text;
 
 namespace StudentManagement.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[AllowAnonymous] // Temporarily disabled auth for dev
 public class DashboardController : ControllerBase
 {
-    private readonly DashboardDataStore _dataStore;
+    private readonly IDashboardService _dashboardService;
 
-    public DashboardController(DashboardDataStore dataStore)
+    public DashboardController(IDashboardService dashboardService)
     {
-        _dataStore = dataStore;
+        _dashboardService = dashboardService;
     }
 
     [HttpGet("summary")]
-    public IActionResult GetSummary()
+    public async Task<ActionResult<DashboardSummaryDto>> GetSummaryAsync()
     {
-        return Ok(new
-        {
-            stats = _dataStore.Stats,
-            recentApplications = _dataStore.RecentApplications,
-            recentActivities = _dataStore.RecentActivities
-        });
+        return Ok(await _dashboardService.GetSummaryAsync());
     }
 
-    [HttpPatch("applications/{name}/status")]
-    public IActionResult UpdateApplicationStatus(string name, [FromBody] UpdateStatusRequest request)
+    [HttpGet("enrollment-trends")]
+    public async Task<ActionResult<IReadOnlyList<EnrollmentTrendDto>>> GetEnrollmentTrendsAsync([FromQuery] DateRange range)
     {
-        if (string.IsNullOrWhiteSpace(request.Status))
+        return Ok(await _dashboardService.GetEnrollmentTrendsAsync(range));
+    }
+
+    // Recent preview (limit)
+    [HttpGet("applications")]
+    public async Task<ActionResult<IReadOnlyList<StudentApplicationDto>>> GetRecentStudentApplicationsAsync([FromQuery] int limit = 5)
+    {
+        return Ok(await _dashboardService.GetRecentStudentApplicationsAsync(limit));
+    }
+
+    // Full directory (no limit)
+    [HttpGet("applications/all")]
+    public async Task<ActionResult<IReadOnlyList<StudentApplicationDto>>> GetAllStudentApplicationsAsync()
+    {
+        return Ok(await _dashboardService.GetRecentStudentApplicationsAsync(int.MaxValue));
+    }
+
+    // Recent preview (limit)
+    [HttpGet("activities")]
+    public async Task<ActionResult<IReadOnlyList<ActivityLogDto>>> GetRecentActivitiesAsync([FromQuery] int limit = 5)
+    {
+        return Ok(await _dashboardService.GetRecentActivitiesAsync(limit));
+    }
+
+    // Full log (no limit)
+    [HttpGet("activities/all")]
+    public async Task<ActionResult<IReadOnlyList<ActivityLogDto>>> GetAllActivitiesAsync()
+    {
+        return Ok(await _dashboardService.GetRecentActivitiesAsync(int.MaxValue));
+    }
+
+    // CSV export of the full dashboard summary
+    [HttpGet("export")]
+    public async Task<IActionResult> ExportReportAsync()
+    {
+        var summary = await _dashboardService.GetSummaryAsync();
+        var applications = await _dashboardService.GetRecentStudentApplicationsAsync(int.MaxValue);
+
+        var sb = new StringBuilder();
+
+        // --- Summary section ---
+        sb.AppendLine("=== Dashboard Summary ===");
+        sb.AppendLine($"Generated At,{DateTime.UtcNow:yyyy-MM-dd HH:mm} UTC");
+        sb.AppendLine($"Total Students,{summary.TotalStudents}");
+        sb.AppendLine($"Active Enrollments,{summary.ActiveEnrollments}");
+        sb.AppendLine($"Pending Payments,{summary.PendingPayments}");
+        sb.AppendLine($"Pending Service Requests,{summary.PendingServiceRequests}");
+        sb.AppendLine($"Active Rides,{summary.ActiveRides}");
+        sb.AppendLine($"Total Revenue,{summary.TotalRevenue:F2}");
+        sb.AppendLine();
+
+        // --- Applications section ---
+        sb.AppendLine("=== Student Applications ===");
+        sb.AppendLine("Student Name,Course Applied,Application Date,Status");
+        foreach (var app in applications)
         {
-            return BadRequest(new { error = "Status is required." });
+            var date = app.AppliedOn.HasValue
+                ? app.AppliedOn.Value.ToString("yyyy-MM-dd")
+                : "";
+            sb.AppendLine($"\"{app.StudentName}\",\"{app.CourseName}\",{date},\"{app.Status}\"");
         }
 
-        _dataStore.UpdateApplicationStatus(name, request.Status);
-        return Ok(new { name, status = request.Status });
+        var bytes = Encoding.UTF8.GetBytes(sb.ToString());
+        var fileName = $"dashboard-report-{DateTime.UtcNow:yyyyMMdd}.csv";
+        return File(bytes, "text/csv", fileName);
     }
-
-    [HttpGet("export")]
-    public IActionResult ExportReport()
-    {
-        var builder = new StringBuilder();
-        builder.AppendLine("Metric,Value");
-        builder.AppendLine($"Total Students,{_dataStore.Stats.Students.Total}");
-        builder.AppendLine($"Active Students,{_dataStore.Stats.Students.Active}");
-        builder.AppendLine($"New Students This Period,{_dataStore.Stats.Students.NewThisPeriod}");
-        builder.AppendLine($"Total Courses,{_dataStore.Stats.Courses.Total}");
-        builder.AppendLine($"Active Courses,{_dataStore.Stats.Courses.Active}");
-        builder.AppendLine($"Total Enrollments,{_dataStore.Stats.Enrollments.Total}");
-        builder.AppendLine($"Active Enrollments This Period,{_dataStore.Stats.Enrollments.ActiveThisPeriod}");
-        builder.AppendLine($"Completed Enrollments This Period,{_dataStore.Stats.Enrollments.CompletedThisPeriod}");
-        builder.AppendLine($"Total Revenue,${_dataStore.Stats.Payments.TotalRevenue}");
-        builder.AppendLine($"Revenue This Period,${_dataStore.Stats.Payments.RevenueThisPeriod}");
-        builder.AppendLine($"Pending Payments,{_dataStore.Stats.Payments.Pending}");
-        builder.AppendLine($"Failed Payments,{_dataStore.Stats.Payments.Failed}");
-        builder.AppendLine($"Total Service Requests,{_dataStore.Stats.ServiceRequests.Total}");
-        builder.AppendLine($"Pending Service Requests,{_dataStore.Stats.ServiceRequests.Pending}");
-        builder.AppendLine($"Approved Service Requests,{_dataStore.Stats.ServiceRequests.Approved}");
-        builder.AppendLine($"Rejected Service Requests,{_dataStore.Stats.ServiceRequests.Rejected}");
-        builder.AppendLine($"Total Rides,{_dataStore.Stats.Rides.Total}");
-        builder.AppendLine($"Completed Rides,{_dataStore.Stats.Rides.Completed}");
-        builder.AppendLine($"Cancelled Rides,{_dataStore.Stats.Rides.Cancelled}");
-        builder.AppendLine($"Pending Rides,{_dataStore.Stats.Rides.Pending}");
-        builder.AppendLine($"Total Fare Collected,${_dataStore.Stats.Rides.TotalFareCollected}");
-
-        var csvBytes = Encoding.UTF8.GetBytes(builder.ToString());
-        return File(csvBytes, "text/csv", "Dashboard_Report.csv");
-    }
-}
-
-public class UpdateStatusRequest
-{
-    public string Status { get; set; } = string.Empty;
 }

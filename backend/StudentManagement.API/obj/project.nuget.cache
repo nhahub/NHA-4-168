@@ -61,15 +61,5 @@
     "C:\\Users\\mosta\\.nuget\\packages\\system.security.cryptography.pkcs\\9.0.4\\system.security.cryptography.pkcs.9.0.4.nupkg.sha512",
     "C:\\Users\\mosta\\.nuget\\packages\\system.security.cryptography.protecteddata\\9.0.4\\system.security.cryptography.protecteddata.9.0.4.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "message": "Problem reading the cache file D:\\Programing\\NHA-4-168\\backend\\StudentManagement.API\\obj\\project.nuget.cache : '<' is an invalid start of a property name. Expected a '\"'. Path: $ | LineNumber: 2 | BytePositionInLine: 0.",
-      "projectPath": "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.API\\StudentManagement.API.csproj",
-      "warningLevel": 1,
-      "filePath": "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.API\\StudentManagement.API.csproj",
-      "targetGraphs": []
-    }
-  ]
+  "logs": []
 }
