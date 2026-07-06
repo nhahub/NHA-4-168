@@ -73,7 +73,7 @@ builder.Services.AddAuthentication(options =>
 
 // ── Services ──────────────────────────────────────────────────────────────────
 builder.Services.AddScoped<AuthService>();
-builder.Services.AddScoped<StudentManagement.Application.Services.IDashboardService, StudentManagement.Infrastructure.Services.DashboardService>();
+builder.Services.AddScoped<StudentManagement.Application.Services.IDashboardService, DashboardService>();
 
 var app = builder.Build();
 
