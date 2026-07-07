@@ -12,8 +12,8 @@ public class StudentConfiguration : IEntityTypeConfiguration<Student>
         builder.ToTable("Students");
         builder.HasKey(s => s.StudentSsn);
         builder.Property(s => s.StudentSsn).ValueGeneratedNever();
-        builder.Property(s => s.FirstName).IsRequired().HasMaxLength(50);
-        builder.Property(s => s.LastName).IsRequired().HasMaxLength(50);
+       builder.Property(s => s.FirstName).HasMaxLength(50);
+       builder.Property(s => s.LastName).HasMaxLength(50);
         builder.Property(s => s.Email).IsRequired().HasMaxLength(100);
         builder.HasIndex(s => s.Email).IsUnique();
         builder.Property(s => s.Phone).HasMaxLength(20);

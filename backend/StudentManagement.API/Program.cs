@@ -31,6 +31,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 
 // ── Controllers ───────────────────────────────────────────────────────────────
 builder.Services.AddControllers();
+builder.Services.AddAuthorization();
 
 // ── Swagger ───────────────────────────────────────────────────────────────────
 builder.Services.AddEndpointsApiExplorer();
@@ -72,6 +73,7 @@ builder.Services.AddAuthentication(options =>
 
 // ── Services ──────────────────────────────────────────────────────────────────
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<StudentManagement.Application.Services.IDashboardService, DashboardService>();
 
 var app = builder.Build();
 

@@ -8,7 +8,7 @@ type SidebarProps = {
 }
 
 const navigationItems = [
-  { label: 'Dashboard', icon: LayoutDashboard, to: '/dashboard' },
+  { label: 'Dashboard', icon: LayoutDashboard, to: '/admin' },
   { label: 'Students', icon: GraduationCap, to: '/students' },
   { label: 'Instructors', icon: Users, to: '/instructors' },
   { label: 'Courses', icon: BookOpen, to: '/courses' },
@@ -60,7 +60,10 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
             <ul className="space-y-1">
               {navigationItems.map((item) => {
                 const Icon = item.icon
-                const active = location.pathname === item.to
+                // Highlight if pathname matches exactly, or if it's the admin/dashboard route
+                const active =
+                  location.pathname === item.to ||
+                  (item.to === '/admin' && (location.pathname === '/admin' || location.pathname === '/dashboard'))
 
                 return (
                   <li key={item.label}>

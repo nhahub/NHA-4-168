@@ -5,10 +5,11 @@ import MainLayout from '../components/layout/MainLayout';
 
 interface ProtectedRouteProps {
   children: ReactNode;
+  allowedRoles?: string[];
 }
 
-export default function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const { isAuthenticated, isLoading } = useAuth();
+export default function ProtectedRoute({ children, allowedRoles = [] }: ProtectedRouteProps) {
+  const { isAuthenticated, isLoading, user } = useAuth();
 
   if (isLoading) {
     return (
@@ -20,6 +21,15 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
 
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
+  }
+
+  if (allowedRoles.length > 0) {
+    const userRoles = user?.roles ?? [];
+    const hasAllowedRole = allowedRoles.some((role) => userRoles.includes(role));
+
+    if (!hasAllowedRole) {
+      return <Navigate to="/unauthorized" replace />;
+    }
   }
 
   return <MainLayout>{children}</MainLayout>;
