@@ -9,7 +9,7 @@ type SidebarProps = {
 
 const navigationItems = [
 
-  { label: 'Dashboard', icon: LayoutDashboard, to: '/dashboard', enabled: true },
+  { label: 'Dashboard', icon: LayoutDashboard, to: '/admin', enabled: true },
   { label: 'Students', icon: GraduationCap, to: '/students', enabled: true },
   { label: 'Instructors', icon: Users, to: '/instructors', enabled: false },
   { label: 'Courses', icon: BookOpen, to: '/courses', enabled: false },
@@ -62,9 +62,7 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
             <ul className="space-y-1">
               {navigationItems.map((item) => {
                 const Icon = item.icon
-                const active = item.to === '/dashboard'
-                  ? location.pathname === item.to
-                  : location.pathname === item.to || location.pathname.startsWith(`${item.to}/`)
+                const active = location.pathname === item.to || location.pathname.startsWith(`${item.to}/`)
 
                 return (
                   <li key={item.label}>
