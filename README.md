@@ -8,6 +8,7 @@
 │   ├── StudentManagement.API
 │   │   ├── Controllers
 │   │   ├── Middleware
+│   │   ├── Services
 │   │   ├── Properties
 │   │   ├── bin
 │   │   └── obj
@@ -15,7 +16,6 @@
 │   │   ├── DTOs
 │   │   ├── Interfaces
 │   │   ├── Mappings
-│   │   ├── Services
 │   │   ├── Validators
 │   │   ├── bin
 │   │   └── obj
