@@ -8,15 +8,15 @@ type SidebarProps = {
 }
 
 const navigationItems = [
-  { label: 'Dashboard', icon: LayoutDashboard, to: '/dashboard' },
-  { label: 'Students', icon: GraduationCap, to: '/students' },
-  { label: 'Instructors', icon: Users, to: '/instructors' },
-  { label: 'Courses', icon: BookOpen, to: '/courses' },
-  { label: 'Enrollments', icon: BookOpen, to: '/enrollments' },
-  { label: 'Payments', icon: Wallet, to: '/payments' },
-  { label: 'Services', icon: LifeBuoy, to: '/services' },
-  { label: 'Drivers', icon: BusFront, to: '/drivers' },
-  { label: 'Ride Bookings', icon: BusFront, to: '/rides' },
+  { label: 'Dashboard', icon: LayoutDashboard, to: '/dashboard', enabled: true },
+  { label: 'Students', icon: GraduationCap, to: '/students', enabled: true },
+  { label: 'Instructors', icon: Users, to: '/instructors', enabled: false },
+  { label: 'Courses', icon: BookOpen, to: '/courses', enabled: false },
+  { label: 'Enrollments', icon: BookOpen, to: '/enrollments', enabled: false },
+  { label: 'Payments', icon: Wallet, to: '/payments', enabled: false },
+  { label: 'Services', icon: LifeBuoy, to: '/services', enabled: false },
+  { label: 'Drivers', icon: BusFront, to: '/drivers', enabled: false },
+  { label: 'Ride Bookings', icon: BusFront, to: '/rides', enabled: false },
 ]
 
 function Sidebar({ isOpen, onClose }: SidebarProps) {
@@ -29,8 +29,8 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
     navigate('/login')
   }
 
-  const firstName = (user as any)?.firstName || user?.email?.split('@')[0] || 'User'
-  const lastName = (user as any)?.lastName || ''
+  const firstName = user?.firstName || user?.email?.split('@')[0] || 'User'
+  const lastName = user?.lastName || ''
   const displayName = `${firstName}${lastName ? ' ' + lastName : ''}`
   const roleLabel = user?.roles?.join(', ') || 'User'
   const avatarChar = firstName.charAt(0).toUpperCase()
@@ -60,18 +60,27 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
             <ul className="space-y-1">
               {navigationItems.map((item) => {
                 const Icon = item.icon
-                const active = location.pathname === item.to
+                const active = item.to === '/dashboard'
+                  ? location.pathname === item.to
+                  : location.pathname === item.to || location.pathname.startsWith(`${item.to}/`)
 
                 return (
                   <li key={item.label}>
-                    <Link
-                      to={item.to}
-                      onClick={onClose}
-                      className={`flex items-center gap-3 border-l-4 px-6 py-3 transition-colors ${active ? 'border-secondary bg-white/10 text-on-primary font-semibold' : 'border-transparent text-sidebar-inactive hover:bg-white/5 hover:text-on-primary'}`}
-                    >
-                      <Icon className="h-4 w-4 shrink-0" />
-                      <span className="text-[12px] font-semibold uppercase tracking-[0.08em]">{item.label}</span>
-                    </Link>
+                    {item.enabled ? (
+                      <Link
+                        to={item.to}
+                        onClick={onClose}
+                        className={`flex items-center gap-3 border-l-4 px-6 py-3 transition-colors ${active ? 'border-secondary bg-white/10 text-on-primary font-semibold' : 'border-transparent text-sidebar-inactive hover:bg-white/5 hover:text-on-primary'}`}
+                      >
+                        <Icon className="h-4 w-4 shrink-0" />
+                        <span className="text-[12px] font-semibold uppercase tracking-[0.08em]">{item.label}</span>
+                      </Link>
+                    ) : (
+                      <div className="flex cursor-not-allowed items-center gap-3 border-l-4 border-transparent px-6 py-3 text-sidebar-inactive/45">
+                        <Icon className="h-4 w-4 shrink-0" />
+                        <span className="text-[12px] font-semibold uppercase tracking-[0.08em]">{item.label}</span>
+                      </div>
+                    )}
                   </li>
                 )
               })}
