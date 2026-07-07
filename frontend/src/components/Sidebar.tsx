@@ -8,6 +8,7 @@ type SidebarProps = {
 }
 
 const navigationItems = [
+
   { label: 'Dashboard', icon: LayoutDashboard, to: '/dashboard', enabled: true },
   { label: 'Students', icon: GraduationCap, to: '/students', enabled: true },
   { label: 'Instructors', icon: Users, to: '/instructors', enabled: false },
@@ -17,6 +18,7 @@ const navigationItems = [
   { label: 'Services', icon: LifeBuoy, to: '/services', enabled: false },
   { label: 'Drivers', icon: BusFront, to: '/drivers', enabled: false },
   { label: 'Ride Bookings', icon: BusFront, to: '/rides', enabled: false },
+
 ]
 
 function Sidebar({ isOpen, onClose }: SidebarProps) {
