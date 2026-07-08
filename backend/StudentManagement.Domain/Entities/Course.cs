@@ -12,6 +12,6 @@ public class Course
     public string?   Level       { get; set; }
     public bool      IsPaid      { get; set; }
 
-    public ICollection<Enrollment>       Enrollments       { get; set; } = [];
-    public ICollection<CourseInstructor> CourseInstructors { get; set; } = [];
+    public ICollection<Enrollment>       Enrollments       { get; set; } = new List<Enrollment>();
+    public ICollection<CourseInstructor> CourseInstructors { get; set; } = new List<CourseInstructor>();
 }

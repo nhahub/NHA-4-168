@@ -25,7 +25,7 @@ public class DashboardService : IDashboardService
                 ActiveEnrollments = _context.Enrollments.Count(enrollment => enrollment.Status == "Active"),
                 PendingPayments = _context.Payments.Count(payment => payment.Status == "Pending"),
                 PendingServiceRequests = _context.StudentServices.Count(serviceRequest => serviceRequest.Status == "Pending"),
-                ActiveRides = _context.RideBookings.Count(ride => ride.Status == "Active" || ride.Status == "Pending"),
+                ActiveRides = _context.Trips.Count(ride => ride.Status == "Active" || ride.Status == "Pending"),
                 TotalRevenue = _context.Payments.Where(payment => payment.Status == "Paid").Sum(payment => (decimal?)payment.Amount) ?? 0m
             })
             .FirstAsync();
@@ -125,17 +125,17 @@ public class DashboardService : IDashboardService
             })
             .ToListAsync();
 
-        var rideActivities = await _context.RideBookings
+        var rideActivities = await _context.TripStudents
             .AsNoTracking()
-            .OrderByDescending(rb => rb.BookingDate ?? DateTime.MinValue)
-            .Select(rb => new
+            .OrderByDescending(ts => ts.JoinedAt)
+            .Select(ts => new
             {
-                rb.Student.FirstName,
-                rb.Student.LastName,
-                DriverFirstName = rb.Driver.FirstName,
-                DriverLastName = rb.Driver.LastName,
-                OccurredAt = rb.BookingDate ?? DateTime.MinValue,
-                rb.Status
+                ts.Student.FirstName,
+                ts.Student.LastName,
+                DriverFirstName = ts.Trip.Driver.FirstName,
+                DriverLastName = ts.Trip.Driver.LastName,
+                OccurredAt = ts.JoinedAt,
+                Status = ts.Trip.Status
             })
             .ToListAsync();
 

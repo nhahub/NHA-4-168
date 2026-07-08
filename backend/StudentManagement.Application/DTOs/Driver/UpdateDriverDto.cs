@@ -1,14 +1,9 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.AspNetCore.Identity;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace StudentManagement.Domain.Entities;
+namespace StudentManagement.Application.DTOs.Driver;
 
-public class Driver
+public class UpdateDriverDto
 {
-    [Key]
-    public int DriverSsn { get; set; }
-
     [Required, MaxLength(50)]
     public string FirstName { get; set; } = string.Empty;
 
@@ -28,11 +23,4 @@ public class Driver
     public string? CarPlate { get; set; }
 
     public int? CarYear { get; set; }
-
-    public decimal? Rating { get; set; }
-
-    [ForeignKey(nameof(User))]
-    public string? UserId { get; set; }
-
-    public IdentityUser? User { get; set; }
 }

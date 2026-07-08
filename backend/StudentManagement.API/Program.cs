@@ -12,6 +12,12 @@ using StudentManagement.Application.Services;
 using StudentManagement.Application.Validators.Student;
 using StudentManagement.Infrastructure.Data;
 using StudentManagement.Infrastructure.Repositories;
+using StudentManagement.Infrastructure.Services;
+using StudentManagement.Application.DTOs.Trip;
+using StudentManagement.Application.Validators.Trip;
+using StudentManagement.Application.Services;
+using StudentManagement.Application.Interfaces;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -79,9 +85,16 @@ builder.Services.AddAuthentication(options =>
 
 // ── Services ──────────────────────────────────────────────────────────────────
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<StudentManagement.Application.Interfaces.IDriverService, StudentManagement.Infrastructure.Services.DriverService>();
 builder.Services.AddScoped<StudentManagement.Application.Services.IDashboardService, DashboardService>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<IDriverService, DriverService>();
+builder.Services.AddScoped<ITripRepository, TripRepository>();
+builder.Services.AddScoped<ITripService, TripService>();
+builder.Services.AddScoped<IValidator<CreateTripDto>, CreateTripDtoValidator>();
+builder.Services.AddScoped<IValidator<UpdateTripDto>, UpdateTripDtoValidator>();
+builder.Services.AddScoped<IValidator<AddStudentToTripDto>, AddStudentToTripDtoValidator>();
 builder.Services.AddScoped<IValidator<CreateStudentRequest>, CreateStudentRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateStudentRequest>, UpdateStudentRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateStudentStatusRequest>, UpdateStudentStatusRequestValidator>();

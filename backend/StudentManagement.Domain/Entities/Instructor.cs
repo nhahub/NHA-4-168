@@ -14,6 +14,6 @@ public class Instructor
     public decimal?  Rating         { get; set; }
     public string?   UserId         { get; set; }
 
-    public ICollection<CourseInstructor> CourseInstructors { get; set; } = [];
+    public ICollection<CourseInstructor> CourseInstructors { get; set; } = new List<CourseInstructor>();
     public IdentityUser? User { get; set; }
 }

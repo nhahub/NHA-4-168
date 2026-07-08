@@ -1,12 +1,10 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.AspNetCore.Identity;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace StudentManagement.Domain.Entities;
+namespace StudentManagement.Application.DTOs.Driver;
 
-public class Driver
+public class CreateDriverDto
 {
-    [Key]
+    [Required]
     public int DriverSsn { get; set; }
 
     [Required, MaxLength(50)]
@@ -29,10 +27,6 @@ public class Driver
 
     public int? CarYear { get; set; }
 
-    public decimal? Rating { get; set; }
-
-    [ForeignKey(nameof(User))]
+    // الـ UserId بنخليه اختياري عشان لو الحساب هيتربط بعدين
     public string? UserId { get; set; }
-
-    public IdentityUser? User { get; set; }
 }
