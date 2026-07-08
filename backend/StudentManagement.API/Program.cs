@@ -3,9 +3,15 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using FluentValidation;
 using StudentManagement.API.Middleware;
 using StudentManagement.API.Services;
+using StudentManagement.Application.DTOs.Student;
+using StudentManagement.Application.Interfaces;
+using StudentManagement.Application.Services;
+using StudentManagement.Application.Validators.Student;
 using StudentManagement.Infrastructure.Data;
+using StudentManagement.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -74,6 +80,12 @@ builder.Services.AddAuthentication(options =>
 // ── Services ──────────────────────────────────────────────────────────────────
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<StudentManagement.Application.Services.IDashboardService, DashboardService>();
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<IValidator<CreateStudentRequest>, CreateStudentRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateStudentRequest>, UpdateStudentRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateStudentStatusRequest>, UpdateStudentStatusRequestValidator>();
+builder.Services.AddScoped<IValidator<StudentQueryParameters>, StudentQueryParametersValidator>();
 
 var app = builder.Build();
 

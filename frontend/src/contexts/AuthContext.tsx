@@ -1,60 +1,65 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+/* eslint-disable react-refresh/only-export-components */
+import { createContext, useContext, useState } from 'react';
 import type { ReactNode } from 'react';
+
+interface AuthUser {
+  id: string;
+  email: string;
+  roles: string[];
+  firstName?: string | null;
+  lastName?: string | null;
+}
 
 interface AuthContextType {
   isAuthenticated: boolean;
   isLoading: boolean;
-  user: { id: string; email: string; roles: string[] } | null;
-  login: (token: string, user: any) => void;
+  user: AuthUser | null;
+  login: (token: string, user: AuthUser) => void;
   logout: () => void;
   getToken: () => string | null;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+function restoreAuthState(): { isAuthenticated: boolean; user: AuthUser | null } {
+  const token = localStorage.getItem('auth_token');
+  if (!token) {
+    return { isAuthenticated: false, user: null };
+  }
+
+  try {
+    const userData = localStorage.getItem('auth_user');
+    return {
+      isAuthenticated: true,
+      user: userData ? JSON.parse(userData) as AuthUser : null,
+    };
+  } catch (error) {
+    console.error('Token restoration failed:', error);
+    localStorage.removeItem('auth_token');
+    localStorage.removeItem('auth_user');
+    return { isAuthenticated: false, user: null };
+  }
+}
+
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [user, setUser] = useState<any>(null);
+  const [authState, setAuthState] = useState(restoreAuthState);
 
-  // Restore token on app mount
-  useEffect(() => {
-    const token = localStorage.getItem('auth_token');
-    if (token) {
-      try {
-        // Optionally verify token here
-        setIsAuthenticated(true);
-        const userData = localStorage.getItem('auth_user');
-        if (userData) {
-          setUser(JSON.parse(userData));
-        }
-      } catch (error) {
-        console.error('Token restoration failed:', error);
-        localStorage.removeItem('auth_token');
-        localStorage.removeItem('auth_user');
-      }
-    }
-    setIsLoading(false);
-  }, []);
-
-  const login = (token: string, userData: any) => {
+  const login = (token: string, userData: AuthUser) => {
     localStorage.setItem('auth_token', token);
     localStorage.setItem('auth_user', JSON.stringify(userData));
-    setIsAuthenticated(true);
-    setUser(userData);
+    setAuthState({ isAuthenticated: true, user: userData });
   };
 
   const logout = () => {
     localStorage.removeItem('auth_token');
     localStorage.removeItem('auth_user');
-    setIsAuthenticated(false);
-    setUser(null);
+    setAuthState({ isAuthenticated: false, user: null });
   };
 
   const getToken = () => localStorage.getItem('auth_token');
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, isLoading, user, login, logout, getToken }}>
+    <AuthContext.Provider value={{ ...authState, isLoading: false, login, logout, getToken }}>
       {children}
     </AuthContext.Provider>
   );
