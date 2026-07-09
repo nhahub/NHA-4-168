@@ -37,9 +37,6 @@ public class StudentConfiguration : IEntityTypeConfiguration<Student>
                .HasForeignKey(ss => ss.StudentSsn)
                .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasMany(s => s.RideBookings)
-               .WithOne(rb => rb.Student)
-               .HasForeignKey(rb => rb.StudentSsn)
-               .OnDelete(DeleteBehavior.Restrict);
+     
     }
 }

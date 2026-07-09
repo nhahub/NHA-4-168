@@ -1,0 +1,89 @@
+FRONTEND PROJECT FILES MAP
+==========================
+
+Root files:
+- package.json
+- package-lock.json
+- README.md
+- index.html
+- vite.config.ts
+- tsconfig.json
+- tsconfig.app.json
+- tsconfig.node.json
+- eslint.config.js
+- .gitignore
+
+Public assets:
+- public/
+
+Source code:
+- src/
+  - App.tsx
+  - main.tsx
+  - index.css
+
+  - assets/
+  - components/
+    - Searchbar.tsx
+    - Sidebar.tsx
+    - layout/
+      - MainLayout.tsx
+      - NavLink.tsx
+      - Sidebar.tsx
+      - Topbar.tsx
+
+  - contexts/
+    - AuthContext.tsx
+    - ToastContext.tsx
+
+  - drivers/
+    - DriverStatusBadge.tsx
+    - DriversForm.tsx
+    - StatusChangeDialog.tsx
+    - driverUtils.ts
+
+  - features/
+    - students/
+      - StatusChangeDialog.tsx
+      - StudentForm.tsx
+      - StudentStatusBadge.tsx
+      - studentUtils.ts
+
+  - hooks/
+    - useDashboardSummary.ts
+    - useEnrollmentTrends.ts
+    - useRecentActivities.ts
+    - useRecentApplications.ts
+
+  - pages/
+    - AdminDashboardPage.tsx
+    - DashboardPage.tsx
+    - LoginPage.tsx
+    - NotFoundPage.tsx
+    - UnauthorizedPage.tsx
+    - admin/
+      - DriverFormPage.tsx
+      - DriversDetailPage.tsx
+      - DriversPage.tsx
+      - StudentDetailPage.tsx
+      - StudentFormPage.tsx
+      - StudentsPage.tsx
+
+  - routes/
+    - index.tsx
+    - ProtectedRoute.tsx
+
+  - services/
+    - api/
+      - authService.ts
+      - axiosInstance.ts
+      - dashboardApi.ts
+      - driverService.ts
+      - studentService.ts
+
+  - theme/
+    - colors.ts
+    - index.ts
+
+  - types/
+    - dashboard.ts

@@ -34,8 +34,7 @@ public class Student
     [ForeignKey(nameof(User))]
     public string? UserId { get; set; }
 
-    public ICollection<Enrollment>     Enrollments     { get; set; } = [];
-    public ICollection<StudentService> StudentServices { get; set; } = [];
-    public ICollection<RideBooking>    RideBookings    { get; set; } = [];
+    public ICollection<Enrollment>     Enrollments     { get; set; } = new List<Enrollment>();
+    public ICollection<StudentService> StudentServices { get; set; } = new List<StudentService>();
     public IdentityUser? User { get; set; }
 }

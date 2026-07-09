@@ -25,5 +25,5 @@ public class Service
     [MaxLength(255)]
     public string? Website { get; set; }
 
-    public ICollection<StudentService> StudentServices { get; set; } = [];
+    public ICollection<StudentService> StudentServices { get; set; } = new List<StudentService>();
 }

@@ -16,9 +16,10 @@ public class AppDbContext : IdentityDbContext<IdentityUser, IdentityRole, string
     public DbSet<Enrollment>       Enrollments       { get; set; }
     public DbSet<Payment>          Payments          { get; set; }
     public DbSet<Service>          Services          { get; set; }
-    public DbSet<StudentService>   StudentServices   { get; set; }
+    public DbSet<StudentService> StudentServices { get; set; }
+    public DbSet<Trip> Trips { get; set; }
+    public DbSet<TripStudent> TripStudents { get; set; }
     public DbSet<Driver>           Drivers           { get; set; }
-    public DbSet<RideBooking>      RideBookings      { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

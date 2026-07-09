@@ -16,8 +16,8 @@ const navigationItems = [
   { label: 'Enrollments', icon: BookOpen, to: '/enrollments', enabled: false },
   { label: 'Payments', icon: Wallet, to: '/payments', enabled: false },
   { label: 'Services', icon: LifeBuoy, to: '/services', enabled: false },
-  { label: 'Drivers', icon: BusFront, to: '/drivers', enabled: false },
-  { label: 'Ride Bookings', icon: BusFront, to: '/rides', enabled: false },
+  { label: 'Drivers', icon: BusFront, to: '/drivers', enabled: true },
+  { label: 'Trips', icon: BusFront, to: '/trips', enabled: true },
 
 ]
 

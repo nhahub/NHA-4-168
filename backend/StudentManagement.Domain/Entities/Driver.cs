@@ -34,6 +34,5 @@ public class Driver
     [ForeignKey(nameof(User))]
     public string? UserId { get; set; }
 
-    public ICollection<RideBooking> RideBookings { get; set; } = [];
     public IdentityUser? User { get; set; }
 }
