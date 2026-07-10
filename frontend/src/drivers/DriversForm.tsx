@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import type { FormEvent } from 'react';
-import type { DriverDto, DriverFormPayload } from '../services/api/driverService';
+import type { DriverDto, DriverFormPayload, DriverStatus } from '../services/api/driverService';
+import { driverStatuses } from './driverUtils';
 
 // دالة مساعدة لتنظيف الحقول النصية الفاضية وتحويلها لـ null
 const emptyToNull = (value: string) => (value.trim() === '' ? null : value.trim());
@@ -26,6 +27,7 @@ export function DriverForm({ mode, initialDriver, isSubmitting, error, onSubmit,
     carPlate: initialDriver?.carPlate ?? '',
     carYear: initialDriver?.carYear ? String(initialDriver.carYear) : String(new Date().getFullYear()),
     userId: initialDriver?.userId ?? '',
+    status: initialDriver?.status ?? 'Active',
   }), [initialDriver]);
 
   const [values, setValues] = useState(initialValues);
@@ -48,6 +50,7 @@ export function DriverForm({ mode, initialDriver, isSubmitting, error, onSubmit,
       carPlate: emptyToNull(values.carPlate),
       carYear: Number(values.carYear),
       userId: emptyToNull(values.userId),
+      status: (values.status as DriverStatus) || 'Active',
     });
   };
 
@@ -110,6 +113,22 @@ export function DriverForm({ mode, initialDriver, isSubmitting, error, onSubmit,
             onChange={(event) => updateField('phone', event.target.value)}
             className="mt-2 w-full rounded-lg border border-input-border px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
           />
+        </label>
+
+        {/* Status */}
+        <label className="block text-[12px] font-semibold uppercase tracking-[0.08em] text-on-surface-variant">
+          Status
+          <select
+            value={values.status}
+            onChange={(event) => updateField('status', event.target.value)}
+            className="mt-2 w-full rounded-lg border border-input-border bg-white px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
+          >
+            {driverStatuses.map((status) => (
+              <option key={status} value={status}>
+                {status}
+              </option>
+            ))}
+          </select>
         </label>
 
         {/* Car Model */}

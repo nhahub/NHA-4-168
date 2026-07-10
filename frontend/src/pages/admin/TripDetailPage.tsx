@@ -1,15 +1,19 @@
 import { Pencil } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 import { TripStatusBadge } from '../../features/trips/TripStatusBadge';
 import { TripStudentsList } from '../../features/trips/TripStudentsList';
 import { formatDateTime, tripStatuses } from '../../features/trips/tripUtils';
 import { getApiErrorMessage, normalizeTripStatus, tripService } from '../../services/api/tripService';
 import type { TripDto, TripStatus } from '../../services/api/tripService';
+import { isAdmin } from '../../utils/auth';
 
 export default function TripDetailPage() {
   const { tripId } = useParams<{ tripId: string }>();
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const canManageTrips = isAdmin(user?.roles);
 
   const [trip, setTrip] = useState<TripDto | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -111,41 +115,48 @@ export default function TripDetailPage() {
           <p className="mt-1 text-body-md text-on-surface-variant">
             {trip.destination} · {trip.pickupArea}
           </p>
+          {!canManageTrips ? (
+            <p className="mt-3 rounded-lg border border-outline-variant bg-surface-container-low px-3 py-2 text-body-sm text-on-surface-variant">
+              View-only access. You can inspect trip details, but updates are restricted to administrators.
+            </p>
+          ) : null}
         </div>
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-end">
-          <label className="block text-[12px] font-semibold uppercase tracking-[0.08em] text-on-surface-variant">
-            Status
-            <div className="mt-2 flex gap-2">
-              <select
-                value={selectedStatus}
-                onChange={(event) => setSelectedStatus(normalizeTripStatus(event.target.value))}
-                className="rounded-lg border border-input-border bg-white px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
-              >
-                {tripStatuses.map((statusOption) => (
-                  <option key={statusOption} value={statusOption}>
-                    {statusOption}
-                  </option>
-                ))}
-              </select>
-              <button
-                type="button"
-                onClick={handleSaveStatus}
-                disabled={isSavingStatus || selectedStatus === trip.status}
-                className="rounded-lg bg-secondary px-4 py-2 text-body-sm font-semibold text-on-secondary hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                {isSavingStatus ? 'Saving...' : 'Save'}
-              </button>
-            </div>
-          </label>
-          <button
-            type="button"
-            onClick={() => navigate(`/trips/${trip.tripId}/edit`)}
-            className="inline-flex items-center justify-center gap-2 rounded-lg border border-card-border px-4 py-2 text-body-sm font-semibold text-on-surface-variant hover:bg-surface-container-low"
-          >
-            <Pencil className="h-4 w-4" />
-            Edit Trip
-          </button>
-        </div>
+        {canManageTrips ? (
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-end">
+            <label className="block text-[12px] font-semibold uppercase tracking-[0.08em] text-on-surface-variant">
+              Status
+              <div className="mt-2 flex gap-2">
+                <select
+                  value={selectedStatus}
+                  onChange={(event) => setSelectedStatus(normalizeTripStatus(event.target.value))}
+                  className="rounded-lg border border-input-border bg-white px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
+                >
+                  {tripStatuses.map((statusOption) => (
+                    <option key={statusOption} value={statusOption}>
+                      {statusOption}
+                    </option>
+                  ))}
+                </select>
+                <button
+                  type="button"
+                  onClick={handleSaveStatus}
+                  disabled={isSavingStatus || selectedStatus === trip.status}
+                  className="rounded-lg bg-secondary px-4 py-2 text-body-sm font-semibold text-on-secondary hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  {isSavingStatus ? 'Saving...' : 'Save'}
+                </button>
+              </div>
+            </label>
+            <button
+              type="button"
+              onClick={() => navigate(`/trips/${trip.tripId}/edit`)}
+              className="inline-flex items-center justify-center gap-2 rounded-lg border border-card-border px-4 py-2 text-body-sm font-semibold text-on-surface-variant hover:bg-surface-container-low"
+            >
+              <Pencil className="h-4 w-4" />
+              Edit Trip
+            </button>
+          </div>
+        ) : null}
       </section>
 
       <section className="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -177,6 +188,7 @@ export default function TripDetailPage() {
           students={trip.students}
           maxSeats={trip.maxSeats}
           isBusy={isBusy}
+          canManageStudents={canManageTrips}
           onAddStudent={handleAddStudent}
           onRemoveStudent={handleRemoveStudent}
         />

@@ -32,6 +32,7 @@ export interface DriverFormPayload {
   carPlate: string | null;
   carYear: number;
   userId: string | null;
+  status?: DriverStatus;
 }
 
 export interface PaginatedResponse<T> {
@@ -59,8 +60,17 @@ function normalizeDriver(value: unknown): DriverDto | null {
     }
   }
 
-  const hasDriverShape = ['driverSsn', 'firstName', 'lastName', 'licenseNumber', 'status'].some((key) => key in candidate);
-  return hasDriverShape ? (candidate as unknown as DriverDto) : null;
+  const hasDriverShape = ['driverSsn', 'firstName', 'lastName', 'licenseNumber'].some((key) => key in candidate);
+  if (!hasDriverShape) {
+    return null;
+  }
+
+  const statusValue = typeof candidate.status === 'string' ? candidate.status : 'Active';
+
+  return {
+    ...(candidate as Omit<DriverDto, 'status'>),
+    status: statusValue as DriverDto['status'],
+  } as DriverDto;
 }
 
 function normalizeDrivers(value: unknown): DriverDto[] {

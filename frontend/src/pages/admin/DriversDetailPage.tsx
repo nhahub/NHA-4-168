@@ -1,22 +1,19 @@
 import { ArrowLeft, Pencil } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 import { DriverStatusBadge } from '../../drivers/DriverStatusBadge';
 import { driverService } from '../../services/api/driverService';
 import type { DriverDto, DriverStatus } from '../../services/api/driverService';
-
-// دالة معالجة الخطأ الآمنة والمتوافقة مع قواعد TypeScript الصارمة في المشروع
-const getApiErrorMessage = (error: unknown): string => {
-  if (error instanceof Error) {
-    return error.message;
-  }
-  return 'Something went wrong';
-};
+import { isAdmin } from '../../utils/auth';
+import { getApiErrorMessage } from '../../utils/errorMessage';
 
 export default function DriverDetailPage() {
   const { ssn } = useParams();
   const navigate = useNavigate();
+  const { user } = useAuth();
   const driverSsn = Number(ssn);
+  const canManageDrivers = isAdmin(user?.roles);
   
   const [driver, setDriver] = useState<DriverDto | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -113,26 +110,33 @@ export default function DriverDetailPage() {
           </Link>
           <h1 className="text-display-lg font-bold text-on-background">{driverName}</h1>
           <p className="mt-1 text-body-md text-on-surface-variant">SSN {driver.driverSsn}</p>
+          {!canManageDrivers ? (
+            <p className="mt-3 rounded-lg border border-outline-variant bg-surface-container-low px-3 py-2 text-body-sm text-on-surface-variant">
+              View-only access. You can inspect driver details, but edits are restricted to administrators.
+            </p>
+          ) : null}
         </div>
-        <div className="flex flex-wrap gap-3">
-          <Link
-            to={`/drivers/${driver.driverSsn}/edit`}
-            className="inline-flex items-center justify-center gap-2 rounded-lg border border-card-border px-4 py-2 text-body-sm font-semibold text-on-surface-variant hover:bg-surface-container-low"
-          >
-            <Pencil className="h-4 w-4" />
-            Edit
-          </Link>
-          <button
-            type="button"
-            onClick={() => {
-              setSelectedStatus(driver.status);
-              setDialogOpen(true);
-            }}
-            className="rounded-lg bg-secondary px-4 py-2 text-body-sm font-semibold text-on-secondary hover:opacity-90"
-          >
-            Change Status
-          </button>
-        </div>
+        {canManageDrivers ? (
+          <div className="flex flex-wrap gap-3">
+            <Link
+              to={`/drivers/${driver.driverSsn}/edit`}
+              className="inline-flex items-center justify-center gap-2 rounded-lg border border-card-border px-4 py-2 text-body-sm font-semibold text-on-surface-variant hover:bg-surface-container-low"
+            >
+              <Pencil className="h-4 w-4" />
+              Edit
+            </Link>
+            <button
+              type="button"
+              onClick={() => {
+                setSelectedStatus(driver.status);
+                setDialogOpen(true);
+              }}
+              className="rounded-lg bg-secondary px-4 py-2 text-body-sm font-semibold text-on-secondary hover:opacity-90"
+            >
+              Change Status
+            </button>
+          </div>
+        ) : null}
       </div>
 
       {/* Driver Information Card */}
@@ -147,8 +151,7 @@ export default function DriverDetailPage() {
         </div>
       </section>
 
-      {/* 💡 ملحوظة: الـ Dialog الخاص بتغيير الحالة هنعمله سوا الخطوة الجاية بنفس الاستايل */}
-      {dialogOpen && (
+      {canManageDrivers && dialogOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
           <div className="w-full max-w-md rounded-xl bg-white p-6 shadow-xl border border-card-border">
             <h3 className="text-display-sm font-bold text-on-background mb-2">Change Status</h3>

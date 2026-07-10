@@ -3,6 +3,7 @@ import type { FormEvent } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { authService } from '../services/api/authService';
+import { getApiErrorMessage } from '../utils/errorMessage';
 
 function MailIcon() {
   return (
@@ -97,7 +98,7 @@ export default function LoginPage() {
       navigate(from, { replace: true });
     } catch (err) {
       console.error('Login failed:', err);
-      setError('Something went wrong. Please try again.');
+      setError(getApiErrorMessage(err));
     } finally {
       setIsSubmitting(false);
     }

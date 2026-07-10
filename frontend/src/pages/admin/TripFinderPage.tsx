@@ -1,13 +1,17 @@
 import { ListChecks, Plus, Search } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 import { TripStatusBadge } from '../../features/trips/TripStatusBadge';
 import { TRIP_DESTINATIONS, TRIP_PICKUP_AREAS, formatDateTime, isSameDay } from '../../features/trips/tripUtils';
 import { getApiErrorMessage, tripService } from '../../services/api/tripService';
 import type { TripDto } from '../../services/api/tripService';
+import { isAdmin } from '../../utils/auth';
 
 export default function TripFinderPage() {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const canCreateTrips = isAdmin(user?.roles);
 
   const [allTrips, setAllTrips] = useState<TripDto[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -132,7 +136,7 @@ export default function TripFinderPage() {
             className="inline-flex items-center justify-center gap-2 rounded-lg border border-card-border px-4 py-2 text-body-sm font-semibold text-on-surface-variant hover:bg-surface-container-low"
           >
             <Plus className="h-4 w-4" />
-            Create Trip
+            {canCreateTrips ? 'Create Trip' : 'Suggest a Trip'}
           </button>
           <button
             type="button"
@@ -166,7 +170,7 @@ export default function TripFinderPage() {
                 className="mt-4 inline-flex items-center gap-2 rounded-lg bg-secondary px-4 py-2 text-body-sm font-semibold text-on-secondary hover:opacity-90"
               >
                 <Plus className="h-4 w-4" />
-                Create This Trip
+                {canCreateTrips ? 'Create This Trip' : 'Suggest This Trip'}
               </button>
             </div>
           ) : (

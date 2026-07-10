@@ -1,17 +1,27 @@
 import { Eye, Pencil, Plus, Search } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 import { TripStatusBadge } from '../../features/trips/TripStatusBadge';
 import { formatDateTime, sortTripsByTime, tripStatuses } from '../../features/trips/tripUtils';
 import { getApiErrorMessage, tripService } from '../../services/api/tripService';
 import type { TripDto, TripStatus } from '../../services/api/tripService';
+import { isAdmin } from '../../utils/auth';
+import { loadTripSuggestions } from '../../utils/tripSuggestions';
 
 export default function TripsPage() {
+  const { user } = useAuth();
+  const canManageTrips = isAdmin(user?.roles);
   const [trips, setTrips] = useState<TripDto[]>([]);
+  const [suggestions, setSuggestions] = useState<ReturnType<typeof loadTripSuggestions>>([]);
   const [search, setSearch] = useState('');
   const [status, setStatus] = useState<TripStatus | ''>('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setSuggestions(loadTripSuggestions());
+  }, []);
 
   useEffect(() => {
     let active = true;
@@ -37,6 +47,19 @@ export default function TripsPage() {
     };
   }, []);
 
+  useEffect(() => {
+    const handleSuggestionsChange = () => {
+      setSuggestions(loadTripSuggestions());
+    };
+
+    window.addEventListener('trip-suggestions-changed', handleSuggestionsChange);
+    window.addEventListener('storage', handleSuggestionsChange);
+    return () => {
+      window.removeEventListener('trip-suggestions-changed', handleSuggestionsChange);
+      window.removeEventListener('storage', handleSuggestionsChange);
+    };
+  }, []);
+
   const visibleTrips = useMemo(() => {
     const term = search.trim().toLowerCase();
     const filtered = trips.filter((trip) => {
@@ -57,15 +80,65 @@ export default function TripsPage() {
         <div>
           <h1 className="text-display-lg font-bold text-on-background">Trips</h1>
           <p className="mt-1 text-body-md text-on-surface-variant">{visibleTrips.length} records</p>
+          {!canManageTrips ? (
+            <p className="mt-2 inline-flex items-center rounded-full border border-outline-variant bg-surface-container-low px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-on-surface-variant">
+              View-only access
+            </p>
+          ) : null}
         </div>
-        <Link
-          to="/trips/new"
-          className="inline-flex items-center justify-center gap-2 rounded-lg bg-secondary px-4 py-2 text-body-sm font-semibold text-on-secondary hover:opacity-90"
-        >
-          <Plus className="h-4 w-4" />
-          Add Trip
-        </Link>
+        {canManageTrips ? (
+          <Link
+            to="/trips/new"
+            className="inline-flex items-center justify-center gap-2 rounded-lg bg-secondary px-4 py-2 text-body-sm font-semibold text-on-secondary hover:opacity-90"
+          >
+            <Plus className="h-4 w-4" />
+            {canManageTrips ? 'Add Trip' : 'Suggest a Trip'}
+          </Link>
+        ) : null}
       </section>
+
+      {canManageTrips ? (
+        <section className="rounded-xl border border-card-border bg-white p-6 shadow-card">
+          <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+            <div>
+              <h2 className="text-title-sm font-semibold text-on-background">Suggested Trips</h2>
+              <p className="mt-1 text-body-sm text-on-surface-variant">
+                These are student-submitted trip requests waiting for admin approval. You can add the driver, price, and seats before creating the real trip.
+              </p>
+            </div>
+          </div>
+          {suggestions.length === 0 ? (
+            <div className="mt-4 rounded-lg border border-dashed border-outline-variant p-4 text-body-sm text-on-surface-variant">
+              No suggested trips yet.
+            </div>
+          ) : (
+            <div className="mt-4 space-y-3">
+              {suggestions.map((suggestion) => (
+                <div key={suggestion.id} className="rounded-lg border border-outline-variant bg-surface-container-low p-4">
+                  <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+                    <div>
+                      <p className="text-body-sm font-semibold text-on-surface">
+                        {suggestion.destination} · {suggestion.pickupArea}
+                      </p>
+                      <p className="text-body-sm text-on-surface-variant">
+                        {formatDateTime(suggestion.estimatedTimeOfArrival)} · Suggested by {suggestion.submittedByName}
+                      </p>
+                    </div>
+                    <Link
+                      to="/trips/new"
+                      state={{ reviewSuggestion: suggestion }}
+                      className="inline-flex items-center justify-center rounded-lg border border-card-border px-3 py-2 text-body-sm font-semibold text-on-surface-variant hover:bg-surface-container-low"
+                    >
+                      Review suggestion
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
+      ) : null}
+
 
       <section className="rounded-xl border border-card-border bg-white shadow-card">
         <div className="flex flex-col gap-3 border-b border-outline-variant p-4 md:flex-row md:items-center md:justify-between">
@@ -140,13 +213,15 @@ export default function TripsPage() {
                         >
                           <Eye className="h-4 w-4" />
                         </Link>
-                        <Link
-                          to={`/trips/${trip.tripId}/edit`}
-                          className="rounded-full p-2 text-on-surface-variant hover:bg-surface-container-low hover:text-secondary"
-                          aria-label={`Edit trip ${trip.tripId}`}
-                        >
-                          <Pencil className="h-4 w-4" />
-                        </Link>
+                        {canManageTrips ? (
+                          <Link
+                            to={`/trips/${trip.tripId}/edit`}
+                            className="rounded-full p-2 text-on-surface-variant hover:bg-surface-container-low hover:text-secondary"
+                            aria-label={`Edit trip ${trip.tripId}`}
+                          >
+                            <Pencil className="h-4 w-4" />
+                          </Link>
+                        ) : null}
                       </div>
                     </td>
                   </tr>
