@@ -1,6 +1,6 @@
 import { Eye, Pencil, Plus, Search } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { TripStatusBadge } from '../../features/trips/TripStatusBadge';
 import { formatDateTime, sortTripsByTime, tripStatuses } from '../../features/trips/tripUtils';
@@ -12,9 +12,10 @@ import { loadTripSuggestions } from '../../utils/tripSuggestions';
 export default function TripsPage() {
   const { user } = useAuth();
   const canManageTrips = isAdmin(user?.roles);
+  const [searchParams] = useSearchParams();
   const [trips, setTrips] = useState<TripDto[]>([]);
   const [suggestions, setSuggestions] = useState<ReturnType<typeof loadTripSuggestions>>([]);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(() => searchParams.get('search') ?? '');
   const [status, setStatus] = useState<TripStatus | ''>('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
