@@ -4,14 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { DriverForm } from '../../drivers/DriversForm';
 import { driverService } from '../../services/api/driverService';
 import type { DriverDto, DriverFormPayload } from '../../services/api/driverService';
-
-// دالة معالجة الخطأ الآمنة والمتوافقة مع قواعد TypeScript الصارمة في المشروع
-const getApiErrorMessage = (error: unknown): string => {
-  if (error instanceof Error) {
-    return error.message;
-  }
-  return 'Something went wrong';
-};
+import { getApiErrorMessage } from '../../utils/errorMessage';
 
 export default function DriverFormPage({ mode }: { mode: 'create' | 'edit' }) {
   const { ssn } = useParams();

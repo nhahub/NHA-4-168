@@ -1,6 +1,7 @@
 import { BusFront, BookOpen, GraduationCap, LayoutDashboard, LifeBuoy, LogOut, Users, Wallet, X } from 'lucide-react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
+import { isAdmin } from '../utils/auth'
 
 type SidebarProps = {
   isOpen: boolean
@@ -8,17 +9,15 @@ type SidebarProps = {
 }
 
 const navigationItems = [
-
-  { label: 'Dashboard', icon: LayoutDashboard, to: '/admin', enabled: true },
-  { label: 'Students', icon: GraduationCap, to: '/students', enabled: true },
-  { label: 'Instructors', icon: Users, to: '/instructors', enabled: false },
-  { label: 'Courses', icon: BookOpen, to: '/courses', enabled: false },
-  { label: 'Enrollments', icon: BookOpen, to: '/enrollments', enabled: false },
-  { label: 'Payments', icon: Wallet, to: '/payments', enabled: false },
-  { label: 'Services', icon: LifeBuoy, to: '/services', enabled: false },
-  { label: 'Drivers', icon: BusFront, to: '/drivers', enabled: true },
-  { label: 'Trips', icon: BusFront, to: '/trips', enabled: true },
-
+  { label: 'Dashboard', icon: LayoutDashboard, to: '/admin', enabled: true,  },
+  { label: 'Students', icon: GraduationCap, to: '/students', enabled: true,  },
+  { label: 'Instructors', icon: Users, to: '/instructors', enabled: false,  },
+  { label: 'Courses', icon: BookOpen, to: '/courses', enabled: false,  },
+  { label: 'Enrollments', icon: BookOpen, to: '/enrollments', enabled: false,  },
+  { label: 'Payments', icon: Wallet, to: '/payments', enabled: false,  },
+  { label: 'Services', icon: LifeBuoy, to: '/services', enabled: false,  },
+  { label: 'Drivers', icon: BusFront, to: '/drivers', enabled: true, adminOnly: false },
+  { label: 'Trips', icon: BusFront, to: '/trips', enabled: true, adminOnly: false },
 ]
 
 function Sidebar({ isOpen, onClose }: SidebarProps) {
@@ -36,6 +35,8 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
   const displayName = `${firstName}${lastName ? ' ' + lastName : ''}`
   const roleLabel = user?.roles?.join(', ') || 'User'
   const avatarChar = firstName.charAt(0).toUpperCase()
+  const canAccessAdminViews = isAdmin(user?.roles)
+  const visibleNavigationItems = navigationItems.filter((item) => !item.adminOnly || canAccessAdminViews)
 
   return (
     <>
@@ -60,7 +61,7 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
 
           <nav className="flex-1 overflow-y-auto px-2 pb-6">
             <ul className="space-y-1">
-              {navigationItems.map((item) => {
+              {visibleNavigationItems.map((item) => {
                 const Icon = item.icon
                 const active = location.pathname === item.to || location.pathname.startsWith(`${item.to}/`)
 

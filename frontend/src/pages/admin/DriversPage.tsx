@@ -1,23 +1,22 @@
 import { Eye, Pencil, Plus, Search } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 import { DriverStatusBadge } from '../../drivers/DriverStatusBadge';
 import { driverStatuses } from '../../drivers/driverUtils';
 import { driverService } from '../../services/api/driverService';
 import type { DriverDto, DriverStatus } from '../../services/api/driverService';
+import { isAdmin } from '../../utils/auth';
+import { getApiErrorMessage } from '../../utils/errorMessage';
 
 const pageSize = 10;
-
-const getApiErrorMessage = (error: unknown): string => {
-  if (error instanceof Error) {
-    return error.message;
-  }
-  return 'Something went wrong';
-};
+const fetchPageSize = 1000;
 
 export default function DriversPage() {
   const location = useLocation();
+  const { user } = useAuth();
   const createdDriver = (location.state as { createdDriver?: DriverDto } | null)?.createdDriver;
+  const canManageDrivers = isAdmin(user?.roles);
 
   // 💡 التعديل هنا: قفلنا الـ State بـ [] عشان نضمن إنه دايماً Array
   const [drivers, setDrivers] = useState<DriverDto[]>([]);
@@ -51,9 +50,9 @@ export default function DriversPage() {
 
       try {
         const response = await driverService.getDrivers({
-          page,
-          pageSize,
-          search: search.trim() || undefined,
+          page: 1,
+          pageSize: fetchPageSize,
+          search: undefined,
           status: status || undefined,
         });
 
@@ -67,9 +66,30 @@ export default function DriversPage() {
           ? [createdDriver, ...serverDrivers]
           : serverDrivers;
 
-        setDrivers(mergedDrivers);
-        setTotalPages(Math.max(response.totalPages, 1));
-        setTotalCount(shouldIncludeCreatedDriver ? response.totalCount + 1 : response.totalCount);
+        const term = search.trim().toLowerCase();
+        const filteredDrivers = mergedDrivers.filter((driver) => {
+          const haystack = [
+            driver.firstName,
+            driver.lastName,
+            driver.licenseNumber,
+            driver.phone || '',
+            driver.carModel || '',
+            driver.carPlate || '',
+            String(driver.driverSsn),
+          ]
+            .join(' ')
+            .toLowerCase();
+
+          return term === '' || haystack.includes(term);
+        });
+
+        const totalFilteredCount = filteredDrivers.length;
+        const startIndex = (page - 1) * pageSize;
+        const pagedDrivers = filteredDrivers.slice(startIndex, startIndex + pageSize);
+
+        setDrivers(pagedDrivers);
+        setTotalPages(Math.max(Math.ceil(totalFilteredCount / pageSize), 1));
+        setTotalCount(totalFilteredCount);
       } catch (requestError) {
         if (active) {
           setError(getApiErrorMessage(requestError));
@@ -105,14 +125,21 @@ export default function DriversPage() {
         <div>
           <h1 className="text-display-lg font-bold text-on-background">Drivers</h1>
           <p className="mt-1 text-body-md text-on-surface-variant">{totalCount} records</p>
+          {!canManageDrivers ? (
+            <p className="mt-2 inline-flex items-center rounded-full border border-outline-variant bg-surface-container-low px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-on-surface-variant">
+              View-only access
+            </p>
+          ) : null}
         </div>
-        <Link
-          to="/drivers/new"
-          className="inline-flex items-center justify-center gap-2 rounded-lg bg-secondary px-4 py-2 text-body-sm font-semibold text-on-secondary hover:opacity-90"
-        >
-          <Plus className="h-4 w-4" />
-          Add Driver
-        </Link>
+        {canManageDrivers ? (
+          <Link
+            to="/drivers/new"
+            className="inline-flex items-center justify-center gap-2 rounded-lg bg-secondary px-4 py-2 text-body-sm font-semibold text-on-secondary hover:opacity-90"
+          >
+            <Plus className="h-4 w-4" />
+            Add Driver
+          </Link>
+        ) : null}
       </section>
 
       <section className="rounded-xl border border-card-border bg-white shadow-card">
@@ -186,12 +213,14 @@ export default function DriversPage() {
                         >
                           <Eye className="h-4 w-4" />
                         </Link>
-                        <Link
-                          to={`/drivers/${driver.driverSsn}/edit`}
-                          className="rounded-full p-2 text-on-surface-variant hover:bg-surface-container-low hover:text-secondary"
-                        >
-                          <Pencil className="h-4 w-4" />
-                        </Link>
+                        {canManageDrivers ? (
+                          <Link
+                            to={`/drivers/${driver.driverSsn}/edit`}
+                            className="rounded-full p-2 text-on-surface-variant hover:bg-surface-container-low hover:text-secondary"
+                          >
+                            <Pencil className="h-4 w-4" />
+                          </Link>
+                        ) : null}
                       </div>
                     </td>
                   </tr>

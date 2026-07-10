@@ -13,4 +13,5 @@ export const initialDriverValues = {
   carPlate: '',
   carYear: new Date().getFullYear(),
   userId: null,
+  status: 'Active' as DriverStatus,
 };

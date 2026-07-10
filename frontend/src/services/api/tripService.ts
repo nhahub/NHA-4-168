@@ -1,4 +1,5 @@
 import axiosInstance from './axiosInstance';
+import { getApiErrorMessage } from '../../utils/errorMessage';
 
 export type TripStatus = 'Pending' | 'Available' | 'Full' | 'InProgress' | 'Completed' | 'Cancelled';
 
@@ -71,17 +72,6 @@ export interface TripQueryParameters {
   status?: TripStatus | '';
 }
 
-function getApiErrorMessage(error: unknown): string {
-  if (
-    typeof error === 'object' &&
-    error !== null &&
-    'response' in error &&
-    typeof (error as { response?: { data?: { error?: string } } }).response?.data?.error === 'string'
-  ) {
-    return (error as { response: { data: { error: string } } }).response.data.error;
-  }
-  return 'Something went wrong. Please try again.';
-}
 
 export const tripService = {
   // GET /api/trips — returns a plain array, not a paginated envelope.

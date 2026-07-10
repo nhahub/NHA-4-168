@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 import { TripForm } from '../../features/trips/TripForm';
 import { getApiErrorMessage, tripService } from '../../services/api/tripService';
 import type { TripDto, TripFormPayload } from '../../services/api/tripService';
+import { isAdmin } from '../../utils/auth';
+import { addTripSuggestion, removeTripSuggestion, type TripSuggestion } from '../../utils/tripSuggestions';
 
 interface FinderState {
   destination?: string;
@@ -14,7 +17,12 @@ export default function TripFormPage() {
   const { tripId } = useParams<{ tripId: string }>();
   const navigate = useNavigate();
   const location = useLocation();
+  const { user } = useAuth();
   const mode = tripId ? 'edit' : 'create';
+  const isAdminUser = isAdmin(user?.roles);
+  const isSuggestionMode = mode === 'create' && !isAdminUser;
+  const reviewSuggestion = (location.state as { reviewSuggestion?: TripSuggestion } | null)?.reviewSuggestion;
+  const isReviewMode = Boolean(reviewSuggestion) && isAdminUser;
 
   const [trip, setTrip] = useState<TripDto | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(mode === 'edit');
@@ -22,6 +30,14 @@ export default function TripFormPage() {
   const [error, setError] = useState<string | null>(null);
 
   const finderState = (location.state as FinderState | null) ?? undefined;
+  const prefilledValues = reviewSuggestion
+    ? {
+        destination: reviewSuggestion.destination,
+        pickupArea: reviewSuggestion.pickupArea,
+        estimatedTimeOfArrival: reviewSuggestion.estimatedTimeOfArrival,
+        maxSeats: String(reviewSuggestion.maxSeats),
+      }
+    : finderState;
 
   useEffect(() => {
     if (mode !== 'edit' || !tripId) return;
@@ -52,10 +68,35 @@ export default function TripFormPage() {
       if (mode === 'edit' && tripId) {
         const updated = await tripService.updateTrip(Number(tripId), payload);
         navigate(`/trips/${updated.tripId}`);
-      } else {
-        const created = await tripService.createTrip(payload);
-        navigate(`/trips/${created.tripId}`);
+        return;
       }
+
+      if (isSuggestionMode) {
+        const suggestion = {
+          id: `${Date.now()}`,
+          destination: payload.destination,
+          pickupArea: payload.pickupArea,
+          estimatedTimeOfArrival: payload.estimatedTimeOfArrival,
+          maxSeats: payload.maxSeats,
+          submittedBy: user?.id ?? 'student',
+          submittedByName: `${user?.firstName ?? ''} ${user?.lastName ?? ''}`.trim() || user?.email || 'Student',
+          submittedAt: new Date().toISOString(),
+        };
+
+        addTripSuggestion(suggestion);
+        navigate('/trips/all');
+        return;
+      }
+
+      if (isReviewMode && reviewSuggestion) {
+        const created = await tripService.createTrip(payload);
+        removeTripSuggestion(reviewSuggestion.id);
+        navigate(`/trips/${created.tripId}`);
+        return;
+      }
+
+      const created = await tripService.createTrip(payload);
+      navigate(`/trips/${created.tripId}`);
     } catch (requestError) {
       setError(getApiErrorMessage(requestError));
     } finally {
@@ -66,9 +107,9 @@ export default function TripFormPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-display-lg font-bold text-on-background">{mode === 'edit' ? 'Edit Trip' : 'New Trip'}</h1>
+        <h1 className="text-display-lg font-bold text-on-background">{mode === 'edit' ? 'Edit Trip' : isReviewMode ? 'Review Trip Suggestion' : isSuggestionMode ? 'Suggest a Trip' : 'New Trip'}</h1>
         <p className="mt-1 text-body-md text-on-surface-variant">
-          {mode === 'edit' ? `Trip #${tripId}` : 'Fill in the trip details below'}
+          {mode === 'edit' ? `Trip #${tripId}` : isReviewMode ? 'Finalize the student suggestion by assigning a driver and price, then save it as a real trip.' : isSuggestionMode ? 'Share your preferred trip details and an administrator will review it.' : 'Fill in the trip details below'}
         </p>
       </div>
 
@@ -78,7 +119,9 @@ export default function TripFormPage() {
         <TripForm
           mode={mode}
           initialTrip={trip}
-          initialValues={finderState}
+          initialValues={prefilledValues}
+          isSuggestionMode={isSuggestionMode}
+          reviewMode={isReviewMode}
           isSubmitting={isSubmitting}
           error={error}
           onSubmit={handleSubmit}
