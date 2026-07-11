@@ -802,31 +802,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Mazen\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "/Users/amr3006khaled/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Unifloww\\NHA-4-168\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj",
+      "projectUniqueName": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/StudentManagement.Domain.csproj",
       "projectName": "StudentManagement.Domain",
-      "projectPath": "D:\\Unifloww\\NHA-4-168\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj",
-      "packagesPath": "C:\\Users\\Mazen\\.nuget\\packages\\",
-      "outputPath": "D:\\Unifloww\\NHA-4-168\\NHA-4-168\\backend\\StudentManagement.Domain\\obj\\",
+      "projectPath": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/StudentManagement.Domain.csproj",
+      "packagesPath": "/Users/amr3006khaled/.nuget/packages/",
+      "outputPath": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/obj/",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Mazen\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/amr3006khaled/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "/opt/homebrew/Cellar/dotnet/10.0.300/libexec/library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -874,7 +868,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet/10.0.300/libexec/sdk/10.0.300/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.CSharp": "(,4.7.32767]",
           "Microsoft.VisualBasic": "(,10.4.32767]",

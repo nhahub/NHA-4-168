@@ -9,13 +9,13 @@ type SidebarProps = {
 }
 
 const navigationItems = [
-  { label: 'Dashboard', icon: LayoutDashboard, to: '/admin', enabled: true,  },
-  { label: 'Students', icon: GraduationCap, to: '/students', enabled: true,  },
-  { label: 'Instructors', icon: Users, to: '/instructors', enabled: false,  },
-  { label: 'Courses', icon: BookOpen, to: '/courses', enabled: false,  },
-  { label: 'Enrollments', icon: BookOpen, to: '/enrollments', enabled: false,  },
-  { label: 'Payments', icon: Wallet, to: '/payments', enabled: false,  },
-  { label: 'Services', icon: LifeBuoy, to: '/services', enabled: false,  },
+  { label: 'Dashboard', icon: LayoutDashboard, to: '/admin', enabled: true, adminOnly: true },
+  { label: 'Students', icon: GraduationCap, to: '/students', enabled: true, adminOnly: true },
+  { label: 'Instructors', icon: Users, to: '/instructors', enabled: false, adminOnly: true },
+  { label: 'Courses', icon: BookOpen, to: '/courses', enabled: false, adminOnly: true },
+  { label: 'Enrollments', icon: BookOpen, to: '/enrollments', enabled: false, adminOnly: true },
+  { label: 'Payments', icon: Wallet, to: '/payments', enabled: false, adminOnly: true },
+  { label: 'Services', icon: LifeBuoy, to: '/services', enabled: false, adminOnly: true },
   { label: 'Drivers', icon: BusFront, to: '/drivers', enabled: true, adminOnly: false },
   { label: 'Trips', icon: BusFront, to: '/trips', enabled: true, adminOnly: false },
 ]
