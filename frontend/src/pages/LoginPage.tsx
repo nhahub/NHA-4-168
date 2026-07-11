@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { FormEvent } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { authService } from '../services/api/authService';
 import { getApiErrorMessage } from '../utils/errorMessage';
+import { isAdmin } from '../utils/auth';
 
 function MailIcon() {
   return (
@@ -64,17 +65,17 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const { login, isAuthenticated } = useAuth();
+  const { login, isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const from = (location.state as { from?: string } | null)?.from ?? '/student-dashboard';
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      const targetPath = isAdmin(user.roles) ? '/admin' : '/student-dashboard';
+      navigate(targetPath, { replace: true });
+    }
+  }, [isAuthenticated, navigate, user]);
 
-  const from = (location.state as { from?: string } | null)?.from ?? '/dashboard';
-
-  if (isAuthenticated) {
-    navigate(from, { replace: true });
-    return null;
-  }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -95,7 +96,8 @@ export default function LoginPage() {
       }
 
       login(response.data.token, response.data.user);
-      navigate(from, { replace: true });
+      const targetPath = isAdmin(response.data.user.roles) ? '/admin' : '/student-dashboard';
+      navigate(targetPath, { replace: true });
     } catch (err) {
       console.error('Login failed:', err);
       setError(getApiErrorMessage(err));
