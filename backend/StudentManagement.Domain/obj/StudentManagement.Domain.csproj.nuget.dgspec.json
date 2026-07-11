@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj": {}
+    "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj": {}
   },
   "projects": {
-    "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj": {
+    "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj",
+        "projectUniqueName": "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj",
         "projectName": "StudentManagement.Domain",
-        "projectPath": "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj",
-        "packagesPath": "C:\\Users\\mosta\\.nuget\\packages\\",
-        "outputPath": "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.Domain\\obj\\",
+        "projectPath": "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj",
+        "packagesPath": "C:\\Users\\Mazen\\.nuget\\packages\\",
+        "outputPath": "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\mosta\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Mazen\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -73,7 +73,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
