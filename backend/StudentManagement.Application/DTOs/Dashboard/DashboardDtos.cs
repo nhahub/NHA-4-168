@@ -1,7 +1,16 @@
 namespace StudentManagement.Application.DTOs.Dashboard;
 
+public class StudentDashboardSummaryDto
+{
+    public int ActiveCourses { get; set; }
+    public int ActiveRides { get; set; }
+    public decimal PendingPayments { get; set; }
+    public string Status { get; set; } = string.Empty;
+}
+
 public class StudentSummaryDto
 {
+// ... existing code ...
     public int StudentId { get; set; }
     public string FullName { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;

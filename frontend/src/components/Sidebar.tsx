@@ -8,22 +8,24 @@ type SidebarProps = {
   onClose: () => void
 }
 
-const navigationItems = [
-  { label: 'Dashboard', icon: LayoutDashboard, to: '/admin', enabled: true, adminOnly: true },
-  { label: 'Students', icon: GraduationCap, to: '/students', enabled: true, adminOnly: true },
-  { label: 'Instructors', icon: Users, to: '/instructors', enabled: false, adminOnly: true },
-  { label: 'Courses', icon: BookOpen, to: '/courses', enabled: false, adminOnly: true },
-  { label: 'Enrollments', icon: BookOpen, to: '/enrollments', enabled: false, adminOnly: true },
-  { label: 'Payments', icon: Wallet, to: '/payments', enabled: false, adminOnly: true },
-  { label: 'Services', icon: LifeBuoy, to: '/services', enabled: false, adminOnly: true },
-  { label: 'Drivers', icon: BusFront, to: '/drivers', enabled: true, adminOnly: false },
-  { label: 'Trips', icon: BusFront, to: '/trips', enabled: true, adminOnly: false },
-]
-
 function Sidebar({ isOpen, onClose }: SidebarProps) {
   const location = useLocation()
   const navigate = useNavigate()
   const { user, logout } = useAuth()
+
+  const canAccessAdminViews = isAdmin(user?.roles)
+
+    const navigationItems = [
+      { label: 'Dashboard', icon: LayoutDashboard, to: canAccessAdminViews ? '/admin' : '/student-dashboard', enabled: true },
+      { label: 'Students', icon: GraduationCap, to: canAccessAdminViews ? '/students' : '/unauthorized', enabled: true , adminOnly: true },
+      { label: 'Instructors', icon: Users, to: '/instructors', enabled: false },
+      { label: 'Courses', icon: BookOpen, to: '/courses', enabled: false },
+      { label: 'Enrollments', icon: BookOpen, to: '/enrollments', enabled: false },
+      { label: 'Payments', icon: Wallet, to: '/payments', enabled: false },
+      { label: 'Services', icon: LifeBuoy, to: '/services', enabled: false },
+      { label: 'Drivers', icon: BusFront, to: '/drivers', enabled: true, adminOnly: false },
+      { label: 'Trips', icon: BusFront, to: '/trips', enabled: true, adminOnly: false },
+    ]
 
   const handleLogout = () => {
     logout()
@@ -35,7 +37,7 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
   const displayName = `${firstName}${lastName ? ' ' + lastName : ''}`
   const roleLabel = user?.roles?.join(', ') || 'User'
   const avatarChar = firstName.charAt(0).toUpperCase()
-  const canAccessAdminViews = isAdmin(user?.roles)
+
   const visibleNavigationItems = navigationItems.filter((item) => !item.adminOnly || canAccessAdminViews)
 
   return (
@@ -46,8 +48,8 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
         <div className="flex h-full flex-col overflow-hidden">
           <div className="flex items-start justify-between gap-4 px-6 py-8 lg:items-center">
             <div>
-              <h1 className="text-[24px] font-bold leading-8 tracking-tight text-on-primary">EduManager</h1>
-              <p className="mt-1 text-[14px] leading-5 text-on-primary-container/80">Administration Portal</p>
+              <h1 className="text-[24px] font-bold leading-8 tracking-tight text-on-primary">UniFlow</h1>
+              <p className="mt-1 text-[14px] leading-5 text-on-primary-container/80">We make your Collage life eaiser!</p>
             </div>
             <button
               type="button"

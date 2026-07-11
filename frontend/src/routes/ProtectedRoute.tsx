@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import MainLayout from '../components/layout/MainLayout';
 import { hasAnyRole } from '../utils/auth';
@@ -11,6 +11,8 @@ interface ProtectedRouteProps {
 
 export default function ProtectedRoute({ children, allowedRoles = [] }: ProtectedRouteProps) {
   const { isAuthenticated, isLoading, user } = useAuth();
+  const location = useLocation();
+  const from = (location.state as { from?: string } | null)?.from ?? '/student-dashboard';
 
   if (isLoading) {
     return (
@@ -21,7 +23,7 @@ export default function ProtectedRoute({ children, allowedRoles = [] }: Protecte
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/login" replace state={{ from: location.pathname }} />;
   }
 
   if (allowedRoles.length > 0) {

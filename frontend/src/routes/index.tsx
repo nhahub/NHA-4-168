@@ -17,6 +17,7 @@ import TripsPage from '../pages/admin/TripsPage';
 import TripFormPage from '../pages/admin/TripFormPage';
 import TripDetailPage from '../pages/admin/TripDetailPage';
 import { isAdmin } from '../utils/auth';
+import StudentDashboardPage from '../pages/StudentDashboardPage';
 
 function HomeRedirect() {
   const { isAuthenticated, user } = useAuth();
@@ -25,7 +26,7 @@ function HomeRedirect() {
     return <Navigate to="/login" replace />;
   }
 
-  return <Navigate to={isAdmin(user?.roles) ? '/admin' : '/drivers'} replace />;
+  return <Navigate to={isAdmin(user?.roles) ? '/admin' : '/student-dashboard'} replace />;
 }
 
 export const routes: RouteObject[] = [
@@ -42,10 +43,11 @@ export const routes: RouteObject[] = [
   { path: '/students/:ssn', element: <ProtectedRoute allowedRoles={['admin']}><StudentDetailPage /></ProtectedRoute> },
   { path: '/students/:ssn/edit', element: <ProtectedRoute allowedRoles={['admin']}><StudentFormPage mode="edit" /></ProtectedRoute> },
   { path: '/unauthorized', element: <UnauthorizedPage /> },
-  { path: '*', element: <NotFoundPage /> },
+
   { path: 'trips', element: <ProtectedRoute allowedRoles={['admin', 'student']}><TripFinderPage /></ProtectedRoute> },
   { path: 'trips/all', element: <ProtectedRoute allowedRoles={['admin', 'student']}><TripsPage /></ProtectedRoute> },
   { path: 'trips/new', element: <ProtectedRoute allowedRoles={['admin', 'student']}><TripFormPage /></ProtectedRoute> },
   { path: 'trips/:tripId', element: <ProtectedRoute allowedRoles={['admin', 'student']}><TripDetailPage /></ProtectedRoute> },
   { path: 'trips/:tripId/edit', element: <ProtectedRoute allowedRoles={['admin']}><TripFormPage /></ProtectedRoute> },
+  { path: '/student-dashboard', element: <ProtectedRoute allowedRoles={['admin','student']}><StudentDashboardPage /></ProtectedRoute> },
 ];
