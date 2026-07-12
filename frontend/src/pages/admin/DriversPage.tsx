@@ -68,6 +68,8 @@ export default function DriversPage() {
 
         const term = search.trim().toLowerCase();
         const filteredDrivers = mergedDrivers.filter((driver) => {
+          const matchesStatus = status === '' || driver.status === status;
+
           const haystack = [
             driver.firstName,
             driver.lastName,
@@ -80,7 +82,9 @@ export default function DriversPage() {
             .join(' ')
             .toLowerCase();
 
-          return term === '' || haystack.includes(term);
+          const matchesSearch = term === '' || haystack.includes(term);
+
+          return matchesStatus && matchesSearch;
         });
 
         const totalFilteredCount = filteredDrivers.length;

@@ -23,4 +23,7 @@ public class UpdateDriverDto
     public string? CarPlate { get; set; }
 
     public int? CarYear { get; set; }
+
+    [Required, MaxLength(20)]
+    public string Status { get; set; } = string.Empty;
 }

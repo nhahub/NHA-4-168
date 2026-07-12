@@ -31,6 +31,9 @@ public class Driver
 
     public decimal? Rating { get; set; }
 
+    [Required, MaxLength(20)]
+    public string Status { get; set; } = "Active";
+
     [ForeignKey(nameof(User))]
     public string? UserId { get; set; }
 

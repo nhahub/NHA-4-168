@@ -40,7 +40,7 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
 
   const navigationItems = [
   { label: 'Dashboard', icon: LayoutDashboard, to: canAccessAdminViews ? '/admin' : (canAccessStudentViews ? '/student-dashboard' : '/drivers'), enabled: true,  },
-  { label: 'Students', icon: GraduationCap, to: '/students', enabled: true,  },
+  { label: 'Students', icon: GraduationCap, to: '/students', enabled: true, adminOnly: true },
 
   canAccessAdminViews
   ? {

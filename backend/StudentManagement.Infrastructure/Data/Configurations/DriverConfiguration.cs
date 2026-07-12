@@ -21,6 +21,7 @@ public class DriverConfiguration : IEntityTypeConfiguration<Driver>
         builder.Property(d => d.CarModel).HasMaxLength(50);
         builder.Property(d => d.CarPlate).HasMaxLength(20);
         builder.Property(d => d.Rating).HasColumnType("decimal(3,2)");
+        builder.Property(d => d.Status).IsRequired().HasMaxLength(20).HasDefaultValue("Active");
         builder.Property(d => d.UserId);
 
         builder.HasOne(d => d.User)

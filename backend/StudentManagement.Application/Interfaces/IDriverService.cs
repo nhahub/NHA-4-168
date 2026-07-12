@@ -11,6 +11,6 @@ public interface IDriverService
     Task<IEnumerable<DriverDto>> GetAllDriversAsync();
     Task<DriverDto?> GetDriverBySsnAsync(int ssn);
     Task<DriverDto> CreateDriverAsync(CreateDriverDto createDriverDto);
-    Task<bool> UpdateDriverAsync(int ssn, UpdateDriverDto updateDriverDto); // هنا استخدمنا الـ Update DTO
+    Task<DriverDto?> UpdateDriverAsync(int ssn, UpdateDriverDto updateDriverDto); // هنا استخدمنا الـ Update DTO
     Task<bool> DeleteDriverAsync(int ssn);
 }
