@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj": {}
+    "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj": {}
   },
   "projects": {
-    "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj": {
+    "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj",
+        "projectUniqueName": "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj",
         "projectName": "StudentManagement.Domain",
-        "projectPath": "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj",
+        "projectPath": "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj",
         "packagesPath": "C:\\Users\\Mazen\\.nuget\\packages\\",
-        "outputPath": "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Domain\\obj\\",
+        "outputPath": "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

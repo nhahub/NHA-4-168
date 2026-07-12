@@ -16,8 +16,13 @@ import TripFinderPage from '../pages/admin/TripFinderPage';
 import TripsPage from '../pages/admin/TripsPage';
 import TripFormPage from '../pages/admin/TripFormPage';
 import TripDetailPage from '../pages/admin/TripDetailPage';
+import CoursesPage from '../pages/admin/CoursesPage';
+import CourseDetailPage from '../pages/admin/CourseDetailPage';
+import CourseFormPage from '../pages/admin/CourseFormPage';
+import InstructorsPage from '../pages/admin/InstructorsPage';
+import InstructorDetailPage from '../pages/admin/InstructorDetailPage';
+import InstructorFormPage from '../pages/admin/InstructorFormPage';
 import { isAdmin } from '../utils/auth';
-import StudentDashboardPage from '../pages/StudentDashboardPage';
 
 function HomeRedirect() {
   const { isAuthenticated, user } = useAuth();
@@ -26,7 +31,7 @@ function HomeRedirect() {
     return <Navigate to="/login" replace />;
   }
 
-  return <Navigate to={isAdmin(user?.roles) ? '/admin' : '/student-dashboard'} replace />;
+  return <Navigate to={isAdmin(user?.roles) ? '/admin' : '/drivers'} replace />;
 }
 
 export const routes: RouteObject[] = [
@@ -43,11 +48,18 @@ export const routes: RouteObject[] = [
   { path: '/students/:ssn', element: <ProtectedRoute allowedRoles={['admin']}><StudentDetailPage /></ProtectedRoute> },
   { path: '/students/:ssn/edit', element: <ProtectedRoute allowedRoles={['admin']}><StudentFormPage mode="edit" /></ProtectedRoute> },
   { path: '/unauthorized', element: <UnauthorizedPage /> },
-
+  { path: '*', element: <NotFoundPage /> },
   { path: 'trips', element: <ProtectedRoute allowedRoles={['admin', 'student']}><TripFinderPage /></ProtectedRoute> },
   { path: 'trips/all', element: <ProtectedRoute allowedRoles={['admin', 'student']}><TripsPage /></ProtectedRoute> },
   { path: 'trips/new', element: <ProtectedRoute allowedRoles={['admin', 'student']}><TripFormPage /></ProtectedRoute> },
   { path: 'trips/:tripId', element: <ProtectedRoute allowedRoles={['admin', 'student']}><TripDetailPage /></ProtectedRoute> },
   { path: 'trips/:tripId/edit', element: <ProtectedRoute allowedRoles={['admin']}><TripFormPage /></ProtectedRoute> },
-  { path: '/student-dashboard', element: <ProtectedRoute allowedRoles={['admin','student']}><StudentDashboardPage /></ProtectedRoute> },
+  { path: '/courses', element: <ProtectedRoute allowedRoles={['admin']}><CoursesPage /></ProtectedRoute> },
+  { path: '/courses/new', element: <ProtectedRoute allowedRoles={['admin']}><CourseFormPage mode="create" /></ProtectedRoute> },
+  { path: '/courses/:courseId', element: <ProtectedRoute allowedRoles={['admin']}><CourseDetailPage /></ProtectedRoute> },
+  { path: '/courses/:courseId/edit', element: <ProtectedRoute allowedRoles={['admin']}><CourseFormPage mode="edit" /></ProtectedRoute> },
+  { path: '/instructors', element: <ProtectedRoute allowedRoles={['admin']}><InstructorsPage /></ProtectedRoute> },
+  { path: '/instructors/new', element: <ProtectedRoute allowedRoles={['admin']}><InstructorFormPage mode="create" /></ProtectedRoute> },
+  { path: '/instructors/:ssn', element: <ProtectedRoute allowedRoles={['admin']}><InstructorDetailPage /></ProtectedRoute> },
+  { path: '/instructors/:ssn/edit', element: <ProtectedRoute allowedRoles={['admin']}><InstructorFormPage mode="edit" /></ProtectedRoute> },
 ];

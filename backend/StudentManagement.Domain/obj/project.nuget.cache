@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9dyb+84wd/g=",
+  "dgSpecHash": "MbD7pJSQaJM=",
   "success": true,
-  "projectFilePath": "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj",
+  "projectFilePath": "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Mazen\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\10.0.0\\microsoft.aspnetcore.cryptography.internal.10.0.0.nupkg.sha512",
     "C:\\Users\\Mazen\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\10.0.0\\microsoft.aspnetcore.cryptography.keyderivation.10.0.0.nupkg.sha512",

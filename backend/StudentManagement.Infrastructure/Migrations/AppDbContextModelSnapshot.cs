@@ -242,6 +242,11 @@ namespace StudentManagement.Infrastructure.Migrations
                     b.Property<decimal?>("Fee")
                         .HasColumnType("decimal(10,2)");
 
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
                     b.Property<bool>("IsPaid")
                         .HasColumnType("bit");
 
