@@ -35,9 +35,11 @@ public class StudentDashboardService : IStudentDashboardService
             .AsNoTracking()
             .CountAsync(e => e.StudentSsn == student.StudentSsn && e.Status == "Active");
 
+        var activeStatuses = new[] { "Pending", "Available", "InProgress" };
+
         var activeRides = await _context.TripStudents
             .AsNoTracking()
-            .CountAsync(ts => ts.StudentSsn == student.StudentSsn && ts.Trip != null && ts.Trip.Status == "InProgress");
+            .CountAsync(ts => ts.StudentSsn == student.StudentSsn && ts.Trip != null && activeStatuses.Contains(ts.Trip.Status));
 
         var pendingPayments = await _context.Payments
             .AsNoTracking()
