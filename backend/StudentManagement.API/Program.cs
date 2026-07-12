@@ -10,6 +10,10 @@ using StudentManagement.Application.DTOs.Student;
 using StudentManagement.Application.Interfaces;
 using StudentManagement.Application.Services;
 using StudentManagement.Application.Validators.Student;
+using StudentManagement.Application.DTOs.Course;
+using StudentManagement.Application.Validators.Course;
+using StudentManagement.Application.DTOs.Instructor;
+using StudentManagement.Application.Validators.Instructor;
 using StudentManagement.Infrastructure.Data;
 using StudentManagement.Infrastructure.Repositories;
 using StudentManagement.Infrastructure.Services;
@@ -101,6 +105,19 @@ builder.Services.AddScoped<IValidator<UpdateStudentStatusRequest>, UpdateStudent
 builder.Services.AddScoped<IValidator<StudentQueryParameters>, StudentQueryParametersValidator>();
 builder.Services.AddScoped<EnrollmentService>();
 builder.Services.AddScoped<PaymentService>();
+
+builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+builder.Services.AddScoped<ICourseService, CourseService>();
+builder.Services.AddScoped<IValidator<CreateCourseRequest>, CreateCourseRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateCourseRequest>, UpdateCourseRequestValidator>();
+builder.Services.AddScoped<IValidator<CourseQueryParameters>, CourseQueryParametersValidator>();
+builder.Services.AddScoped<IValidator<AssignInstructorRequest>, AssignInstructorRequestValidator>();
+
+builder.Services.AddScoped<IInstructorRepository, InstructorRepository>();
+builder.Services.AddScoped<IInstructorService, InstructorService>();
+builder.Services.AddScoped<IValidator<CreateInstructorRequest>, CreateInstructorRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateInstructorRequest>, UpdateInstructorRequestValidator>();
+builder.Services.AddScoped<IValidator<InstructorQueryParameters>, InstructorQueryParametersValidator>();
 
 var app = builder.Build();
 

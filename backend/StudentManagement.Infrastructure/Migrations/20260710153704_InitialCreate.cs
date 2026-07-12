@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace StudentManagement.Infrastructure.Data.Migrations
+namespace StudentManagement.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
@@ -251,8 +251,8 @@ namespace StudentManagement.Infrastructure.Data.Migrations
                 columns: table => new
                 {
                     StudentSsn = table.Column<int>(type: "int", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -270,6 +270,30 @@ namespace StudentManagement.Infrastructure.Data.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.SetNull);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Trips",
+                columns: table => new
+                {
+                    TripId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DriverSsn = table.Column<int>(type: "int", nullable: false),
+                    EstimatedTimeOfArrival = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Destination = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    PickupArea = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false, defaultValue: "Pending"),
+                    Price = table.Column<decimal>(type: "decimal(10,2)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Trips", x => x.TripId);
+                    table.ForeignKey(
+                        name: "FK_Trips_Drivers_DriverSsn",
+                        column: x => x.DriverSsn,
+                        principalTable: "Drivers",
+                        principalColumn: "DriverSsn",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -328,37 +352,6 @@ namespace StudentManagement.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RideBookings",
-                columns: table => new
-                {
-                    BookingId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    StudentSsn = table.Column<int>(type: "int", nullable: false),
-                    DriverSsn = table.Column<int>(type: "int", nullable: false),
-                    BookingDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    PickupLocation = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    DropoffLocation = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false, defaultValue: "Pending"),
-                    Fare = table.Column<decimal>(type: "decimal(10,2)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RideBookings", x => x.BookingId);
-                    table.ForeignKey(
-                        name: "FK_RideBookings_Drivers_DriverSsn",
-                        column: x => x.DriverSsn,
-                        principalTable: "Drivers",
-                        principalColumn: "DriverSsn",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_RideBookings_Students_StudentSsn",
-                        column: x => x.StudentSsn,
-                        principalTable: "Students",
-                        principalColumn: "StudentSsn",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "StudentServices",
                 columns: table => new
                 {
@@ -384,6 +377,31 @@ namespace StudentManagement.Infrastructure.Data.Migrations
                         principalTable: "Students",
                         principalColumn: "StudentSsn",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TripStudents",
+                columns: table => new
+                {
+                    TripId = table.Column<int>(type: "int", nullable: false),
+                    StudentSsn = table.Column<int>(type: "int", nullable: false),
+                    JoinedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TripStudents", x => new { x.TripId, x.StudentSsn });
+                    table.ForeignKey(
+                        name: "FK_TripStudents_Students_StudentSsn",
+                        column: x => x.StudentSsn,
+                        principalTable: "Students",
+                        principalColumn: "StudentSsn",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_TripStudents_Trips_TripId",
+                        column: x => x.TripId,
+                        principalTable: "Trips",
+                        principalColumn: "TripId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -499,16 +517,6 @@ namespace StudentManagement.Infrastructure.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_RideBookings_DriverSsn",
-                table: "RideBookings",
-                column: "DriverSsn");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RideBookings_StudentSsn",
-                table: "RideBookings",
-                column: "StudentSsn");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Students_Email",
                 table: "Students",
                 column: "Email",
@@ -527,6 +535,16 @@ namespace StudentManagement.Infrastructure.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_StudentServices_StudentSsn",
                 table: "StudentServices",
+                column: "StudentSsn");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Trips_DriverSsn",
+                table: "Trips",
+                column: "DriverSsn");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TripStudents_StudentSsn",
+                table: "TripStudents",
                 column: "StudentSsn");
         }
 
@@ -555,10 +573,10 @@ namespace StudentManagement.Infrastructure.Data.Migrations
                 name: "Payments");
 
             migrationBuilder.DropTable(
-                name: "RideBookings");
+                name: "StudentServices");
 
             migrationBuilder.DropTable(
-                name: "StudentServices");
+                name: "TripStudents");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -570,16 +588,19 @@ namespace StudentManagement.Infrastructure.Data.Migrations
                 name: "Enrollments");
 
             migrationBuilder.DropTable(
-                name: "Drivers");
+                name: "Services");
 
             migrationBuilder.DropTable(
-                name: "Services");
+                name: "Trips");
 
             migrationBuilder.DropTable(
                 name: "Courses");
 
             migrationBuilder.DropTable(
                 name: "Students");
+
+            migrationBuilder.DropTable(
+                name: "Drivers");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

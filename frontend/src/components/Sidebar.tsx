@@ -8,7 +8,17 @@ type SidebarProps = {
   onClose: () => void
 }
 
-
+const navigationItems = [
+  { label: 'Dashboard', icon: LayoutDashboard, to: '/admin', enabled: true, adminOnly: true },
+  { label: 'Students', icon: GraduationCap, to: '/students', enabled: true, adminOnly: true },
+  { label: 'Instructors', icon: Users, to: '/instructors', enabled: true, adminOnly: true },
+  { label: 'Courses', icon: BookOpen, to: '/courses', enabled: true, adminOnly: true },
+  { label: 'Enrollments', icon: BookOpen, to: '/enrollments', enabled: false, adminOnly: true },
+  { label: 'Payments', icon: Wallet, to: '/payments', enabled: false, adminOnly: true },
+  { label: 'Services', icon: LifeBuoy, to: '/services', enabled: false, adminOnly: true },
+  { label: 'Drivers', icon: BusFront, to: '/drivers', enabled: true, adminOnly: false },
+  { label: 'Trips', icon: BusFront, to: '/trips', enabled: true, adminOnly: false },
+]
 
 function Sidebar({ isOpen, onClose }: SidebarProps) {
   const location = useLocation()

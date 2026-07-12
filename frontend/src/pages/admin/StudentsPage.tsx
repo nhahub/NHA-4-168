@@ -1,6 +1,6 @@
 import { Eye, Pencil, Plus, Search } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { StudentStatusBadge } from '../../features/students/StudentStatusBadge';
 import { formatDate, getApiErrorMessage, studentStatuses } from '../../features/students/studentUtils';
 import { studentService } from '../../services/api/studentService';
@@ -9,11 +9,12 @@ import type { StudentListItemDto, StudentStatus } from '../../services/api/stude
 const pageSize = 10;
 
 export default function StudentsPage() {
+  const [searchParams] = useSearchParams();
   const [students, setStudents] = useState<StudentListItemDto[]>([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(() => searchParams.get('search') ?? '');
   const [status, setStatus] = useState<StudentStatus | ''>('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

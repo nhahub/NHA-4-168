@@ -9,10 +9,10 @@ using StudentManagement.Infrastructure.Data;
 
 #nullable disable
 
-namespace StudentManagement.Infrastructure.Data.Migrations
+namespace StudentManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260705114138_InitialCreate")]
+    [Migration("20260710153704_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -464,52 +464,6 @@ namespace StudentManagement.Infrastructure.Data.Migrations
                     b.ToTable("Payments", (string)null);
                 });
 
-            modelBuilder.Entity("StudentManagement.Domain.Entities.RideBooking", b =>
-                {
-                    b.Property<int>("BookingId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingId"));
-
-                    b.Property<DateTime?>("BookingDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("DriverSsn")
-                        .HasColumnType("int");
-
-                    b.Property<string>("DropoffLocation")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<decimal?>("Fare")
-                        .HasColumnType("decimal(10,2)");
-
-                    b.Property<string>("PickupLocation")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)")
-                        .HasDefaultValue("Pending");
-
-                    b.Property<int>("StudentSsn")
-                        .HasColumnType("int");
-
-                    b.HasKey("BookingId");
-
-                    b.HasIndex("DriverSsn");
-
-                    b.HasIndex("StudentSsn");
-
-                    b.ToTable("RideBookings", (string)null);
-                });
-
             modelBuilder.Entity("StudentManagement.Domain.Entities.Service", b =>
                 {
                     b.Property<int>("ServiceId")
@@ -570,12 +524,10 @@ namespace StudentManagement.Infrastructure.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -634,6 +586,65 @@ namespace StudentManagement.Infrastructure.Data.Migrations
                     b.HasIndex("StudentSsn");
 
                     b.ToTable("StudentServices", (string)null);
+                });
+
+            modelBuilder.Entity("StudentManagement.Domain.Entities.Trip", b =>
+                {
+                    b.Property<int>("TripId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TripId"));
+
+                    b.Property<string>("Destination")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<int>("DriverSsn")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("EstimatedTimeOfArrival")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PickupArea")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<decimal?>("Price")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasDefaultValue("Pending");
+
+                    b.HasKey("TripId");
+
+                    b.HasIndex("DriverSsn");
+
+                    b.ToTable("Trips");
+                });
+
+            modelBuilder.Entity("StudentManagement.Domain.Entities.TripStudent", b =>
+                {
+                    b.Property<int>("TripId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudentSsn")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("JoinedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("TripId", "StudentSsn");
+
+                    b.HasIndex("StudentSsn");
+
+                    b.ToTable("TripStudents");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -756,25 +767,6 @@ namespace StudentManagement.Infrastructure.Data.Migrations
                     b.Navigation("Enrollment");
                 });
 
-            modelBuilder.Entity("StudentManagement.Domain.Entities.RideBooking", b =>
-                {
-                    b.HasOne("StudentManagement.Domain.Entities.Driver", "Driver")
-                        .WithMany("RideBookings")
-                        .HasForeignKey("DriverSsn")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("StudentManagement.Domain.Entities.Student", "Student")
-                        .WithMany("RideBookings")
-                        .HasForeignKey("StudentSsn")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Driver");
-
-                    b.Navigation("Student");
-                });
-
             modelBuilder.Entity("StudentManagement.Domain.Entities.Student", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
@@ -804,16 +796,41 @@ namespace StudentManagement.Infrastructure.Data.Migrations
                     b.Navigation("Student");
                 });
 
+            modelBuilder.Entity("StudentManagement.Domain.Entities.Trip", b =>
+                {
+                    b.HasOne("StudentManagement.Domain.Entities.Driver", "Driver")
+                        .WithMany()
+                        .HasForeignKey("DriverSsn")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Driver");
+                });
+
+            modelBuilder.Entity("StudentManagement.Domain.Entities.TripStudent", b =>
+                {
+                    b.HasOne("StudentManagement.Domain.Entities.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentSsn")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("StudentManagement.Domain.Entities.Trip", "Trip")
+                        .WithMany("TripStudents")
+                        .HasForeignKey("TripId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
+
+                    b.Navigation("Trip");
+                });
+
             modelBuilder.Entity("StudentManagement.Domain.Entities.Course", b =>
                 {
                     b.Navigation("CourseInstructors");
 
                     b.Navigation("Enrollments");
-                });
-
-            modelBuilder.Entity("StudentManagement.Domain.Entities.Driver", b =>
-                {
-                    b.Navigation("RideBookings");
                 });
 
             modelBuilder.Entity("StudentManagement.Domain.Entities.Enrollment", b =>
@@ -835,9 +852,12 @@ namespace StudentManagement.Infrastructure.Data.Migrations
                 {
                     b.Navigation("Enrollments");
 
-                    b.Navigation("RideBookings");
-
                     b.Navigation("StudentServices");
+                });
+
+            modelBuilder.Entity("StudentManagement.Domain.Entities.Trip", b =>
+                {
+                    b.Navigation("TripStudents");
                 });
 #pragma warning restore 612, 618
         }
