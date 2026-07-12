@@ -1,4 +1,4 @@
-import { BusFront, BookOpen, GraduationCap, LayoutDashboard, LifeBuoy, LogOut, Users, Wallet, X } from 'lucide-react'
+import { BusFront, BookOpen, GraduationCap, LayoutDashboard,  LogOut, Users, Wallet, X } from 'lucide-react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { isAdmin, isStudent } from '../utils/auth'
@@ -8,17 +8,6 @@ type SidebarProps = {
   onClose: () => void
 }
 
-const navigationItems = [
-  { label: 'Dashboard', icon: LayoutDashboard, to: '/admin', enabled: true, adminOnly: true },
-  { label: 'Students', icon: GraduationCap, to: '/students', enabled: true, adminOnly: true },
-  { label: 'Instructors', icon: Users, to: '/instructors', enabled: true, adminOnly: true },
-  { label: 'Courses', icon: BookOpen, to: '/courses', enabled: true, adminOnly: true },
-  { label: 'Enrollments', icon: BookOpen, to: '/enrollments', enabled: false, adminOnly: true },
-  { label: 'Payments', icon: Wallet, to: '/payments', enabled: false, adminOnly: true },
-  { label: 'Services', icon: LifeBuoy, to: '/services', enabled: false, adminOnly: true },
-  { label: 'Drivers', icon: BusFront, to: '/drivers', enabled: true, adminOnly: false },
-  { label: 'Trips', icon: BusFront, to: '/trips', enabled: true, adminOnly: false },
-]
 
 function Sidebar({ isOpen, onClose }: SidebarProps) {
   const location = useLocation()
@@ -100,8 +89,6 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
       enabled: true,
     },
 
-
-  { label: 'Services', icon: LifeBuoy, to: '/services', enabled: false,  },
   { label: 'Drivers', icon: BusFront, to: '/drivers', enabled: true, adminOnly: false },
   { label: 'Trips', icon: BusFront, to: '/trips', enabled: true, adminOnly: false },
 ]
@@ -115,9 +102,16 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
       >
         <div className="flex h-full flex-col overflow-hidden">
           <div className="flex items-start justify-between gap-4 px-6 py-8 lg:items-center">
-            <div>
-              <h1 className="text-[24px] font-bold leading-8 tracking-tight text-on-primary">EduManager</h1>
-              <p className="mt-1 text-[14px] leading-5 text-on-primary-container/80">Administration Portal</p>
+            <div className="flex items-center gap-3">
+              <img
+                src="src\assets\Logo.png"
+                alt="UniVerse logo"
+                className="h-10 w-10 shrink-0 rounded-lg object-contain"
+              />
+              <div>
+                <h1 className="text-[24px] font-bold leading-8 tracking-tight text-on-primary">UniVerse</h1>
+                <p className="mt-1 text-[12px] leading-5 text-on-primary-container/80">Your University Life, Simplified.</p>
+              </div>
             </div>
             <button
               type="button"
