@@ -95,3 +95,28 @@ public class DateRange
     public DateOnly? From { get; set; }
     public DateOnly? To { get; set; }
 }
+
+public class InstructorDashboardSummaryDto
+{
+    public int ActiveCourses { get; set; }
+    public int TotalStudents { get; set; }
+    public decimal Rating { get; set; }
+}
+
+public class InstructorDashboardCourseDto
+{
+    public int CourseId { get; set; }
+    public string CourseName { get; set; } = string.Empty;
+    public string? Role { get; set; }
+    public int EnrolledStudentsCount { get; set; }
+    public DateTime? StartDate { get; set; }
+    public DateTime? EndDate { get; set; }
+    public bool IsActive { get; set; }
+}
+
+public class DriverDashboardSummaryDto
+{
+    public int TotalTrips { get; set; }
+    public int CompletedTrips { get; set; }
+    public int ActiveTrips { get; set; }
+}

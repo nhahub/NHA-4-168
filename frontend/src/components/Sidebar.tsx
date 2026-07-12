@@ -1,7 +1,7 @@
 import { BusFront, BookOpen, GraduationCap, LayoutDashboard, Users, Wallet, X } from 'lucide-react'
 import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
-import { isAdmin, isStudent } from '../utils/auth'
+import { isAdmin, isStudent, isInstructor, isDriver } from '../utils/auth'
 
 type SidebarProps = {
   isOpen: boolean
@@ -20,9 +20,11 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
   const avatarChar = firstName.charAt(0).toUpperCase()
   const canAccessAdminViews = isAdmin(user?.roles)
   const canAccessStudentViews = isStudent(user?.roles)
+  const canAccessInstructorViews = isInstructor(user?.roles)
+  const canAccessDriverViews = isDriver(user?.roles)
 
   const navigationItems = [
-  { label: 'Dashboard', icon: LayoutDashboard, to: canAccessAdminViews ? '/admin' : (canAccessStudentViews ? '/student-dashboard' : '/drivers'), enabled: true,  },
+  { label: 'Dashboard', icon: LayoutDashboard, to: canAccessAdminViews ? '/admin' : (canAccessStudentViews ? '/student-dashboard' : (canAccessInstructorViews ? '/instructor-dashboard' : (canAccessDriverViews ? '/driver-dashboard' : '/drivers'))), enabled: true,  },
   { label: 'Students', icon: GraduationCap, to: '/students', enabled: true, adminOnly: true },
 
   canAccessAdminViews
