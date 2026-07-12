@@ -34,6 +34,9 @@ export const authService = {
     password: string;
     firstName: string;
     lastName: string;
+    studentSsn: number;
+    phone: string;
+    dateOfBirth: string;
   }): Promise<LoginResponse> => {
     const response = await axiosInstance.post<LoginResponse>(
       '/auth/register',

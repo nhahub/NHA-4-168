@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace StudentManagement.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialBaseline : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -63,7 +63,8 @@ namespace StudentManagement.Infrastructure.Migrations
                     MaxCapacity = table.Column<int>(type: "int", nullable: true),
                     Fee = table.Column<decimal>(type: "decimal(10,2)", nullable: true),
                     Level = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    IsPaid = table.Column<bool>(type: "bit", nullable: false)
+                    IsPaid = table.Column<bool>(type: "bit", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true)
                 },
                 constraints: table =>
                 {
@@ -208,6 +209,7 @@ namespace StudentManagement.Infrastructure.Migrations
                     CarPlate = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     CarYear = table.Column<int>(type: "int", nullable: true),
                     Rating = table.Column<decimal>(type: "decimal(3,2)", nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false, defaultValue: "Active"),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>

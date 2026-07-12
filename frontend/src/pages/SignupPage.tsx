@@ -70,6 +70,9 @@ export default function SignupPage() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+  const [ssn, setSsn] = useState('');
+  const [phone, setPhone] = useState('');
+  const [dateOfBirth, setDateOfBirth] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -81,7 +84,7 @@ export default function SignupPage() {
     e.preventDefault();
     setError(null);
 
-    if (!firstName || !lastName || !email || !password) {
+    if (!firstName || !lastName || !email || !ssn || !phone || !dateOfBirth || !password) {
       setError('All fields are required.');
       return;
     }
@@ -93,7 +96,15 @@ export default function SignupPage() {
 
     setIsSubmitting(true);
     try {
-      const response = await authService.register({ email, password, firstName, lastName });
+      const response = await authService.register({
+        email,
+        password,
+        firstName,
+        lastName,
+        studentSsn: Number(ssn),
+        phone,
+        dateOfBirth,
+      });
 
       if (!response.success) {
         setError(response.message || 'Could not create your account.');
@@ -193,6 +204,56 @@ export default function SignupPage() {
                 className="w-full rounded-lg border border-outline-variant bg-surface-lowest py-3 pl-10 pr-4 text-body-md text-on-surface outline-none transition placeholder:text-outline/50 focus:border-secondary focus:shadow-focus"
               />
             </div>
+          </div>
+
+          {/* SSN & Phone */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <label htmlFor="ssn" className="block text-label-caps uppercase text-on-surface-variant">
+                SSN
+              </label>
+              <input
+                id="ssn"
+                type="text"
+                inputMode="numeric"
+                placeholder="14 digits"
+                value={ssn}
+                onChange={(e) => setSsn(e.target.value)}
+                disabled={isSubmitting}
+                className="w-full rounded-lg border border-outline-variant bg-surface-lowest px-4 py-3 text-body-md text-on-surface outline-none transition placeholder:text-outline/50 focus:border-secondary focus:shadow-focus"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label htmlFor="phone" className="block text-label-caps uppercase text-on-surface-variant">
+                Phone Number
+              </label>
+              <input
+                id="phone"
+                type="tel"
+                autoComplete="tel"
+                placeholder="01xxxxxxxxx"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                disabled={isSubmitting}
+                className="w-full rounded-lg border border-outline-variant bg-surface-lowest px-4 py-3 text-body-md text-on-surface outline-none transition placeholder:text-outline/50 focus:border-secondary focus:shadow-focus"
+              />
+            </div>
+          </div>
+
+          {/* Date of Birth */}
+          <div className="space-y-2">
+            <label htmlFor="dateOfBirth" className="block text-label-caps uppercase text-on-surface-variant">
+              Date of Birth
+            </label>
+            <input
+              id="dateOfBirth"
+              type="date"
+              value={dateOfBirth}
+              onChange={(e) => setDateOfBirth(e.target.value)}
+              disabled={isSubmitting}
+              className="w-full rounded-lg border border-outline-variant bg-surface-lowest px-4 py-3 text-body-md text-on-surface outline-none transition focus:border-secondary focus:shadow-focus"
+            />
           </div>
 
           {/* Password */}
