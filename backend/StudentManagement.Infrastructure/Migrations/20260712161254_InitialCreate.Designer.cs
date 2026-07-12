@@ -12,8 +12,8 @@ using StudentManagement.Infrastructure.Data;
 namespace StudentManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260712124050_AddDriverStatus")]
-    partial class AddDriverStatus
+    [Migration("20260712161254_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
