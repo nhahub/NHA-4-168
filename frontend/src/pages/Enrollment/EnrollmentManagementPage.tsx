@@ -619,7 +619,7 @@ setEditGrade("");
   onClick={() => setShowEditModal(false)}
 >
     <div
-  className="w-full max-w-md rounded-xl bg-white p-6 shadow-xl"
+  className="w-full max-w-md rounded-xl bg-surface-lowest p-6 shadow-xl"
   onClick={(e) => e.stopPropagation()}
 >
 

@@ -95,7 +95,7 @@ if (isLoading) {
         {/* Summary */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
-          <div className="bg-white rounded-xl border p-6 shadow-sm">
+          <div className="bg-surface-lowest rounded-xl border p-6 shadow-sm">
             <p className="text-xs uppercase text-gray-500 font-semibold">
               Total Paid
             </p>
@@ -109,7 +109,7 @@ if (isLoading) {
             </p>
           </div>
 
-          <div className="bg-white rounded-xl border p-6 shadow-sm">
+          <div className="bg-surface-lowest rounded-xl border p-6 shadow-sm">
             <p className="text-xs uppercase text-gray-500 font-semibold">
               Outstanding
             </p>
@@ -123,7 +123,7 @@ if (isLoading) {
             </p>
           </div>
 
-          <div className="bg-white rounded-xl border p-6 shadow-sm">
+          <div className="bg-surface-lowest rounded-xl border p-6 shadow-sm">
             <p className="text-xs uppercase text-gray-500 font-semibold">
               Refunds
             </p>
@@ -137,7 +137,7 @@ if (isLoading) {
             </p>
           </div>
 
-                    <div className="bg-white rounded-xl border p-6 shadow-sm">
+                    <div className="bg-surface-lowest rounded-xl border p-6 shadow-sm">
             <p className="text-xs uppercase text-gray-500 font-semibold">
               Pending Amount
             </p>
@@ -157,7 +157,7 @@ if (isLoading) {
     
     {/* Table */}
 
-    <div className="bg-white rounded-xl border shadow-sm overflow-hidden">
+    <div className="bg-surface-lowest rounded-xl border shadow-sm overflow-hidden">
       <div className="px-6 py-5 bg-gray-50 border-b  flex justify-between items-center">
         <div className="flex justify-between items-center w-full">
   <h2 className="text-xl font-semibold text-gray-900">
@@ -276,7 +276,7 @@ if (isLoading) {
           </tbody>
         </table>
       </div>
-      <div className="border-t bg-white px-6 py-4 flex items-center justify-between">
+      <div className="border-t bg-surface-lowest px-6 py-4 flex items-center justify-between">
   <p className="text-sm text-gray-500">
     {payments.length === 0
   ? "No transactions"
@@ -336,7 +336,7 @@ payments.length
       on premium courses.
     </p>
 
-    <button className="bg-white text-blue-900 font-semibold px-6 py-3 rounded-xl">
+    <button className="bg-surface-lowest text-blue-900 font-semibold px-6 py-3 rounded-xl">
       Apply Now
     </button>
 
@@ -344,7 +344,7 @@ payments.length
 
   {/* Support */}
 
-  <div className="bg-white border rounded-2xl p-8 shadow-sm">
+  <div className="bg-surface-lowest border rounded-2xl p-8 shadow-sm">
 
     <h2 className="text-2xl font-bold mb-3">
       Payment Support

@@ -49,11 +49,11 @@ export default function InstructorDetailPage() {
   }, [navigate, parsedSsn]);
 
   if (isLoading) {
-    return <div className="rounded-xl border border-card-border bg-white p-6 text-body-sm text-on-surface-variant shadow-card">Loading instructor...</div>;
+    return <div className="rounded-xl border border-card-border bg-surface-lowest p-6 text-body-sm text-on-surface-variant shadow-card">Loading instructor...</div>;
   }
 
   if (error || !instructor) {
-    return <div className="rounded-xl border border-card-border bg-white p-6 text-body-sm text-error shadow-card">{error || 'Instructor not found.'}</div>;
+    return <div className="rounded-xl border border-card-border bg-surface-lowest p-6 text-body-sm text-error shadow-card">{error || 'Instructor not found.'}</div>;
   }
 
   return (
@@ -78,7 +78,7 @@ export default function InstructorDetailPage() {
         </Link>
       </div>
 
-      <section className="rounded-xl border border-card-border bg-white p-6 shadow-card">
+      <section className="rounded-xl border border-card-border bg-surface-lowest p-6 shadow-card">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
           <ProfileField label="Email" value={instructor.email} />
           <ProfileField label="Phone" value={instructor.phone || '—'} />
@@ -88,7 +88,7 @@ export default function InstructorDetailPage() {
         </div>
       </section>
 
-      <section className="rounded-xl border border-card-border bg-white shadow-card">
+      <section className="rounded-xl border border-card-border bg-surface-lowest shadow-card">
         <div className="border-b border-outline-variant p-6">
           <h2 className="text-title-sm font-semibold text-on-surface">Assigned Courses</h2>
           <p className="mt-1 text-body-sm text-on-surface-variant">Courses this instructor currently teaches.</p>

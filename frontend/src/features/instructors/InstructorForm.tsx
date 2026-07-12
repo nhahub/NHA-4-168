@@ -43,7 +43,7 @@ export function InstructorForm({ mode, initialInstructor, isSubmitting, error, o
   };
 
   return (
-    <form onSubmit={handleSubmit} className="rounded-xl border border-card-border bg-white p-6 shadow-card">
+    <form onSubmit={handleSubmit} className="rounded-xl border border-card-border bg-surface-lowest p-6 shadow-card">
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
         <label className="block text-[12px] font-semibold uppercase tracking-[0.08em] text-on-surface-variant">
           SSN

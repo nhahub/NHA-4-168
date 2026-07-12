@@ -98,7 +98,7 @@ const summaryCards = [
 
 
         {enrollments.length > 0 ? (
-          <div className="bg-white rounded-xl border border-outline-variant shadow-sm overflow-hidden">
+          <div className="bg-surface-lowest rounded-xl border border-outline-variant shadow-sm overflow-hidden">
 
             <div className="px-6 py-5 bg-gray-50 border-b border-gray-200 flex justify-between items-center">
 
@@ -218,7 +218,7 @@ const summaryCards = [
 
         ) : (
 
-          <div className="bg-white rounded-xl border border-outline-variant shadow-sm p-16 text-center">
+          <div className="bg-surface-lowest rounded-xl border border-outline-variant shadow-sm p-16 text-center">
 
             <div className="text-6xl mb-6">
               📚
@@ -261,7 +261,7 @@ function SummaryCard({
 }) {
 
   return (
-    <div className="bg-white p-6 rounded-xl border border-outline-variant shadow-sm flex items-center gap-4">
+    <div className="bg-surface-lowest p-6 rounded-xl border border-outline-variant shadow-sm flex items-center gap-4">
 
       <div className="w-12 h-12 rounded-lg bg-primary-fixed flex items-center justify-center">
   {icon}

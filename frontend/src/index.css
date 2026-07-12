@@ -23,7 +23,7 @@
   --color-primary: #091426;
   --color-primary-container: #1e293b;
   --color-on-primary: #ffffff;
-  --color-on-primary-container: #8590a6;
+  --color-on-primary-container: #a3adc2;
 
   --color-secondary: #0058be;
   --color-secondary-container: #2170e4;
@@ -52,7 +52,7 @@
   --color-input-border: #d1d5db;
   --color-input-border-focus: #0058be;
   --color-sidebar-bg: #1e293b;
-  --color-sidebar-inactive: #8590a6;
+  --color-sidebar-inactive: #a3adc2;
   --color-sidebar-active-accent: #0058be;
   --color-table-row-hover: #f1f5f9;
 
@@ -88,6 +88,36 @@
   --shadow-card: 0px 1px 3px rgba(0, 0, 0, 0.10);
   --shadow-modal: 0px 10px 15px -3px rgba(0, 0, 0, 0.10);
   --shadow-focus: 0 0 0 3px rgba(0, 88, 190, 0.25);
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+.dark {
+  --color-surface: #14181f;
+  --color-surface-dim: #0d1015;
+  --color-surface-lowest: #1a1f28;
+  --color-surface-low: #1c212b;
+  --color-surface-container: #1f2530;
+  --color-surface-high: #262d3a;
+  --color-surface-highest: #2d3543;
+  --color-surface-variant: #2d3543;
+
+  --color-on-surface: #e5e7eb;
+  --color-on-surface-variant: #9ca3af;
+
+  --color-outline: #4b5563;
+  --color-outline-variant: #374151;
+
+  --color-background: #14181f;
+  --color-on-background: #e5e7eb;
+
+  --color-card-border: #2d3543;
+  --color-input-border: #374151;
+
+  --color-table-row-hover: #1f2530;
+
+  /* primary/secondary/status tokens stay the same — navy sidebar
+     and blue accent already read fine on dark backgrounds */
 }
 
 /* ── Base ── */

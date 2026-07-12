@@ -75,11 +75,11 @@ export default function StudentDetailPage() {
   };
 
   if (isLoading) {
-    return <div className="rounded-xl border border-card-border bg-white p-6 text-body-sm text-on-surface-variant shadow-card">Loading student...</div>;
+    return <div className="rounded-xl border border-card-border bg-surface-lowest p-6 text-body-sm text-on-surface-variant shadow-card">Loading student...</div>;
   }
 
   if (error || !student) {
-    return <div className="rounded-xl border border-card-border bg-white p-6 text-body-sm text-error shadow-card">{error || 'Student not found.'}</div>;
+    return <div className="rounded-xl border border-card-border bg-surface-lowest p-6 text-body-sm text-error shadow-card">{error || 'Student not found.'}</div>;
   }
 
   const studentName = `${student.firstName} ${student.lastName}`;
@@ -116,7 +116,7 @@ export default function StudentDetailPage() {
         </div>
       </div>
 
-      <section className="rounded-xl border border-card-border bg-white p-6 shadow-card">
+      <section className="rounded-xl border border-card-border bg-surface-lowest p-6 shadow-card">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
           <ProfileField label="Status" value={<StudentStatusBadge status={student.status} />} />
           <ProfileField label="Email" value={student.email} />

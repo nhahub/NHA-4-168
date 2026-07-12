@@ -129,7 +129,7 @@ export default function TripDetailPage() {
                 <select
                   value={selectedStatus}
                   onChange={(event) => setSelectedStatus(normalizeTripStatus(event.target.value))}
-                  className="rounded-lg border border-input-border bg-white px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
+                  className="rounded-lg border border-input-border bg-surface-lowest px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
                 >
                   {tripStatuses.map((statusOption) => (
                     <option key={statusOption} value={statusOption}>
@@ -160,7 +160,7 @@ export default function TripDetailPage() {
       </section>
 
       <section className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <div className="rounded-xl border border-card-border bg-white p-6 shadow-card">
+        <div className="rounded-xl border border-card-border bg-surface-lowest p-6 shadow-card">
           <h2 className="text-title-sm text-on-background">Trip Details</h2>
           <dl className="mt-4 space-y-3">
             <div className="flex justify-between text-body-sm">

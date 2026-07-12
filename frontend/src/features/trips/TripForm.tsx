@@ -86,7 +86,7 @@ export function TripForm({ mode, initialTrip, initialValues, isSuggestionMode = 
   };
 
   return (
-    <form onSubmit={handleSubmit} className="rounded-xl border border-card-border bg-white p-6 shadow-card">
+    <form onSubmit={handleSubmit} className="rounded-xl border border-card-border bg-surface-lowest p-6 shadow-card">
       {isSuggestionMode ? (
         <div className="mb-5 rounded-lg border border-outline-variant bg-surface-container-low px-4 py-3 text-body-sm text-on-surface-variant">
           You are suggesting a trip for review. Driver and price will be assigned later by an administrator.
@@ -108,7 +108,7 @@ export function TripForm({ mode, initialTrip, initialValues, isSuggestionMode = 
               value={values.driverSsn}
               onChange={(event) => updateField('driverSsn', event.target.value)}
               disabled={isLoadingDrivers}
-              className="mt-2 w-full rounded-lg border border-input-border bg-white px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus disabled:opacity-60"
+              className="mt-2 w-full rounded-lg border border-input-border bg-surface-lowest px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus disabled:opacity-60"
             >
               <option value="">{isLoadingDrivers ? 'Loading drivers...' : 'Select a driver'}</option>
               {drivers.map((driver) => (
@@ -141,7 +141,7 @@ export function TripForm({ mode, initialTrip, initialValues, isSuggestionMode = 
             required
             value={values.destination}
             onChange={(event) => updateField('destination', event.target.value)}
-            className="mt-2 w-full rounded-lg border border-input-border bg-white px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
+            className="mt-2 w-full rounded-lg border border-input-border bg-surface-lowest px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
           >
             <option value="">Select a destination</option>
             {TRIP_DESTINATIONS.map((option) => (
@@ -158,7 +158,7 @@ export function TripForm({ mode, initialTrip, initialValues, isSuggestionMode = 
             required
             value={values.pickupArea}
             onChange={(event) => updateField('pickupArea', event.target.value)}
-            className="mt-2 w-full rounded-lg border border-input-border bg-white px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
+            className="mt-2 w-full rounded-lg border border-input-border bg-surface-lowest px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
           >
             <option value="">Select a pickup area</option>
             {TRIP_PICKUP_AREAS.map((option) => (

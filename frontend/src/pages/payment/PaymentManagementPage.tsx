@@ -215,7 +215,7 @@ if (loading) {
 
           <div
             key={item.title}
-            className="bg-white border rounded-2xl shadow-sm p-6"
+            className="bg-surface-lowest border rounded-2xl shadow-sm p-6"
           >
 
             <div className="flex items-start justify-between">
@@ -251,7 +251,7 @@ if (loading) {
       </div>
         {/* Payment Table */}
 
-<div className="bg-white rounded-2xl border shadow-sm overflow-hidden">
+<div className="bg-surface-lowest rounded-2xl border shadow-sm overflow-hidden">
 
   {/* Filter Bar */}
 
@@ -478,7 +478,7 @@ setShowUpdateModal(true);
     {showUpdateModal && selectedPayment && (
   <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
 
-    <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-6">
+    <div className="bg-surface-lowest rounded-2xl shadow-xl w-full max-w-md p-6">
 
       <div className="flex items-center justify-between mb-6">
 
@@ -569,7 +569,7 @@ setShowUpdateModal(true);
 {showRefundModal && selectedPayment && (
   <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
 
-    <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-6">
+    <div className="bg-surface-lowest rounded-2xl shadow-xl w-full max-w-md p-6">
 
       <div className="flex items-center justify-between mb-6">
 
@@ -662,7 +662,7 @@ console.log(selectedPayment);
 
 {showCreateModal && (
   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-    <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
+    <div className="w-full max-w-md rounded-2xl bg-surface-lowest p-6 shadow-xl">
 
       <h2 className="mb-6 text-2xl font-bold">
         Manual Payment
