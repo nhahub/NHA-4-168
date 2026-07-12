@@ -117,4 +117,21 @@ public class StudentsController : ControllerBase
         return body.EnumerateObject()
             .Any(property => RestrictedSelfUpdateFields.Contains(property.Name));
     }
+
+    [HttpGet("me")]
+    [Authorize(Roles = "Student")]
+    public async Task<ActionResult> GetCurrentStudent()
+    {
+        var userId = GetUserId();
+
+        if (string.IsNullOrWhiteSpace(userId))
+        {
+            return Unauthorized();
+        }
+
+        var student = await _studentService.GetCurrentStudentAsync(userId);
+
+        return Ok(student);
+    }
 }
+

@@ -8,17 +8,7 @@ type SidebarProps = {
   onClose: () => void
 }
 
-const navigationItems = [
-  { label: 'Dashboard', icon: LayoutDashboard, to: '/admin', enabled: true,  },
-  { label: 'Students', icon: GraduationCap, to: '/students', enabled: true,  },
-  { label: 'Instructors', icon: Users, to: '/instructors', enabled: false,  },
-  { label: 'Courses', icon: BookOpen, to: '/courses', enabled: false,  },
-  { label: 'Enrollments', icon: BookOpen, to: '/enrollments', enabled: false,  },
-  { label: 'Payments', icon: Wallet, to: '/payments', enabled: false,  },
-  { label: 'Services', icon: LifeBuoy, to: '/services', enabled: false,  },
-  { label: 'Drivers', icon: BusFront, to: '/drivers', enabled: true, adminOnly: false },
-  { label: 'Trips', icon: BusFront, to: '/trips', enabled: true, adminOnly: false },
-]
+
 
 function Sidebar({ isOpen, onClose }: SidebarProps) {
   const location = useLocation()
@@ -36,6 +26,49 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
   const roleLabel = user?.roles?.join(', ') || 'User'
   const avatarChar = firstName.charAt(0).toUpperCase()
   const canAccessAdminViews = isAdmin(user?.roles)
+
+  const navigationItems = [
+  { label: 'Dashboard', icon: LayoutDashboard, to: '/admin', enabled: true,  },
+  { label: 'Students', icon: GraduationCap, to: '/students', enabled: true,  },
+  { label: 'Instructors', icon: Users, to: '/instructors', enabled: false,  },
+  { label: 'Courses', icon: BookOpen, to: '/courses', enabled: false,  },
+
+  
+  canAccessAdminViews
+  ? {
+      label: 'Enrollments',
+      icon: BookOpen,
+      to: '/admin/enrollments',
+      enabled: true,
+    }
+  : {
+      label: 'My Enrollments',
+      icon: BookOpen,
+      to: '/student/enrollments',
+      enabled: true,
+    },
+
+
+  canAccessAdminViews
+  ? {
+      label: 'Payments',
+      icon: Wallet,
+      to: '/admin/payments',
+      enabled: true,
+    }
+  : {
+      label: 'Payment History',
+      icon: Wallet,
+      to: '/student/payments',
+      enabled: true,
+    },
+
+
+  { label: 'Services', icon: LifeBuoy, to: '/services', enabled: false,  },
+  { label: 'Drivers', icon: BusFront, to: '/drivers', enabled: true, adminOnly: false },
+  { label: 'Trips', icon: BusFront, to: '/trips', enabled: true, adminOnly: false },
+]
+
   const visibleNavigationItems = navigationItems.filter((item) => !item.adminOnly || canAccessAdminViews)
 
   return (

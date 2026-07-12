@@ -17,6 +17,11 @@ import TripsPage from '../pages/admin/TripsPage';
 import TripFormPage from '../pages/admin/TripFormPage';
 import TripDetailPage from '../pages/admin/TripDetailPage';
 import { isAdmin } from '../utils/auth';
+import EnrollmentManagementPage from "../pages/Enrollment/EnrollmentManagementPage";
+import StudentEnrollmentsPage from "../pages/Enrollment/StudentEnrollmentsPage";
+import PaymentManagementPage from "../pages/payment/PaymentManagementPage";
+import StudentPaymentHistoryPage from "../pages/payment/StudentPaymentHistoryPage";
+import StudentCompletePaymentPage from "../pages/payment/StudentCompletePaymentPage";
 
 function HomeRedirect() {
   const { isAuthenticated, user } = useAuth();
@@ -48,4 +53,46 @@ export const routes: RouteObject[] = [
   { path: 'trips/new', element: <ProtectedRoute allowedRoles={['admin', 'student']}><TripFormPage /></ProtectedRoute> },
   { path: 'trips/:tripId', element: <ProtectedRoute allowedRoles={['admin', 'student']}><TripDetailPage /></ProtectedRoute> },
   { path: 'trips/:tripId/edit', element: <ProtectedRoute allowedRoles={['admin']}><TripFormPage /></ProtectedRoute> },
+  {
+  path: "/student/enrollments",
+  element: (
+    <ProtectedRoute allowedRoles={["student"]}>
+      <StudentEnrollmentsPage />
+    </ProtectedRoute>
+  ),
+},
+{
+  path: "/admin/enrollments",
+  element: (
+    <ProtectedRoute allowedRoles={["admin"]}>
+      <EnrollmentManagementPage />
+    </ProtectedRoute>
+  ),
+},
+{
+  path: "/student/payments",
+  element: (
+    <ProtectedRoute allowedRoles={["student"]}>
+      <StudentPaymentHistoryPage />
+    </ProtectedRoute>
+  ),
+},
+{
+  path: "/student/payments/complete",
+  element: (
+    <ProtectedRoute allowedRoles={["student"]}>
+      <StudentCompletePaymentPage />
+    </ProtectedRoute>
+  ),
+},
+{
+  path: "/admin/payments",
+  element: (
+    <ProtectedRoute allowedRoles={["admin"]}>
+      <PaymentManagementPage />
+    </ProtectedRoute>
+  ),
+},
 ];
+
+

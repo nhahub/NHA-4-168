@@ -99,6 +99,8 @@ builder.Services.AddScoped<IValidator<CreateStudentRequest>, CreateStudentReques
 builder.Services.AddScoped<IValidator<UpdateStudentRequest>, UpdateStudentRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateStudentStatusRequest>, UpdateStudentStatusRequestValidator>();
 builder.Services.AddScoped<IValidator<StudentQueryParameters>, StudentQueryParametersValidator>();
+builder.Services.AddScoped<EnrollmentService>();
+builder.Services.AddScoped<PaymentService>();
 
 var app = builder.Build();
 

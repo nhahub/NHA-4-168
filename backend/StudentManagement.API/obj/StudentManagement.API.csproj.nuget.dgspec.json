@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Unifloww\\NHA-4-168\\NHA-4-168\\backend\\StudentManagement.API\\StudentManagement.API.csproj": {}
+    "E:\\DEPI_PROJECT\\NHA-4-168\\backend\\StudentManagement.API\\StudentManagement.API.csproj": {}
   },
   "projects": {
-    "D:\\Unifloww\\NHA-4-168\\NHA-4-168\\backend\\StudentManagement.API\\StudentManagement.API.csproj": {
+    "E:\\DEPI_PROJECT\\NHA-4-168\\backend\\StudentManagement.API\\StudentManagement.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Unifloww\\NHA-4-168\\NHA-4-168\\backend\\StudentManagement.API\\StudentManagement.API.csproj",
+        "projectUniqueName": "E:\\DEPI_PROJECT\\NHA-4-168\\backend\\StudentManagement.API\\StudentManagement.API.csproj",
         "projectName": "StudentManagement.API",
-        "projectPath": "D:\\Unifloww\\NHA-4-168\\NHA-4-168\\backend\\StudentManagement.API\\StudentManagement.API.csproj",
-        "packagesPath": "C:\\Users\\Mazen\\.nuget\\packages\\",
-        "outputPath": "D:\\Unifloww\\NHA-4-168\\NHA-4-168\\backend\\StudentManagement.API\\obj\\",
+        "projectPath": "E:\\DEPI_PROJECT\\NHA-4-168\\backend\\StudentManagement.API\\StudentManagement.API.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "E:\\DEPI_PROJECT\\NHA-4-168\\backend\\StudentManagement.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Mazen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -30,17 +30,16 @@
         },
         "frameworks": {
           "net10.0": {
-            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "D:\\Unifloww\\NHA-4-168\\NHA-4-168\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj": {
-                "projectPath": "D:\\Unifloww\\NHA-4-168\\NHA-4-168\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj"
+              "E:\\DEPI_PROJECT\\NHA-4-168\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj": {
+                "projectPath": "E:\\DEPI_PROJECT\\NHA-4-168\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj"
               },
-              "D:\\Unifloww\\NHA-4-168\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj": {
-                "projectPath": "D:\\Unifloww\\NHA-4-168\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj"
+              "E:\\DEPI_PROJECT\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj": {
+                "projectPath": "E:\\DEPI_PROJECT\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj"
               },
-              "D:\\Unifloww\\NHA-4-168\\NHA-4-168\\backend\\StudentManagement.Infrastructure\\StudentManagement.Infrastructure.csproj": {
-                "projectPath": "D:\\Unifloww\\NHA-4-168\\NHA-4-168\\backend\\StudentManagement.Infrastructure\\StudentManagement.Infrastructure.csproj"
+              "E:\\DEPI_PROJECT\\NHA-4-168\\backend\\StudentManagement.Infrastructure\\StudentManagement.Infrastructure.csproj": {
+                "projectPath": "E:\\DEPI_PROJECT\\NHA-4-168\\backend\\StudentManagement.Infrastructure\\StudentManagement.Infrastructure.csproj"
               }
             }
           }
@@ -55,11 +54,10 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.300"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net10.0": {
-          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
@@ -100,7 +98,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.108/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
@@ -518,20 +516,20 @@
         }
       }
     },
-    "D:\\Unifloww\\NHA-4-168\\NHA-4-168\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj": {
+    "E:\\DEPI_PROJECT\\NHA-4-168\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Unifloww\\NHA-4-168\\NHA-4-168\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj",
+        "projectUniqueName": "E:\\DEPI_PROJECT\\NHA-4-168\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj",
         "projectName": "StudentManagement.Application",
-        "projectPath": "D:\\Unifloww\\NHA-4-168\\NHA-4-168\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj",
-        "packagesPath": "C:\\Users\\Mazen\\.nuget\\packages\\",
-        "outputPath": "D:\\Unifloww\\NHA-4-168\\NHA-4-168\\backend\\StudentManagement.Application\\obj\\",
+        "projectPath": "E:\\DEPI_PROJECT\\NHA-4-168\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "E:\\DEPI_PROJECT\\NHA-4-168\\backend\\StudentManagement.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Mazen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -544,11 +542,10 @@
         },
         "frameworks": {
           "net10.0": {
-            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "D:\\Unifloww\\NHA-4-168\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj": {
-                "projectPath": "D:\\Unifloww\\NHA-4-168\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj"
+              "E:\\DEPI_PROJECT\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj": {
+                "projectPath": "E:\\DEPI_PROJECT\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj"
               }
             }
           }
@@ -563,11 +560,10 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.300"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net10.0": {
-          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "AutoMapper": {
@@ -595,7 +591,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.108/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -873,20 +869,20 @@
         }
       }
     },
-    "D:\\Unifloww\\NHA-4-168\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj": {
+    "E:\\DEPI_PROJECT\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Unifloww\\NHA-4-168\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj",
+        "projectUniqueName": "E:\\DEPI_PROJECT\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj",
         "projectName": "StudentManagement.Domain",
-        "projectPath": "D:\\Unifloww\\NHA-4-168\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj",
-        "packagesPath": "C:\\Users\\Mazen\\.nuget\\packages\\",
-        "outputPath": "D:\\Unifloww\\NHA-4-168\\NHA-4-168\\backend\\StudentManagement.Domain\\obj\\",
+        "projectPath": "E:\\DEPI_PROJECT\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "E:\\DEPI_PROJECT\\NHA-4-168\\backend\\StudentManagement.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Mazen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -899,7 +895,6 @@
         },
         "frameworks": {
           "net10.0": {
-            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {}
           }
@@ -914,11 +909,10 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.300"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net10.0": {
-          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
@@ -942,7 +936,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.108/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -1220,20 +1214,20 @@
         }
       }
     },
-    "D:\\Unifloww\\NHA-4-168\\NHA-4-168\\backend\\StudentManagement.Infrastructure\\StudentManagement.Infrastructure.csproj": {
+    "E:\\DEPI_PROJECT\\NHA-4-168\\backend\\StudentManagement.Infrastructure\\StudentManagement.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Unifloww\\NHA-4-168\\NHA-4-168\\backend\\StudentManagement.Infrastructure\\StudentManagement.Infrastructure.csproj",
+        "projectUniqueName": "E:\\DEPI_PROJECT\\NHA-4-168\\backend\\StudentManagement.Infrastructure\\StudentManagement.Infrastructure.csproj",
         "projectName": "StudentManagement.Infrastructure",
-        "projectPath": "D:\\Unifloww\\NHA-4-168\\NHA-4-168\\backend\\StudentManagement.Infrastructure\\StudentManagement.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\Mazen\\.nuget\\packages\\",
-        "outputPath": "D:\\Unifloww\\NHA-4-168\\NHA-4-168\\backend\\StudentManagement.Infrastructure\\obj\\",
+        "projectPath": "E:\\DEPI_PROJECT\\NHA-4-168\\backend\\StudentManagement.Infrastructure\\StudentManagement.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "E:\\DEPI_PROJECT\\NHA-4-168\\backend\\StudentManagement.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Mazen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -1246,14 +1240,13 @@
         },
         "frameworks": {
           "net10.0": {
-            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "D:\\Unifloww\\NHA-4-168\\NHA-4-168\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj": {
-                "projectPath": "D:\\Unifloww\\NHA-4-168\\NHA-4-168\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj"
+              "E:\\DEPI_PROJECT\\NHA-4-168\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj": {
+                "projectPath": "E:\\DEPI_PROJECT\\NHA-4-168\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj"
               },
-              "D:\\Unifloww\\NHA-4-168\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj": {
-                "projectPath": "D:\\Unifloww\\NHA-4-168\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj"
+              "E:\\DEPI_PROJECT\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj": {
+                "projectPath": "E:\\DEPI_PROJECT\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj"
               }
             }
           }
@@ -1268,11 +1261,10 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.300"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net10.0": {
-          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
@@ -1306,7 +1298,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.108/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
