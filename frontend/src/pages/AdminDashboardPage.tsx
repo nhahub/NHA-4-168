@@ -109,7 +109,6 @@ function AdminDashboardPage() {
     { label: 'Total Students', value: summary ? summary.totalStudents.toLocaleString() : '—', trend: 'Live data', icon: Users },
     { label: 'Active Enrollments', value: summary ? summary.activeEnrollments.toLocaleString() : '—', trend: 'Live data', icon: BookOpenCheck },
     { label: 'Pending Payments', value: summary ? summary.pendingPayments.toLocaleString() : '—', trend: 'Live data', icon: BadgeDollarSign },
-    { label: 'Service Requests', value: summary ? summary.pendingServiceRequests.toLocaleString() : '—', trend: 'Live data', icon: ClipboardList },
     { label: 'Active Rides', value: summary ? summary.activeRides.toLocaleString() : '—', trend: 'Live data', icon: BusFront },
     { label: 'Total Revenue', value: summary ? formatCurrency(summary.totalRevenue) : '—', trend: 'Live data', icon: Layers3 },
   ]), [summary]);
@@ -144,7 +143,7 @@ function AdminDashboardPage() {
         </button>
       </section>
 
-      <section className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+      <section className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
         {statCards.map((card) => {
           const Icon = card.icon;
 
