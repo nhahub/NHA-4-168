@@ -40,10 +40,36 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
   const navigationItems = [
   { label: 'Dashboard', icon: LayoutDashboard, to: '/admin', enabled: true,  },
   { label: 'Students', icon: GraduationCap, to: '/students', enabled: true,  },
-  { label: 'Instructors', icon: Users, to: '/instructors', enabled: false,  },
-  { label: 'Courses', icon: BookOpen, to: '/courses', enabled: false,  },
 
-  
+  canAccessAdminViews
+  ? {
+      label: 'Instructors',
+      icon: Users,
+      to: '/instructors',
+      enabled: true,
+    }
+  : {
+      label: 'My Instructors',
+      icon: Users,
+      to: '/student/instructors',
+      enabled: false,
+    },
+
+    canAccessAdminViews
+  ? {
+      label: 'Courses',
+      icon: BookOpen,
+      to: '/courses',
+      enabled: true,
+    }
+  : {
+      label: 'My Courses',
+      icon: BookOpen,
+      to: '/student/courses',
+      enabled: false,
+    },
+
+
   canAccessAdminViews
   ? {
       label: 'Enrollments',
