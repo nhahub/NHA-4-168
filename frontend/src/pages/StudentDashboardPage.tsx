@@ -2,9 +2,12 @@ import { useMemo } from 'react';
 import { BookOpen, BusFront, Wallet, GraduationCap } from 'lucide-react';
 import { useStudentSummary } from '../hooks/useStudentSummary'; // You'll need to create this hook
 import { formatCurrency } from '../utils/formatters'; // Assuming you have formatters
+import { useStudentActivities } from '../hooks/useStudentActivities';
 
 export default function StudentDashboardPage() {
   const { data: summary, isLoading } = useStudentSummary();
+
+  const { data: activities = [] } = useStudentActivities();
 
   const statCards = useMemo(() => ([
     { label: 'Enrolled Courses', value: summary?.activeCourses ?? 0, icon: BookOpen },
@@ -44,9 +47,27 @@ export default function StudentDashboardPage() {
       {/* Placeholder for Student-specific list (e.g., Courses or Rides) */}
       <section className="rounded-xl border border-outline-variant bg-white p-6 shadow-sm">
         <h4 className="text-title-sm font-semibold text-on-surface mb-4">My Recent Activity</h4>
-        <div className="text-body-sm text-on-surface-variant">
-          Activity log will appear here...
-        </div>
+        {activities.length === 0 ? (
+          <div className="text-body-sm text-on-surface-variant">
+            No recent activity.
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {activities.map((activity, index) => (
+              <div
+                key={index}
+                className="flex items-center justify-between border-b border-outline-variant pb-3 last:border-0"
+              >
+                <div>
+                  <p className="font-medium">{activity.title}</p>
+                  <p className="text-sm text-on-surface-variant">
+                    {new Date(activity.occurredAt).toLocaleString()}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </section>
     </div>
   );
