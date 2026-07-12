@@ -42,8 +42,8 @@ public class StudentsController : ControllerBase
         return Ok(students);
     }
 
-    [HttpGet("{ssn:int}")]
-    public async Task<ActionResult> GetStudent(int ssn)
+    [HttpGet("{ssn:long}")]
+    public async Task<ActionResult> GetStudent(long ssn)
     {
         var student = await _studentService.GetStudentAsync(ssn, GetUserId(), GetRoles());
         return Ok(student);
@@ -57,8 +57,8 @@ public class StudentsController : ControllerBase
         return CreatedAtAction(nameof(GetStudent), new { ssn = student.StudentSsn }, student);
     }
 
-    [HttpPut("{ssn:int}")]
-    public async Task<ActionResult> UpdateStudent(int ssn, [FromBody] JsonElement body)
+    [HttpPut("{ssn:long}")]
+    public async Task<ActionResult> UpdateStudent(long ssn, [FromBody] JsonElement body)
     {
         if (!IsAdmin() && ContainsRestrictedSelfUpdateField(body))
         {
@@ -80,9 +80,9 @@ public class StudentsController : ControllerBase
         return Ok(student);
     }
 
-    [HttpPatch("{ssn:int}/status")]
+    [HttpPatch("{ssn:long}/status")]
     [Authorize(Roles = "Admin")]
-    public async Task<ActionResult> UpdateStudentStatus(int ssn, [FromBody] UpdateStudentStatusRequest request)
+    public async Task<ActionResult> UpdateStudentStatus(long ssn, [FromBody] UpdateStudentStatusRequest request)
     {
         var status = await _studentService.UpdateStudentStatusAsync(ssn, request);
         return Ok(status);

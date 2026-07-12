@@ -270,8 +270,8 @@ namespace StudentManagement.Infrastructure.Migrations
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
 
-                    b.Property<int>("InstructorSsn")
-                        .HasColumnType("int");
+                    b.Property<long>("InstructorSsn")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime?>("AssignedOn")
                         .HasColumnType("datetime2");
@@ -289,8 +289,8 @@ namespace StudentManagement.Infrastructure.Migrations
 
             modelBuilder.Entity("StudentManagement.Domain.Entities.Driver", b =>
                 {
-                    b.Property<int>("DriverSsn")
-                        .HasColumnType("int");
+                    b.Property<long>("DriverSsn")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("CarModel")
                         .HasMaxLength(50)
@@ -374,8 +374,8 @@ namespace StudentManagement.Infrastructure.Migrations
                         .HasColumnType("nvarchar(20)")
                         .HasDefaultValue("Active");
 
-                    b.Property<int>("StudentSsn")
-                        .HasColumnType("int");
+                    b.Property<long>("StudentSsn")
+                        .HasColumnType("bigint");
 
                     b.HasKey("EnrollmentId");
 
@@ -388,8 +388,8 @@ namespace StudentManagement.Infrastructure.Migrations
 
             modelBuilder.Entity("StudentManagement.Domain.Entities.Instructor", b =>
                 {
-                    b.Property<int>("InstructorSsn")
-                        .HasColumnType("int");
+                    b.Property<long>("InstructorSsn")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -514,8 +514,8 @@ namespace StudentManagement.Infrastructure.Migrations
 
             modelBuilder.Entity("StudentManagement.Domain.Entities.Student", b =>
                 {
-                    b.Property<int>("StudentSsn")
-                        .HasColumnType("int");
+                    b.Property<long>("StudentSsn")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Address")
                         .HasMaxLength(255)
@@ -585,8 +585,8 @@ namespace StudentManagement.Infrastructure.Migrations
                         .HasColumnType("nvarchar(20)")
                         .HasDefaultValue("Pending");
 
-                    b.Property<int>("StudentSsn")
-                        .HasColumnType("int");
+                    b.Property<long>("StudentSsn")
+                        .HasColumnType("bigint");
 
                     b.HasKey("StudentServiceId");
 
@@ -610,8 +610,8 @@ namespace StudentManagement.Infrastructure.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<int>("DriverSsn")
-                        .HasColumnType("int");
+                    b.Property<long>("DriverSsn")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime?>("EstimatedTimeOfArrival")
                         .HasColumnType("datetime2");
@@ -643,8 +643,8 @@ namespace StudentManagement.Infrastructure.Migrations
                     b.Property<int>("TripId")
                         .HasColumnType("int");
 
-                    b.Property<int>("StudentSsn")
-                        .HasColumnType("int");
+                    b.Property<long>("StudentSsn")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("JoinedAt")
                         .HasColumnType("datetime2");

@@ -9,7 +9,7 @@ public class Enrollment
     public int EnrollmentId { get; set; }
 
     [ForeignKey(nameof(Student))]
-    public int StudentSsn { get; set; }
+    public long StudentSsn { get; set; }
 
     [ForeignKey(nameof(Course))]
     public int CourseId { get; set; }

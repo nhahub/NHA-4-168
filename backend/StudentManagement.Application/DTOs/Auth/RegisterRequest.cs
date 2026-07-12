@@ -21,7 +21,7 @@ public class RegisterRequest
     public string LastName { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "SSN is required")]
-    public int StudentSsn { get; set; }
+    public long StudentSsn { get; set; }
 
     [Required(ErrorMessage = "Phone number is required")]
     [Phone(ErrorMessage = "Invalid phone number format")]

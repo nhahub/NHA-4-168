@@ -5,7 +5,7 @@ namespace StudentManagement.Application.DTOs.Driver;
 public class CreateDriverDto
 {
     [Required]
-    public int DriverSsn { get; set; }
+    public long DriverSsn { get; set; }
 
     [Required, MaxLength(50)]
     public string FirstName { get; set; } = string.Empty;

@@ -9,7 +9,7 @@ public class Trip
     public int TripId { get; set; }
 
     [ForeignKey(nameof(Driver))]
-    public int DriverSsn { get; set; }
+    public long DriverSsn { get; set; }
 
     public DateTime? EstimatedTimeOfArrival { get; set; }
 

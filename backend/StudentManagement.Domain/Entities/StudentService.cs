@@ -9,7 +9,7 @@ public class StudentService
     public int StudentServiceId { get; set; }
 
     [ForeignKey(nameof(Student))]
-    public int StudentSsn { get; set; }
+    public long StudentSsn { get; set; }
 
     [ForeignKey(nameof(Service))]
     public int ServiceId { get; set; }

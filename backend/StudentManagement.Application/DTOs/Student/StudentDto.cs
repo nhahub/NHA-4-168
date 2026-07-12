@@ -2,7 +2,7 @@ namespace StudentManagement.Application.DTOs.Student;
 
 public class StudentDto
 {
-    public int StudentSsn { get; set; }
+    public long StudentSsn { get; set; }
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;

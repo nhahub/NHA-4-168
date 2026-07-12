@@ -37,7 +37,7 @@ public class TripRepository : ITripRepository
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<Trip>> GetByDriverSsnAsync(int driverSsn)
+    public async Task<IEnumerable<Trip>> GetByDriverSsnAsync(long driverSsn)
     {
         return await _context.Trips
             .Include(t => t.Driver)
@@ -47,7 +47,7 @@ public class TripRepository : ITripRepository
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<Trip>> GetByStudentSsnAsync(int studentSsn)
+    public async Task<IEnumerable<Trip>> GetByStudentSsnAsync(long studentSsn)
     {
         return await _context.Trips
             .Include(t => t.Driver)
@@ -72,17 +72,17 @@ public class TripRepository : ITripRepository
         _context.Trips.Remove(trip);
     }
 
-    public async Task<bool> DriverExistsAsync(int driverSsn)
+    public async Task<bool> DriverExistsAsync(long driverSsn)
     {
         return await _context.Drivers.AnyAsync(d => d.DriverSsn == driverSsn);
     }
 
-    public async Task<bool> StudentExistsAsync(int studentSsn)
+    public async Task<bool> StudentExistsAsync(long studentSsn)
     {
         return await _context.Students.AnyAsync(s => s.StudentSsn == studentSsn);
     }
 
-    public async Task<bool> IsStudentInTripAsync(int tripId, int studentSsn)
+    public async Task<bool> IsStudentInTripAsync(int tripId, long studentSsn)
     {
         return await _context.TripStudents
             .AnyAsync(ts => ts.TripId == tripId && ts.StudentSsn == studentSsn);

@@ -3,7 +3,7 @@ namespace StudentManagement.Application.DTOs.Enrollment;
 public class EnrollmentDto
 {
     public int EnrollmentId { get; set; }
-    public int StudentSsn { get; set; }
+    public long StudentSsn { get; set; }
     public string StudentName { get; set; } = string.Empty;
 
     public int CourseId { get; set; }

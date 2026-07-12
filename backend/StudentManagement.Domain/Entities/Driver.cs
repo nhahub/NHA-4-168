@@ -7,7 +7,7 @@ namespace StudentManagement.Domain.Entities;
 public class Driver
 {
     [Key]
-    public int DriverSsn { get; set; }
+    public long DriverSsn { get; set; }
 
     [Required, MaxLength(50)]
     public string FirstName { get; set; } = string.Empty;

@@ -25,7 +25,7 @@ public class DriversController : ControllerBase
 
     // 2️⃣ GET: api/drivers/{ssn}
     [HttpGet("{ssn}")]
-    public async Task<IActionResult> GetBySsn(int ssn)
+    public async Task<IActionResult> GetBySsn(long ssn)
     {
         var driver = await _driverService.GetDriverBySsnAsync(ssn);
         if (driver == null)
@@ -47,7 +47,7 @@ public class DriversController : ControllerBase
 
     // 4️⃣ PUT: api/drivers/{ssn}
     [HttpPut("{ssn}")]
-    public async Task<IActionResult> Update(int ssn, [FromBody] UpdateDriverDto dto)
+    public async Task<IActionResult> Update(long ssn, [FromBody] UpdateDriverDto dto)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
 
@@ -61,7 +61,7 @@ public class DriversController : ControllerBase
 
     // 5️⃣ DELETE: api/drivers/{ssn}
     [HttpDelete("{ssn}")]
-    public async Task<IActionResult> Delete(int ssn)
+    public async Task<IActionResult> Delete(long ssn)
     {
         var success = await _driverService.DeleteDriverAsync(ssn);
         if (!success)
