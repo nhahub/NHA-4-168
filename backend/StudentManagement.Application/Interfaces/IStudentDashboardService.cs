@@ -8,4 +8,6 @@ public interface IStudentDashboardService
     Task<StudentDashboardSummaryDto> GetSummaryAsync(string userId);
     Task<IEnumerable<StudentCourseDto>> GetCoursesAsync(string userId);
     Task<IEnumerable<TripDto>> GetTripsAsync(string userId);
+
+    Task<IReadOnlyList<ActivityLogDto>> GetRecentActivitiesAsync(string userId, int limit);
 }

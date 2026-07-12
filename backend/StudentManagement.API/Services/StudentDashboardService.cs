@@ -35,9 +35,11 @@ public class StudentDashboardService : IStudentDashboardService
             .AsNoTracking()
             .CountAsync(e => e.StudentSsn == student.StudentSsn && e.Status == "Active");
 
+        var activeStatuses = new[] { "Pending", "Available", "InProgress" };
+
         var activeRides = await _context.TripStudents
             .AsNoTracking()
-            .CountAsync(ts => ts.StudentSsn == student.StudentSsn && ts.Trip != null && ts.Trip.Status == "InProgress");
+            .CountAsync(ts => ts.StudentSsn == student.StudentSsn && ts.Trip != null && activeStatuses.Contains(ts.Trip.Status));
 
         var pendingPayments = await _context.Payments
             .AsNoTracking()
@@ -113,5 +115,117 @@ public class StudentDashboardService : IStudentDashboardService
                 }).ToList()
             })
             .ToListAsync();
+    }
+
+    public async Task<IReadOnlyList<ActivityLogDto>> GetRecentActivitiesAsync(string userId, int limit)
+    {
+        var student = await _context.Students
+            .AsNoTracking()
+            .FirstOrDefaultAsync(s => s.UserId == userId);
+
+        if (student == null)
+            return new List<ActivityLogDto>();
+
+        var maxLimit = limit <= 0 ? int.MaxValue : limit;
+
+        string BuildFullName(string firstName, string lastName)
+        {
+            return $"{firstName} {lastName}".Trim();
+        }
+
+        var enrollmentActivities = await _context.Enrollments
+            .AsNoTracking()
+            .Where(e => e.StudentSsn == student.StudentSsn)
+            .OrderByDescending(e => e.EnrolledOn ?? DateTime.MinValue)
+            .Select(e => new
+            {
+                e.Course.CourseName,
+                OccurredAt = e.EnrolledOn ?? DateTime.MinValue
+            })
+            .ToListAsync();
+
+        var paymentActivities = await _context.Payments
+            .AsNoTracking()
+            .Where(p => p.Enrollment.StudentSsn == student.StudentSsn)
+            .OrderByDescending(p => p.PaymentDate ?? DateTime.MinValue)
+            .Select(p => new
+            {
+                p.PaymentId,
+                p.Enrollment.Course.CourseName,
+                p.Status,
+                OccurredAt = p.PaymentDate ?? DateTime.MinValue
+            })
+            .ToListAsync();
+
+        var serviceActivities = await _context.StudentServices
+            .AsNoTracking()
+            .Where(ss => ss.StudentSsn == student.StudentSsn)
+            .OrderByDescending(ss => ss.RequestedDate ?? DateTime.MinValue)
+            .Select(ss => new
+            {
+                ss.Service.ServiceName,
+                ss.Status,
+                OccurredAt = ss.RequestedDate ?? DateTime.MinValue
+            })
+            .ToListAsync();
+
+        var rideActivities = await _context.TripStudents
+            .AsNoTracking()
+            .Where(ts => ts.StudentSsn == student.StudentSsn)
+            .OrderByDescending(ts => ts.JoinedAt)
+            .Select(ts => new
+            {
+                DriverFirstName = ts.Trip.Driver.FirstName,
+                DriverLastName = ts.Trip.Driver.LastName,
+                Destination = ts.Trip.Destination,
+                OccurredAt = ts.JoinedAt,
+                Status = ts.Trip.Status
+            })
+            .ToListAsync();
+
+        return enrollmentActivities
+            .Select(activity => new ActivityLogDto
+            {
+                Title = $"You enrolled in {activity.CourseName}",
+                OccurredAt = activity.OccurredAt,
+                Tone = "info",
+                Icon = "BookOpenCheck"
+            })
+            .Concat(paymentActivities.Select(activity => new ActivityLogDto
+            {
+                Title = $"Your payment for {activity.CourseName} was {activity.Status}",
+                OccurredAt = activity.OccurredAt,
+                Tone = activity.Status == "Paid"
+                    ? "success"
+                    : activity.Status == "Failed"
+                        ? "danger"
+                        : "neutral",
+                Icon = "BadgeDollarSign"
+            }))
+            .Concat(serviceActivities.Select(activity => new ActivityLogDto
+            {
+                Title = $"You requested {activity.ServiceName}",
+                OccurredAt = activity.OccurredAt,
+                Tone = activity.Status == "Approved"
+                    ? "success"
+                    : activity.Status == "Rejected"
+                        ? "danger"
+                        : "info",
+                Icon = "ClipboardList"
+            }))
+            .Concat(rideActivities.Select(activity => new ActivityLogDto
+            {
+                Title = $"You booked a ride with {BuildFullName(activity.DriverFirstName, activity.DriverLastName)} to {activity.Destination}",
+                OccurredAt = activity.OccurredAt,
+                Tone = activity.Status == "Completed"
+                    ? "success"
+                    : activity.Status == "Cancelled"
+                        ? "danger"
+                        : "neutral",
+                Icon = "BusFront"
+            }))
+            .OrderByDescending(activity => activity.OccurredAt)
+            .Take(maxLimit)
+            .ToList();
     }
 }

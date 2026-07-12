@@ -154,7 +154,7 @@ export default function TripsPage() {
       </section>
 
       {canManageTrips ? (
-        <section className="rounded-xl border border-card-border bg-white p-6 shadow-card">
+        <section className="rounded-xl border border-card-border bg-surface-lowest p-6 shadow-card">
           <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
             <div>
               <h2 className="text-title-sm font-semibold text-on-background">Suggested Trips</h2>
@@ -196,7 +196,7 @@ export default function TripsPage() {
       ) : null}
 
 
-      <section className="rounded-xl border border-card-border bg-white shadow-card">
+      <section className="rounded-xl border border-card-border bg-surface-lowest shadow-card">
         <div className="flex flex-col gap-3 border-b border-outline-variant p-4 md:flex-row md:items-center md:justify-between">
           <div className="relative w-full md:max-w-md">
             <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-on-surface-variant" />
@@ -212,7 +212,7 @@ export default function TripsPage() {
           <select
             value={status}
             onChange={(event) => setStatus(event.target.value as TripStatus | '')}
-            className="rounded-lg border border-input-border bg-white px-3 py-2 text-body-sm text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
+            className="rounded-lg border border-input-border bg-surface-lowest px-3 py-2 text-body-sm text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
           >
             <option value="">All statuses</option>
             {tripStatuses.map((tripStatus) => (

@@ -84,14 +84,14 @@ export default function TripFinderPage() {
         </Link>
       </section>
 
-      <section className="rounded-xl border border-card-border bg-white p-6 shadow-card">
+      <section className="rounded-xl border border-card-border bg-surface-lowest p-6 shadow-card">
         <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
           <label className="block text-[12px] font-semibold uppercase tracking-[0.08em] text-on-surface-variant">
             Destination
             <select
               value={destination}
               onChange={(event) => setDestination(event.target.value)}
-              className="mt-2 w-full rounded-lg border border-input-border bg-white px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
+              className="mt-2 w-full rounded-lg border border-input-border bg-surface-lowest px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
             >
               <option value="">Any destination</option>
               {TRIP_DESTINATIONS.map((option) => (
@@ -107,7 +107,7 @@ export default function TripFinderPage() {
             <select
               value={pickupArea}
               onChange={(event) => setPickupArea(event.target.value)}
-              className="mt-2 w-full rounded-lg border border-input-border bg-white px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
+              className="mt-2 w-full rounded-lg border border-input-border bg-surface-lowest px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
             >
               <option value="">Any pickup area</option>
               {TRIP_PICKUP_AREAS.map((option) => (
@@ -150,7 +150,7 @@ export default function TripFinderPage() {
       </section>
 
       {hasSearched ? (
-        <section className="rounded-xl border border-card-border bg-white shadow-card">
+        <section className="rounded-xl border border-card-border bg-surface-lowest shadow-card">
           <div className="border-b border-outline-variant p-4">
             <h2 className="text-title-sm text-on-background">
               {isLoading ? 'Searching...' : `${matches.length} matching trip${matches.length === 1 ? '' : 's'}`}

@@ -1,5 +1,5 @@
-import { BusFront, BookOpen, GraduationCap, LayoutDashboard,  LogOut, Users, Wallet, X } from 'lucide-react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { BusFront, BookOpen, GraduationCap, LayoutDashboard, Users, Wallet, X } from 'lucide-react'
+import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { isAdmin, isStudent } from '../utils/auth'
 
@@ -11,13 +11,7 @@ type SidebarProps = {
 
 function Sidebar({ isOpen, onClose }: SidebarProps) {
   const location = useLocation()
-  const navigate = useNavigate()
-  const { user, logout } = useAuth()
-
-  const handleLogout = () => {
-    logout()
-    navigate('/login')
-  }
+  const { user } = useAuth()
 
   const firstName = user?.firstName || user?.email?.split('@')[0] || 'User'
   const lastName = user?.lastName || ''
@@ -116,7 +110,7 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
             <button
               type="button"
               onClick={onClose}
-              className="rounded-full p-2 text-on-primary-container transition-colors hover:bg-white/10 lg:hidden"
+              className="rounded-full p-2 text-on-primary-container transition-colors hover:bg-surface-lowest/10 lg:hidden"
               aria-label="Close navigation menu"
             >
               <X className="h-5 w-5" />
@@ -135,7 +129,7 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
                       <Link
                         to={item.to}
                         onClick={onClose}
-                        className={`flex items-center gap-3 border-l-4 px-6 py-3 transition-colors ${active ? 'border-secondary bg-white/10 text-on-primary font-semibold' : 'border-transparent text-sidebar-inactive hover:bg-white/5 hover:text-on-primary'}`}
+                        className={`flex items-center gap-3 border-l-4 px-6 py-3 transition-colors ${active ? 'border-secondary bg-surface-lowest/10 text-on-primary font-semibold' : 'border-transparent text-sidebar-inactive hover:bg-surface-lowest/5 hover:text-on-primary'}`}
                       >
                         <Icon className="h-4 w-4 shrink-0" />
                         <span className="text-[12px] font-semibold uppercase tracking-[0.08em]">{item.label}</span>
@@ -153,7 +147,7 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
           </nav>
 
           <div className="mt-auto space-y-2 p-6">
-            <div className="flex items-center gap-3 rounded-xl bg-white/5 p-3">
+            <div className="flex items-center gap-3 rounded-xl bg-surface-lowest/5 p-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary/20 text-sm font-semibold text-on-primary">
                 {avatarChar}
               </div>
@@ -162,14 +156,6 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
                 <p className="truncate text-[11px] uppercase tracking-[0.12em] text-on-primary-container/80">{roleLabel}</p>
               </div>
             </div>
-            <button
-              type="button"
-              onClick={handleLogout}
-              className="flex w-full items-center justify-center gap-2 rounded-lg bg-error px-4 py-2 text-[13px] font-semibold text-on-error transition-opacity hover:opacity-90"
-            >
-              <LogOut className="h-4 w-4" />
-              Logout
-            </button>
           </div>
         </div>
       </aside>

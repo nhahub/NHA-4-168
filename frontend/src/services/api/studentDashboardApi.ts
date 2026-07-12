@@ -19,7 +19,22 @@ export interface StudentCourseDto {
   endDate: string;
 }
 
+export interface StudentActivityDto {
+  title: string;
+  occurredAt: string;
+  tone: string;
+  icon: string;
+}
+
 export async function getStudentCourses() {
   const response = await axiosInstance.get<StudentCourseDto[]>('/student-dashboard/courses');
+  return response.data;
+}
+
+export async function getStudentActivities(limit = 10) {
+  const response = await axiosInstance.get<StudentActivityDto[]>(
+    `/student-dashboard/activities?limit=${limit}`
+  );
+
   return response.data;
 }

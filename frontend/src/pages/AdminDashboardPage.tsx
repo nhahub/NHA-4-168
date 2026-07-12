@@ -149,7 +149,7 @@ function AdminDashboardPage() {
           const Icon = card.icon;
 
           return (
-            <div key={card.label} className="flex flex-col gap-2 rounded-xl border border-outline-variant bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
+            <div key={card.label} className="flex flex-col gap-2 rounded-xl border border-outline-variant bg-surface-lowest p-6 shadow-sm transition-shadow hover:shadow-md">
               <div className="flex items-start justify-between">
                 <div className="rounded-lg bg-secondary-fixed p-2">
                   <Icon className="h-5 w-5 text-secondary" />
@@ -164,7 +164,7 @@ function AdminDashboardPage() {
       </section>
 
       <section className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-        <div className="lg:col-span-2 flex flex-col overflow-hidden rounded-xl border border-outline-variant bg-white shadow-sm">
+        <div className="lg:col-span-2 flex flex-col overflow-hidden rounded-xl border border-outline-variant bg-surface-lowest shadow-sm">
           <div className="flex items-center justify-between border-b border-outline-variant p-6">
             <div>
               <h4 className="text-title-sm font-semibold text-on-surface">Enrollment Trends</h4>
@@ -214,7 +214,7 @@ function AdminDashboardPage() {
           </div>
         </div>
 
-        <div className="flex h-full flex-col rounded-xl border border-outline-variant bg-white shadow-sm">
+        <div className="flex h-full flex-col rounded-xl border border-outline-variant bg-surface-lowest shadow-sm">
           <div className="border-b border-outline-variant p-6">
             <h4 className="text-title-sm font-semibold text-on-surface">Recent System Activity</h4>
           </div>
@@ -255,7 +255,7 @@ function AdminDashboardPage() {
         </div>
       </section>
 
-      <section className="mt-8 overflow-hidden rounded-xl border border-outline-variant bg-white shadow-sm">
+      <section className="mt-8 overflow-hidden rounded-xl border border-outline-variant bg-surface-lowest shadow-sm">
         <div className="flex items-center justify-between border-b border-outline-variant px-6 py-4">
           <h4 className="text-title-sm font-semibold text-on-surface">Recent Student Applications</h4>
           <button
@@ -316,7 +316,7 @@ function AdminDashboardPage() {
       {/* ── View All Logs Modal ─────────────────────────────────── */}
       {showLogsModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm" onClick={() => setShowLogsModal(false)}>
-          <div className="relative w-full max-w-lg max-h-[80vh] flex flex-col rounded-2xl border border-outline-variant bg-white shadow-2xl" onClick={(e) => e.stopPropagation()}>
+          <div className="relative w-full max-w-lg max-h-[80vh] flex flex-col rounded-2xl border border-outline-variant bg-surface-lowest shadow-2xl" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between border-b border-outline-variant px-6 py-4">
               <h3 className="text-title-sm font-semibold text-on-surface">All System Logs</h3>
               <button type="button" onClick={() => setShowLogsModal(false)} className="rounded-lg p-1.5 text-outline hover:bg-surface-container-low hover:text-on-surface transition-colors">
@@ -352,7 +352,7 @@ function AdminDashboardPage() {
       {/* ── View Full Directory Modal ───────────────────────────── */}
       {showDirectoryModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm" onClick={() => setShowDirectoryModal(false)}>
-          <div className="relative w-full max-w-4xl max-h-[85vh] flex flex-col rounded-2xl border border-outline-variant bg-white shadow-2xl" onClick={(e) => e.stopPropagation()}>
+          <div className="relative w-full max-w-4xl max-h-[85vh] flex flex-col rounded-2xl border border-outline-variant bg-surface-lowest shadow-2xl" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between border-b border-outline-variant px-6 py-4">
               <h3 className="text-title-sm font-semibold text-on-surface">Full Student Directory</h3>
               <button type="button" onClick={() => setShowDirectoryModal(false)} className="rounded-lg p-1.5 text-outline hover:bg-surface-container-low hover:text-on-surface transition-colors">
