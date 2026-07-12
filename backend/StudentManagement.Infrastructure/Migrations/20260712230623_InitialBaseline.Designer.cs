@@ -12,7 +12,7 @@ using StudentManagement.Infrastructure.Data;
 namespace StudentManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260712175623_InitialBaseline")]
+    [Migration("20260712230623_InitialBaseline")]
     partial class InitialBaseline
     {
         /// <inheritdoc />

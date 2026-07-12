@@ -37,6 +37,18 @@ export function formatFee(fee?: number | null, isPaid?: boolean) {
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(fee);
 }
 
+/**
+ * TEMPORARY FRONTEND-ONLY MOCK.
+ * The backend does not expose a course rating field yet. This produces a
+ * deterministic, plausible-looking rating (3.5 - 5.0) from the courseId so
+ * the UI has something to show. Replace with the real value from the API
+ * (e.g. course.rating) once the backend adds it.
+ */
+export function getMockCourseRating(courseId: number) {
+  const fractional = (courseId * 37) % 15; // 0-14
+  return Number((3.5 + fractional / 10).toFixed(1));
+}
+
 export function getApiErrorMessage(error: unknown) {
   const axiosError = error as AxiosError<{ message?: string; errors?: Record<string, string[]> }>;
   const data = axiosError.response?.data;

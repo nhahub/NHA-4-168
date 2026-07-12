@@ -34,14 +34,14 @@ public class EnrollmentController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(CreateEnrollmentDto dto)
+    public async Task<IActionResult> Create([FromBody] CreateEnrollmentDto dto)
     {
         var result = await _service.CreateAsync(dto);
         return Ok(result);
     }
 
     [HttpPatch("{id}/status")]
-    public async Task<IActionResult> UpdateStatus(int id, UpdateEnrollmentStatusDto dto)
+    public async Task<IActionResult> UpdateStatus(int id, [FromBody] UpdateEnrollmentStatusDto dto)
     {
         var updated = await _service.UpdateStatusAsync(id, dto);
 

@@ -16,6 +16,7 @@ export interface LoginResponse {
       roles: string[];
       firstName?: string | null;
       lastName?: string | null;
+      studentSsn?: number | null;
     };
   };
 }

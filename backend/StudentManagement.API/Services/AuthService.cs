@@ -107,7 +107,8 @@ public class AuthService
                     Email = identityUser.Email!,
                     FirstName = student.FirstName,
                     LastName = student.LastName,
-                    Roles = [defaultRole]
+                    Roles = [defaultRole],
+                    StudentSsn = student.StudentSsn
                 }
             }
         };
@@ -164,7 +165,8 @@ public class AuthService
                     Email = user.Email!,
                     FirstName = firstName,
                     LastName = lastName,
-                    Roles = roles.ToList()
+                    Roles = roles.ToList(),
+                    StudentSsn = student?.StudentSsn
                 }
             }
         };

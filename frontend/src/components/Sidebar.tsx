@@ -35,8 +35,8 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
   : {
       label: 'My Instructors',
       icon: Users,
-      to: '/student/instructors',
-      enabled: false,
+      to: '/instructors',
+      enabled: true,
     },
 
     canAccessAdminViews
@@ -47,10 +47,10 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
       enabled: true,
     }
   : {
-      label: 'My Courses',
+      label: ' Courses',
       icon: BookOpen,
-      to: '/student/courses',
-      enabled: false,
+      to: '/courses',
+      enabled: true,
     },
 
 
