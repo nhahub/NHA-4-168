@@ -2,7 +2,7 @@ namespace StudentManagement.Application.DTOs.Instructor;
 
 public class InstructorListItemDto
 {
-    public int InstructorSsn { get; set; }
+    public long InstructorSsn { get; set; }
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;

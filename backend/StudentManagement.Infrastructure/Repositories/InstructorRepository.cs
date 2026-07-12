@@ -10,7 +10,7 @@ namespace StudentManagement.Infrastructure.Repositories;
 
 public class InstructorRepository : IInstructorRepository
 {
-    private const int FirstGeneratedInstructorSsn = 2001;
+    private const long FirstGeneratedInstructorSsn = 2001;
     private const int MaxCreateRetries = 5;
     private readonly AppDbContext _context;
 
@@ -50,13 +50,13 @@ public class InstructorRepository : IInstructorRepository
         return (instructors, totalCount);
     }
 
-    public Task<Instructor?> GetBySsnAsync(int ssn, bool track = false)
+    public Task<Instructor?> GetBySsnAsync(long ssn, bool track = false)
     {
         var query = track ? _context.Instructors : _context.Instructors.AsNoTracking();
         return query.FirstOrDefaultAsync(instructor => instructor.InstructorSsn == ssn);
     }
 
-    public Task<Instructor?> GetBySsnWithCoursesAsync(int ssn)
+    public Task<Instructor?> GetBySsnWithCoursesAsync(long ssn)
     {
         return _context.Instructors
             .AsNoTracking()
@@ -65,7 +65,7 @@ public class InstructorRepository : IInstructorRepository
             .FirstOrDefaultAsync(instructor => instructor.InstructorSsn == ssn);
     }
 
-    public Task<bool> EmailExistsAsync(string email, int? excludingSsn = null)
+    public Task<bool> EmailExistsAsync(string email, long? excludingSsn = null)
     {
         var normalizedEmail = email.Trim();
 
@@ -106,11 +106,11 @@ public class InstructorRepository : IInstructorRepository
         return _context.SaveChangesAsync();
     }
 
-    private async Task<int> GetNextInstructorSsnAsync()
+    private async Task<long> GetNextInstructorSsnAsync()
     {
         var maxSsn = await _context.Instructors
             .AsNoTracking()
-            .Select(instructor => (int?)instructor.InstructorSsn)
+            .Select(instructor => (long?)instructor.InstructorSsn)
             .MaxAsync();
 
         return maxSsn is null || maxSsn < FirstGeneratedInstructorSsn

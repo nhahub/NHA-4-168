@@ -41,7 +41,7 @@ public class InstructorService : IInstructorService
         };
     }
 
-    public async Task<InstructorDto> GetInstructorAsync(int ssn, string? userId, IEnumerable<string> roles)
+    public async Task<InstructorDto> GetInstructorAsync(long ssn, string? userId, IEnumerable<string> roles)
     {
         var instructor = await _instructorRepository.GetBySsnWithCoursesAsync(ssn)
             ?? throw new NotFoundException($"Instructor with SSN '{ssn}' was not found.");
@@ -82,7 +82,7 @@ public class InstructorService : IInstructorService
         return MapToDto(created);
     }
 
-    public async Task<InstructorDto> UpdateInstructorAsync(int ssn, UpdateInstructorRequest request)
+    public async Task<InstructorDto> UpdateInstructorAsync(long ssn, UpdateInstructorRequest request)
     {
         await ValidateAsync(_updateValidator, request);
 

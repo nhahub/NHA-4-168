@@ -5,5 +5,5 @@ namespace StudentManagement.Application.DTOs.Trip;
 public class AddStudentToTripDto
 {
     [Required]
-    public int StudentSsn { get; set; }
+    public long StudentSsn { get; set; }
 }

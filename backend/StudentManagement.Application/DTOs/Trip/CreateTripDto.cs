@@ -5,7 +5,7 @@ namespace StudentManagement.Application.DTOs.Trip;
 public class CreateTripDto
 {
     [Required]
-    public int DriverSsn { get; set; }
+    public long DriverSsn { get; set; }
 
     [Required, MaxLength(255)]
     public string Destination { get; set; } = string.Empty;

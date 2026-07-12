@@ -7,7 +7,7 @@ namespace StudentManagement.Domain.Entities;
 public class Student
 {
     [Key]
-    public int StudentSsn { get; set; }
+    public long StudentSsn { get; set; }
 
     [MaxLength(50)]
     public string? FirstName { get; set; }

@@ -11,5 +11,5 @@ public interface ICourseService
     Task<CourseDto> UpdateCourseAsync(int courseId, UpdateCourseRequest request);
     Task DeactivateCourseAsync(int courseId);
     Task<CourseInstructorResponse> AssignInstructorAsync(int courseId, AssignInstructorRequest request);
-    Task RemoveInstructorAsync(int courseId, int instructorSsn);
+    Task RemoveInstructorAsync(int courseId, long instructorSsn);
 }

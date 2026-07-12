@@ -11,8 +11,8 @@ public interface ICourseRepository
     Task<bool> NameExistsAsync(string courseName, int? excludingCourseId = null);
     Task<int> GetEnrolledCountAsync(int courseId);
     Task AddAsync(Course course);
-    Task<bool> InstructorExistsAsync(int instructorSsn);
-    Task<CourseInstructor?> GetAssignmentAsync(int courseId, int instructorSsn);
+    Task<bool> InstructorExistsAsync(long instructorSsn);
+    Task<CourseInstructor?> GetAssignmentAsync(int courseId, long instructorSsn);
     Task AddAssignmentAsync(CourseInstructor courseInstructor);
     void RemoveAssignment(CourseInstructor courseInstructor);
     Task SaveChangesAsync();

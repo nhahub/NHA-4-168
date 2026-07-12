@@ -200,7 +200,7 @@ namespace StudentManagement.Infrastructure.Migrations
                 name: "Drivers",
                 columns: table => new
                 {
-                    DriverSsn = table.Column<int>(type: "int", nullable: false),
+                    DriverSsn = table.Column<long>(type: "bigint", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
@@ -227,7 +227,7 @@ namespace StudentManagement.Infrastructure.Migrations
                 name: "Instructors",
                 columns: table => new
                 {
-                    InstructorSsn = table.Column<int>(type: "int", nullable: false),
+                    InstructorSsn = table.Column<long>(type: "bigint", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
@@ -252,7 +252,7 @@ namespace StudentManagement.Infrastructure.Migrations
                 name: "Students",
                 columns: table => new
                 {
-                    StudentSsn = table.Column<int>(type: "int", nullable: false),
+                    StudentSsn = table.Column<long>(type: "bigint", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
@@ -280,7 +280,7 @@ namespace StudentManagement.Infrastructure.Migrations
                 {
                     TripId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DriverSsn = table.Column<int>(type: "int", nullable: false),
+                    DriverSsn = table.Column<long>(type: "bigint", nullable: false),
                     EstimatedTimeOfArrival = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Destination = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     PickupArea = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
@@ -303,7 +303,7 @@ namespace StudentManagement.Infrastructure.Migrations
                 columns: table => new
                 {
                     CourseId = table.Column<int>(type: "int", nullable: false),
-                    InstructorSsn = table.Column<int>(type: "int", nullable: false),
+                    InstructorSsn = table.Column<long>(type: "bigint", nullable: false),
                     Role = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     AssignedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -330,7 +330,7 @@ namespace StudentManagement.Infrastructure.Migrations
                 {
                     EnrollmentId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    StudentSsn = table.Column<int>(type: "int", nullable: false),
+                    StudentSsn = table.Column<long>(type: "bigint", nullable: false),
                     CourseId = table.Column<int>(type: "int", nullable: false),
                     EnrolledOn = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Grade = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: true),
@@ -359,7 +359,7 @@ namespace StudentManagement.Infrastructure.Migrations
                 {
                     StudentServiceId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    StudentSsn = table.Column<int>(type: "int", nullable: false),
+                    StudentSsn = table.Column<long>(type: "bigint", nullable: false),
                     ServiceId = table.Column<int>(type: "int", nullable: false),
                     RequestedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Status = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false, defaultValue: "Pending")
@@ -386,7 +386,7 @@ namespace StudentManagement.Infrastructure.Migrations
                 columns: table => new
                 {
                     TripId = table.Column<int>(type: "int", nullable: false),
-                    StudentSsn = table.Column<int>(type: "int", nullable: false),
+                    StudentSsn = table.Column<long>(type: "bigint", nullable: false),
                     JoinedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>

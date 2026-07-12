@@ -38,13 +38,13 @@ public class TripService : ITripService
         return trips.Select(MapToDto).ToList();
     }
 
-    public async Task<IEnumerable<TripDto>> GetByDriverSsnAsync(int driverSsn)
+    public async Task<IEnumerable<TripDto>> GetByDriverSsnAsync(long driverSsn)
     {
         var trips = await _tripRepository.GetByDriverSsnAsync(driverSsn);
         return trips.Select(MapToDto).ToList();
     }
 
-    public async Task<IEnumerable<TripDto>> GetByStudentSsnAsync(int studentSsn)
+    public async Task<IEnumerable<TripDto>> GetByStudentSsnAsync(long studentSsn)
     {
         var trips = await _tripRepository.GetByStudentSsnAsync(studentSsn);
         return trips.Select(MapToDto).ToList();
@@ -162,7 +162,7 @@ public class TripService : ITripService
         return MapToDto(updated);
     }
 
-    public async Task RemoveStudentAsync(int tripId, int studentSsn)
+    public async Task RemoveStudentAsync(int tripId, long studentSsn)
     {
         var trip = await _tripRepository.GetByIdWithDetailsAsync(tripId)
             ?? throw new NotFoundException($"Trip with id '{tripId}' was not found.");

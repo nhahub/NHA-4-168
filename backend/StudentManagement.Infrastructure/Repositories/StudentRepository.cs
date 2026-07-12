@@ -10,7 +10,7 @@ namespace StudentManagement.Infrastructure.Repositories;
 
 public class StudentRepository : IStudentRepository
 {
-    private const int FirstGeneratedStudentSsn = 100001;
+    private const long FirstGeneratedStudentSsn = 100001;
     private const int MaxCreateRetries = 5;
     private readonly AppDbContext _context;
 
@@ -60,7 +60,7 @@ public class StudentRepository : IStudentRepository
         return (students, totalCount);
     }
 
-    public Task<Student?> GetBySsnAsync(int ssn, bool track = false)
+    public Task<Student?> GetBySsnAsync(long ssn, bool track = false)
     {
         var query = track ? _context.Students : _context.Students.AsNoTracking();
         return query.FirstOrDefaultAsync(student => student.StudentSsn == ssn);
@@ -80,7 +80,7 @@ public class StudentRepository : IStudentRepository
             .FirstOrDefaultAsync(student => student.Email == email);
     }
 
-    public Task<bool> EmailExistsAsync(string email, int? excludingSsn = null)
+    public Task<bool> EmailExistsAsync(string email, long? excludingSsn = null)
     {
         var normalizedEmail = email.Trim();
 
@@ -121,11 +121,11 @@ public class StudentRepository : IStudentRepository
         return _context.SaveChangesAsync();
     }
 
-    private async Task<int> GetNextStudentSsnAsync()
+    private async Task<long> GetNextStudentSsnAsync()
     {
         var maxSsn = await _context.Students
             .AsNoTracking()
-            .Select(student => (int?)student.StudentSsn)
+            .Select(student => (long?)student.StudentSsn)
             .MaxAsync();
 
         return maxSsn is null || maxSsn < FirstGeneratedStudentSsn

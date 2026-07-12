@@ -27,8 +27,8 @@ public class InstructorsController : ControllerBase
         return Ok(instructors);
     }
 
-    [HttpGet("{ssn:int}")]
-    public async Task<ActionResult> GetInstructor(int ssn)
+    [HttpGet("{ssn:long}")]
+    public async Task<ActionResult> GetInstructor(long ssn)
     {
         var instructor = await _instructorService.GetInstructorAsync(ssn, GetUserId(), GetRoles());
         return Ok(instructor);
@@ -42,9 +42,9 @@ public class InstructorsController : ControllerBase
         return CreatedAtAction(nameof(GetInstructor), new { ssn = instructor.InstructorSsn }, instructor);
     }
 
-    [HttpPut("{ssn:int}")]
+    [HttpPut("{ssn:long}")]
     [Authorize(Roles = "Admin")]
-    public async Task<ActionResult> UpdateInstructor(int ssn, [FromBody] UpdateInstructorRequest request)
+    public async Task<ActionResult> UpdateInstructor(long ssn, [FromBody] UpdateInstructorRequest request)
     {
         var instructor = await _instructorService.UpdateInstructorAsync(ssn, request);
         return Ok(instructor);
