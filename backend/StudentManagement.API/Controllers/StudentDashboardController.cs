@@ -22,7 +22,6 @@ public class StudentDashboardController : ControllerBase
         _studentDashboardService = studentDashboardService;
         _logger = logger;
     }
-[AllowAnonymous]
 
     [HttpGet("summary")]
     public async Task<ActionResult<StudentDashboardSummaryDto>> GetSummary()
@@ -60,5 +59,20 @@ public class StudentDashboardController : ControllerBase
         
         var trips = await _studentDashboardService.GetTripsAsync(userId);
         return Ok(trips);
+    }
+
+    [HttpGet("activities")]
+    public async Task<ActionResult<IReadOnlyList<ActivityLogDto>>> GetRecentActivities(
+        [FromQuery] int limit = 10)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        if (userId == null)
+            return Unauthorized();
+
+        var activities =
+            await _studentDashboardService.GetRecentActivitiesAsync(userId, limit);
+
+        return Ok(activities);
     }
 }
