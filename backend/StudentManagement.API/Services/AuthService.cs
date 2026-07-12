@@ -41,6 +41,16 @@ public class AuthService
             };
         }
 
+        var existingStudent = await _context.Students.FindAsync(request.StudentSsn);
+        if (existingStudent != null)
+        {
+            return new LoginResponse
+            {
+                Success = false,
+                Message = "A student with this SSN already exists."
+            };
+        }
+
         var identityUser = new IdentityUser
         {
             UserName = request.Email,
@@ -68,9 +78,12 @@ public class AuthService
         // Create the linked domain record.
         var student = new Student
         {
+            StudentSsn = request.StudentSsn,
             FirstName = request.FirstName,
             LastName = request.LastName,
             Email = request.Email,
+            Phone = request.Phone,
+            DateOfBirth = request.DateOfBirth,
             Status = "Active",
             EnrollmentDate = DateTime.UtcNow,
             UserId = identityUser.Id

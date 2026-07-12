@@ -3712,25 +3712,31 @@
     ]
   },
   "packageFolders": {
-    "/Users/amr3006khaled/.nuget/packages/": {}
+    "C:\\Users\\Mazen\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/StudentManagement.API.csproj",
+      "projectUniqueName": "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.API\\StudentManagement.API.csproj",
       "projectName": "StudentManagement.API",
-      "projectPath": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/StudentManagement.API.csproj",
-      "packagesPath": "/Users/amr3006khaled/.nuget/packages/",
-      "outputPath": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/obj/",
+      "projectPath": "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.API\\StudentManagement.API.csproj",
+      "packagesPath": "C:\\Users\\Mazen\\.nuget\\packages\\",
+      "outputPath": "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.API\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "/Users/amr3006khaled/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\Mazen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
       ],
       "sources": {
-        "/opt/homebrew/Cellar/dotnet/10.0.300/libexec/library-packs": {},
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -3738,14 +3744,14 @@
           "framework": "net10.0",
           "targetAlias": "net10.0",
           "projectReferences": {
-            "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Application/StudentManagement.Application.csproj": {
-              "projectPath": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Application/StudentManagement.Application.csproj"
+            "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj": {
+              "projectPath": "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj"
             },
-            "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/StudentManagement.Domain.csproj": {
-              "projectPath": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/StudentManagement.Domain.csproj"
+            "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj": {
+              "projectPath": "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj"
             },
-            "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Infrastructure/StudentManagement.Infrastructure.csproj": {
-              "projectPath": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Infrastructure/StudentManagement.Infrastructure.csproj"
+            "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Infrastructure\\StudentManagement.Infrastructure.csproj": {
+              "projectPath": "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Infrastructure\\StudentManagement.Infrastructure.csproj"
             }
           }
         }
@@ -3805,7 +3811,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet/10.0.300/libexec/sdk/10.0.300/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.AspNetCore": "(,10.0.32767]",
           "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import type { FormEvent } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { authService } from '../services/api/authService';
 import { getApiErrorMessage } from '../utils/errorMessage';
@@ -69,6 +69,8 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const from = (location.state as { from?: string } | null)?.from ?? '/student-dashboard';
+  const signupSuccess = Boolean((location.state as { signupSuccess?: boolean } | null)?.signupSuccess);
+
   useEffect(() => {
     if (isAuthenticated && user) {
       const targetPath = isAdmin(user.roles) ? '/admin' : '/student-dashboard';
@@ -125,6 +127,12 @@ export default function LoginPage() {
             Welcome back. Please sign in to continue.
           </p>
         </div>
+
+        {signupSuccess && (
+          <div className="mb-6 rounded-lg bg-secondary/10 px-3 py-2 text-body-sm text-secondary" role="status">
+            Account created successfully. Please sign in.
+          </div>
+        )}
 
         <form className="space-y-6" onSubmit={handleSubmit} noValidate>
           {/* Email */}
@@ -197,6 +205,12 @@ export default function LoginPage() {
 
         <div className="mt-8 border-t border-outline-variant pt-6 text-center">
           <p className="text-body-sm text-on-surface-variant">
+            Don&apos;t have an account?{' '}
+            <Link to="/signup" className="font-semibold text-secondary hover:underline">
+              Sign up
+            </Link>
+          </p>
+          <p className="mt-2 text-body-sm text-on-surface-variant">
             Trouble signing in? Contact your administrator.
           </p>
         </div>
