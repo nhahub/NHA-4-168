@@ -1,31 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.API\\StudentManagement.API.csproj": {}
+    "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/StudentManagement.API.csproj": {}
   },
   "projects": {
-    "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.API\\StudentManagement.API.csproj": {
+    "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/StudentManagement.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.API\\StudentManagement.API.csproj",
+        "projectUniqueName": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/StudentManagement.API.csproj",
         "projectName": "StudentManagement.API",
-        "projectPath": "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.API\\StudentManagement.API.csproj",
-        "packagesPath": "C:\\Users\\mosta\\.nuget\\packages\\",
-        "outputPath": "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.API\\obj\\",
+        "projectPath": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/StudentManagement.API.csproj",
+        "packagesPath": "/Users/amr3006khaled/.nuget/packages/",
+        "outputPath": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.API/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\mosta\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/amr3006khaled/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "/opt/homebrew/Cellar/dotnet/10.0.300/libexec/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -33,14 +28,14 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj": {
-                "projectPath": "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj"
+              "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Application/StudentManagement.Application.csproj": {
+                "projectPath": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Application/StudentManagement.Application.csproj"
               },
-              "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj": {
-                "projectPath": "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj"
+              "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/StudentManagement.Domain.csproj": {
+                "projectPath": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/StudentManagement.Domain.csproj"
               },
-              "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.Infrastructure\\StudentManagement.Infrastructure.csproj": {
-                "projectPath": "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.Infrastructure\\StudentManagement.Infrastructure.csproj"
+              "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Infrastructure/StudentManagement.Infrastructure.csproj": {
+                "projectPath": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Infrastructure/StudentManagement.Infrastructure.csproj"
               }
             }
           }
@@ -100,7 +95,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet/10.0.300/libexec/sdk/10.0.300/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
@@ -518,28 +513,23 @@
         }
       }
     },
-    "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj": {
+    "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Application/StudentManagement.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj",
+        "projectUniqueName": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Application/StudentManagement.Application.csproj",
         "projectName": "StudentManagement.Application",
-        "projectPath": "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj",
-        "packagesPath": "C:\\Users\\mosta\\.nuget\\packages\\",
-        "outputPath": "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.Application\\obj\\",
+        "projectPath": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Application/StudentManagement.Application.csproj",
+        "packagesPath": "/Users/amr3006khaled/.nuget/packages/",
+        "outputPath": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Application/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\mosta\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/amr3006khaled/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "/opt/homebrew/Cellar/dotnet/10.0.300/libexec/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -547,8 +537,8 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj": {
-                "projectPath": "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj"
+              "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/StudentManagement.Domain.csproj": {
+                "projectPath": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/StudentManagement.Domain.csproj"
               }
             }
           }
@@ -595,7 +585,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet/10.0.300/libexec/sdk/10.0.300/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -873,28 +863,23 @@
         }
       }
     },
-    "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj": {
+    "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/StudentManagement.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj",
+        "projectUniqueName": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/StudentManagement.Domain.csproj",
         "projectName": "StudentManagement.Domain",
-        "projectPath": "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj",
-        "packagesPath": "C:\\Users\\mosta\\.nuget\\packages\\",
-        "outputPath": "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.Domain\\obj\\",
+        "projectPath": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/StudentManagement.Domain.csproj",
+        "packagesPath": "/Users/amr3006khaled/.nuget/packages/",
+        "outputPath": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\mosta\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/amr3006khaled/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "/opt/homebrew/Cellar/dotnet/10.0.300/libexec/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -942,7 +927,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet/10.0.300/libexec/sdk/10.0.300/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -1220,28 +1205,23 @@
         }
       }
     },
-    "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.Infrastructure\\StudentManagement.Infrastructure.csproj": {
+    "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Infrastructure/StudentManagement.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.Infrastructure\\StudentManagement.Infrastructure.csproj",
+        "projectUniqueName": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Infrastructure/StudentManagement.Infrastructure.csproj",
         "projectName": "StudentManagement.Infrastructure",
-        "projectPath": "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.Infrastructure\\StudentManagement.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\mosta\\.nuget\\packages\\",
-        "outputPath": "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.Infrastructure\\obj\\",
+        "projectPath": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Infrastructure/StudentManagement.Infrastructure.csproj",
+        "packagesPath": "/Users/amr3006khaled/.nuget/packages/",
+        "outputPath": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Infrastructure/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\mosta\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/amr3006khaled/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "/opt/homebrew/Cellar/dotnet/10.0.300/libexec/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -1249,11 +1229,11 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj": {
-                "projectPath": "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj"
+              "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Application/StudentManagement.Application.csproj": {
+                "projectPath": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Application/StudentManagement.Application.csproj"
               },
-              "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj": {
-                "projectPath": "D:\\Programing\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj"
+              "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/StudentManagement.Domain.csproj": {
+                "projectPath": "/Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Domain/StudentManagement.Domain.csproj"
               }
             }
           }
@@ -1306,7 +1286,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet/10.0.300/libexec/sdk/10.0.300/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",

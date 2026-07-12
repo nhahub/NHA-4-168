@@ -91,11 +91,11 @@ export default function DriverDetailPage() {
   };
 
   if (isLoading) {
-    return <div className="rounded-xl border border-card-border bg-white p-6 text-body-sm text-on-surface-variant shadow-card">Loading driver...</div>;
+    return <div className="rounded-xl border border-card-border bg-surface-lowest p-6 text-body-sm text-on-surface-variant shadow-card">Loading driver...</div>;
   }
 
   if (error || !driver) {
-    return <div className="rounded-xl border border-card-border bg-white p-6 text-body-sm text-error shadow-card">{error || 'Driver not found.'}</div>;
+    return <div className="rounded-xl border border-card-border bg-surface-lowest p-6 text-body-sm text-error shadow-card">{error || 'Driver not found.'}</div>;
   }
 
   const driverName = `${driver.firstName} ${driver.lastName}`;
@@ -141,7 +141,7 @@ export default function DriverDetailPage() {
       </div>
 
       {/* Driver Information Card */}
-      <section className="rounded-xl border border-card-border bg-white p-6 shadow-card">
+      <section className="rounded-xl border border-card-border bg-surface-lowest p-6 shadow-card">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
           <ProfileField label="Status" value={<DriverStatusBadge status={driver.status} />} />
           <ProfileField label="Phone" value={driver.phone || '—'} />
@@ -154,14 +154,14 @@ export default function DriverDetailPage() {
 
       {canManageDrivers && dialogOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-          <div className="w-full max-w-md rounded-xl bg-white p-6 shadow-xl border border-card-border">
+          <div className="w-full max-w-md rounded-xl bg-surface-lowest p-6 shadow-xl border border-card-border">
             <h3 className="text-display-sm font-bold text-on-background mb-2">Change Status</h3>
             <p className="text-body-sm text-on-surface-variant mb-4">Update status for {driverName}</p>
             
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value as DriverStatus)}
-              className="w-full rounded-lg border border-input-border bg-white px-3 py-2 text-body-sm text-on-surface outline-none focus:border-input-border-focus"
+              className="w-full rounded-lg border border-input-border bg-surface-lowest px-3 py-2 text-body-sm text-on-surface outline-none focus:border-input-border-focus"
             >
               <option value="Active">Active</option>
               <option value="Inactive">Inactive</option>

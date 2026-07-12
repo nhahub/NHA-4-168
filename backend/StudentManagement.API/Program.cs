@@ -132,6 +132,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
+app.UseRouting();
 app.UseCors("ReactDev");
 app.UseAuthentication();
 app.UseAuthorization();

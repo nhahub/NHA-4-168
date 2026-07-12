@@ -1,7 +1,10 @@
-import { Bell, BusFront, GraduationCap, HelpCircle, Loader2, Menu, MapPinned, Search, Settings } from 'lucide-react'
+import { Bell, BusFront, GraduationCap, HelpCircle, Loader2, LogOut, Menu, MapPinned, Moon, Search, Settings, Sun, User } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useNotifications } from '../hooks/useNotifications'
 import { useAuth } from '../contexts/AuthContext'
+import { useTheme } from '../contexts/ThemeContext'
+import { useToast } from '../contexts/ToastContext'
 import { isAdmin } from '../utils/auth'
 import { studentService } from '../services/api/studentService'
 import type { StudentListItemDto } from '../services/api/studentService'
@@ -24,7 +27,15 @@ type ResultGroup = {
 
 function Searchbar({ query, onQueryChange, onMenuClick }: SearchbarProps) {
   const navigate = useNavigate()
-  const { user } = useAuth()
+  const { user, logout } = useAuth()
+  const { theme, toggleTheme } = useTheme()
+  const { toast } = useToast()
+  const { notifications, hasUnseen, markAllSeen } = useNotifications()
+  const [isNotifOpen, setIsNotifOpen] = useState(false)
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false)
+  const notifRef = useRef<HTMLDivElement>(null)
+  const settingsRef = useRef<HTMLDivElement>(null)
+
   const canSeeStudents = isAdmin(user?.roles)
 
   const [isOpen, setIsOpen] = useState(false)
@@ -51,9 +62,9 @@ function Searchbar({ query, onQueryChange, onMenuClick }: SearchbarProps) {
         const [studentResults, driverResults, tripResults] = await Promise.all([
           canSeeStudents
             ? studentService
-                .getStudents({ page: 1, pageSize: 5, search: term })
-                .then((res) => res.data)
-                .catch(() => [] as StudentListItemDto[])
+              .getStudents({ page: 1, pageSize: 5, search: term })
+              .then((res) => res.data)
+              .catch(() => [] as StudentListItemDto[])
             : Promise.resolve([] as StudentListItemDto[]),
           driverService
             .getDrivers({ page: 1, pageSize: 1000, search: undefined })
@@ -137,6 +148,12 @@ function Searchbar({ query, onQueryChange, onMenuClick }: SearchbarProps) {
       if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
         setIsOpen(false)
       }
+      if (notifRef.current && !notifRef.current.contains(event.target as Node)) {
+        setIsNotifOpen(false)
+      }
+      if (settingsRef.current && !settingsRef.current.contains(event.target as Node)) {
+        setIsSettingsOpen(false)
+      }
     }
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
@@ -175,13 +192,13 @@ function Searchbar({ query, onQueryChange, onMenuClick }: SearchbarProps) {
               onFocus={() => {
                 if (hasResults) setIsOpen(true)
               }}
-              className="w-full rounded-lg border border-transparent bg-surface-container-low py-2 pl-10 pr-4 text-[14px] leading-5 text-on-surface outline-none transition focus:border-input-border-focus focus:bg-white focus:shadow-[0_0_0_3px_rgba(0,88,190,0.15)]"
+              className="w-full rounded-lg border border-transparent bg-surface-container-low py-2 pl-10 pr-4 text-[14px] leading-5 text-on-surface outline-none transition focus:border-input-border-focus focus:bg-surface-lowest focus:shadow-[0_0_0_3px_rgba(0,88,190,0.15)]"
               placeholder="Search students, drivers, or trips..."
               type="search"
             />
 
             {isOpen ? (
-              <div className="absolute left-0 right-0 top-full z-40 mt-2 max-h-[70vh] overflow-y-auto rounded-lg border border-outline-variant bg-white shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1)]">
+              <div className="absolute left-0 right-0 top-full z-40 mt-2 max-h-[70vh] overflow-y-auto rounded-lg border border-outline-variant bg-surface-lowest shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1)]">
                 {!hasResults ? (
                   <p className="p-4 text-body-sm text-on-surface-variant">
                     {isSearching ? 'Searching...' : 'No matches found.'}
@@ -221,15 +238,107 @@ function Searchbar({ query, onQueryChange, onMenuClick }: SearchbarProps) {
         </div>
 
         <div className="flex items-center gap-2 text-on-surface-variant">
-          <button type="button" className="rounded-full p-2 transition-colors hover:bg-surface-container-low" aria-label="Notifications">
-            <Bell className="h-5 w-5" />
-          </button>
-          <button type="button" className="rounded-full p-2 transition-colors hover:bg-surface-container-low" aria-label="Help">
-            <HelpCircle className="h-5 w-5" />
-          </button>
-          <button type="button" className="rounded-full p-2 transition-colors hover:bg-surface-container-low" aria-label="Settings">
-            <Settings className="h-5 w-5" />
-          </button>
+          {/* Notifications */}
+          <div ref={notifRef} className="relative">
+            <button
+              type="button"
+              onClick={() => {
+                setIsNotifOpen((v) => {
+                  const next = !v
+                  if (next) markAllSeen()
+                  return next
+                })
+                setIsSettingsOpen(false)
+              }}
+              className="relative rounded-full p-2 transition-colors hover:bg-surface-container-low"
+              aria-label="Notifications"
+            >
+              <Bell className="h-5 w-5" />
+              {hasUnseen && (
+                <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-secondary" />
+              )}
+            </button>
+
+            {isNotifOpen && (
+              <div className="absolute right-0 top-full z-40 mt-2 w-80 rounded-lg border border-outline-variant bg-surface-lowest shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1)]">
+                <p className="px-4 pt-3 pb-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-on-surface-variant">
+                  Notifications
+                </p>
+                {notifications.length === 0 ? (
+                  <p className="px-4 pb-4 text-body-sm text-on-surface-variant">You're all caught up.</p>
+                ) : (
+                  <ul className="pb-2">
+                    {notifications.map((n) => (
+                      <li key={n.id} className="px-4 py-2 hover:bg-surface-container-low">
+                        <p className="text-body-sm text-on-surface">{n.text}</p>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Settings */}
+          <div ref={settingsRef} className="relative">
+            <button
+              type="button"
+              onClick={() => { setIsSettingsOpen((v) => !v); setIsNotifOpen(false) }}
+              className="rounded-full p-2 transition-colors hover:bg-surface-container-low"
+              aria-label="Settings"
+            >
+              <Settings className="h-5 w-5" />
+            </button>
+
+            {isSettingsOpen && (
+              <div className="absolute right-0 top-full z-40 mt-2 w-64 rounded-lg border border-outline-variant bg-surface-lowest shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1)]">
+                <div className="flex items-center gap-3 border-b border-outline-variant px-4 py-3">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-secondary-container text-on-secondary-container">
+                    <User className="h-4 w-4" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="truncate text-body-sm font-semibold text-on-surface">
+                      {user?.firstName ? `${user.firstName} ${user.lastName ?? ''}` : 'Account'}
+                    </p>
+                    <p className="truncate text-[11px] text-on-surface-variant">{user?.email}</p>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    toggleTheme()
+                    toast.info(theme === 'dark' ? 'Switched to light mode' : 'Switched to dark mode')
+                  }}
+                  className="flex w-full items-center justify-between px-4 py-2.5 text-left text-body-sm text-on-surface hover:bg-surface-container-low"
+                >
+                  <span className="flex items-center gap-2">
+                    {theme === 'dark' ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+                    Dark mode
+                  </span>
+                  <span
+                    className={`relative h-5 w-9 rounded-full transition-colors ${theme === 'dark' ? 'bg-secondary' : 'bg-outline-variant'}`}
+                  >
+                    <span
+                      className={`absolute top-0.5 h-4 w-4 rounded-full bg-surface-lowest transition-transform ${theme === 'dark' ? 'translate-x-4' : 'translate-x-0.5'}`}
+                    />
+                  </span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    logout()
+                    toast.success('Logged out successfully')
+                  }}
+                  className="flex w-full items-center gap-2 border-t border-outline-variant px-4 py-2.5 text-left text-body-sm text-error hover:bg-surface-container-low"
+                >
+                  <LogOut className="h-4 w-4" />
+                  Log out
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </header>

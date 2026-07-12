@@ -29,7 +29,7 @@ export default function StudentDashboardPage() {
         {statCards.map((card) => {
           const Icon = card.icon;
           return (
-            <div key={card.label} className="rounded-xl border border-outline-variant bg-white p-6 shadow-sm">
+            <div key={card.label} className="rounded-xl border border-outline-variant bg-surface-lowest p-6 shadow-sm">
               <div className="flex items-start justify-between">
                 <div>
                   <p className="text-body-sm text-outline">{card.label}</p>
@@ -45,7 +45,7 @@ export default function StudentDashboardPage() {
       </section>
 
       {/* Placeholder for Student-specific list (e.g., Courses or Rides) */}
-      <section className="rounded-xl border border-outline-variant bg-white p-6 shadow-sm">
+      <section className="rounded-xl border border-outline-variant bg-surface-lowest p-6 shadow-sm">
         <h4 className="text-title-sm font-semibold text-on-surface mb-4">My Recent Activity</h4>
         {activities.length === 0 ? (
           <div className="text-body-sm text-on-surface-variant">

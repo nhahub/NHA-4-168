@@ -23,7 +23,7 @@ export function TripStudentsList({ students, maxSeats, isBusy, canManageStudents
   };
 
   return (
-    <div className="rounded-xl border border-card-border bg-white shadow-card">
+    <div className="rounded-xl border border-card-border bg-surface-lowest shadow-card">
       <div className="flex items-center justify-between border-b border-outline-variant p-4">
         <h2 className="text-title-sm text-on-background">Students</h2>
         <span className="text-body-sm text-on-surface-variant">
