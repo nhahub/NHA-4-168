@@ -73,8 +73,8 @@ export default function StudentsPage() {
     <div className="space-y-6">
       <section className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
         <div>
-          <h1 className="text-display-lg font-bold text-on-background">Students</h1>
-          <p className="mt-1 text-body-md text-on-surface-variant">{totalCount} records</p>
+          <h1 className="text-3xl font-bold text-on-background mb-8">Students</h1>
+          <p className="mt-1 text-[16px] leading-6 text-on-surface-variant">{totalCount} records</p>
         </div>
         <Link
           to="/students/new"

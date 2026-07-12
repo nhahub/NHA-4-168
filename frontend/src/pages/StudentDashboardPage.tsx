@@ -22,7 +22,7 @@ export default function StudentDashboardPage() {
 
   return (
     <div className="p-6 md:p-10">
-      <h1 className="mb-8 text-headline-md text-on-surface">My Dashboard</h1>
+      <h1 className="text-3xl font-bold text-on-background mb-8">My Dashboard</h1>
 
       {/* Stats Grid */}
       <section className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
