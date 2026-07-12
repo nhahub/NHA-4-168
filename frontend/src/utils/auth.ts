@@ -23,3 +23,11 @@ export function isAdmin(userRoles: string[] | null | undefined) {
 export function isStudent(userRoles: string[] | null | undefined) {
   return hasAnyRole(userRoles, ['student']);
 }
+
+export function isInstructor(userRoles: string[] | null | undefined) {
+  return hasAnyRole(userRoles, ['instructor']);
+}
+
+export function isDriver(userRoles: string[] | null | undefined) {
+  return hasAnyRole(userRoles, ['driver']);
+}

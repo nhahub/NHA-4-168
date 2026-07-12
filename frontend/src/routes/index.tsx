@@ -25,7 +25,9 @@ import CourseFormPage from '../pages/admin/CourseFormPage';
 import InstructorsPage from '../pages/admin/InstructorsPage';
 import InstructorDetailPage from '../pages/admin/InstructorDetailPage';
 import InstructorFormPage from '../pages/admin/InstructorFormPage';
-import { isAdmin, isStudent } from '../utils/auth';
+import InstructorDashboardPage from '../pages/InstructorDashboardPage';
+import DriverDashboardPage from '../pages/DriverDashboardPage';
+import { isAdmin, isStudent, isInstructor, isDriver } from '../utils/auth';
 import EnrollmentManagementPage from "../pages/Enrollment/EnrollmentManagementPage";
 import StudentEnrollmentsPage from "../pages/Enrollment/StudentEnrollmentsPage";
 import PaymentManagementPage from "../pages/payment/PaymentManagementPage";
@@ -44,6 +46,10 @@ function HomeRedirect() {
     redirectTo = '/admin';
   } else if (isStudent(user?.roles)) {
     redirectTo = '/student-dashboard';
+  } else if (isInstructor(user?.roles)) {
+    redirectTo = '/instructor-dashboard';
+  } else if (isDriver(user?.roles)) {
+    redirectTo = '/driver-dashboard';
   }
 
   return <Navigate to={redirectTo} replace />;
@@ -55,6 +61,8 @@ export const routes: RouteObject[] = [
   { path: '/signup', element: <SignupPage /> },
   { path: '/admin', element: <ProtectedRoute allowedRoles={['admin']}><AdminDashboardPage /></ProtectedRoute> },
   { path: '/student-dashboard', element: <ProtectedRoute allowedRoles={['admin', 'student']}><StudentDashboardPage /></ProtectedRoute> },
+  { path: '/instructor-dashboard', element: <ProtectedRoute allowedRoles={['admin', 'instructor']}><InstructorDashboardPage /></ProtectedRoute> },
+  { path: '/driver-dashboard', element: <ProtectedRoute allowedRoles={['admin', 'driver']}><DriverDashboardPage /></ProtectedRoute> },
   { path: '/student/trips', element: <ProtectedRoute allowedRoles={['admin', 'student']}><StudentTripsPage /></ProtectedRoute> },
   { path: '/dashboard', element: <HomeRedirect /> },
   { path: '/drivers', element: <ProtectedRoute allowedRoles={['admin', 'student']}><DriversPage /></ProtectedRoute> },
@@ -66,7 +74,6 @@ export const routes: RouteObject[] = [
   { path: '/students/:ssn', element: <ProtectedRoute allowedRoles={['admin']}><StudentDetailPage /></ProtectedRoute> },
   { path: '/students/:ssn/edit', element: <ProtectedRoute allowedRoles={['admin']}><StudentFormPage mode="edit" /></ProtectedRoute> },
   { path: '/unauthorized', element: <UnauthorizedPage /> },
-  { path: '*', element: <NotFoundPage /> },
   { path: 'trips', element: <ProtectedRoute allowedRoles={['admin', 'student']}><TripFinderPage /></ProtectedRoute> },
   { path: 'trips/all', element: <ProtectedRoute allowedRoles={['admin', 'student']}><TripsPage /></ProtectedRoute> },
   { path: 'trips/new', element: <ProtectedRoute allowedRoles={['admin', 'student']}><TripFormPage /></ProtectedRoute> },
@@ -84,4 +91,5 @@ export const routes: RouteObject[] = [
     { path: '/admin/payments',   element: <ProtectedRoute allowedRoles={['admin']}><PaymentManagementPage /></ProtectedRoute> },
     { path: '/student/enrollments', element: <ProtectedRoute allowedRoles={['student', 'admin']}><StudentEnrollmentsPage /></ProtectedRoute> },
     { path: '/student/payments',    element: <ProtectedRoute allowedRoles={['student', 'admin']}><StudentPaymentHistoryPage /></ProtectedRoute> },
+  { path: '*', element: <NotFoundPage /> },
 ];
