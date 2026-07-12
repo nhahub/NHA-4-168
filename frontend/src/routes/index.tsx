@@ -23,6 +23,11 @@ import InstructorsPage from '../pages/admin/InstructorsPage';
 import InstructorDetailPage from '../pages/admin/InstructorDetailPage';
 import InstructorFormPage from '../pages/admin/InstructorFormPage';
 import { isAdmin } from '../utils/auth';
+import EnrollmentManagementPage from "../pages/Enrollment/EnrollmentManagementPage";
+import StudentEnrollmentsPage from "../pages/Enrollment/StudentEnrollmentsPage";
+import PaymentManagementPage from "../pages/payment/PaymentManagementPage";
+import StudentPaymentHistoryPage from "../pages/payment/StudentPaymentHistoryPage";
+import StudentCompletePaymentPage from "../pages/payment/StudentCompletePaymentPage";
 
 function HomeRedirect() {
   const { isAuthenticated, user } = useAuth();
@@ -62,4 +67,10 @@ export const routes: RouteObject[] = [
   { path: '/instructors/new', element: <ProtectedRoute allowedRoles={['admin']}><InstructorFormPage mode="create" /></ProtectedRoute> },
   { path: '/instructors/:ssn', element: <ProtectedRoute allowedRoles={['admin']}><InstructorDetailPage /></ProtectedRoute> },
   { path: '/instructors/:ssn/edit', element: <ProtectedRoute allowedRoles={['admin']}><InstructorFormPage mode="edit" /></ProtectedRoute> },
+    { path: '/admin/enrollments', element: <ProtectedRoute allowedRoles={['admin']}><EnrollmentManagementPage /></ProtectedRoute> },
+    { path: '/admin/payments',   element: <ProtectedRoute allowedRoles={['admin']}><PaymentManagementPage /></ProtectedRoute> },
+    { path: '/student/enrollments', element: <ProtectedRoute allowedRoles={['student', 'admin']}><StudentEnrollmentsPage /></ProtectedRoute> },
+    { path: '/student/payments',    element: <ProtectedRoute allowedRoles={['student', 'admin']}><StudentPaymentHistoryPage /></ProtectedRoute> },
 ];
+
+

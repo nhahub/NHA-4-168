@@ -71,4 +71,8 @@ export const studentService = {
     const response = await axiosInstance.patch<{ studentSsn: number; status: StudentStatus }>(`/students/${ssn}/status`, { status });
     return response.data;
   },
+  getCurrentStudent: async (): Promise<StudentDto> => {
+  const response = await axiosInstance.get<StudentDto>("/students/me");
+  return response.data;
+},
 };

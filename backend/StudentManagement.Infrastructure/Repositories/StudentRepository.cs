@@ -66,6 +66,13 @@ public class StudentRepository : IStudentRepository
         return query.FirstOrDefaultAsync(student => student.StudentSsn == ssn);
     }
 
+    public Task<Student?> GetByUserIdAsync(string userId)
+    {
+        return _context.Students
+            .AsNoTracking()
+            .FirstOrDefaultAsync(student => student.UserId == userId);
+    }
+
     public Task<Student?> GetByEmailAsync(string email)
     {
         return _context.Students

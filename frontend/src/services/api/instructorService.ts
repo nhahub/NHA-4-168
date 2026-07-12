@@ -37,6 +37,7 @@ export interface InstructorQueryParameters {
 }
 
 export interface InstructorFormPayload {
+  instructorSsn?: number;
   firstName: string;
   lastName: string;
   phone?: string | null;
