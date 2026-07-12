@@ -51,12 +51,12 @@ public class DriversController : ControllerBase
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
 
-        var success = await _driverService.UpdateDriverAsync(ssn, dto);
-        if (!success)
+        var updatedDriver = await _driverService.UpdateDriverAsync(ssn, dto);
+        if (updatedDriver == null)
         {
             return NotFound(new { message = $"Driver with SSN {ssn} was not found." });
         }
-        return NoContent();
+        return Ok(updatedDriver);
     }
 
     // 5️⃣ DELETE: api/drivers/{ssn}

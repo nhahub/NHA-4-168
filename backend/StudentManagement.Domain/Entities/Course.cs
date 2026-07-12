@@ -11,6 +11,7 @@ public class Course
     public decimal?  Fee         { get; set; }
     public string?   Level       { get; set; }
     public bool      IsPaid      { get; set; }
+    public bool      IsActive    { get; set; } = true;
 
     public ICollection<Enrollment>       Enrollments       { get; set; } = new List<Enrollment>();
     public ICollection<CourseInstructor> CourseInstructors { get; set; } = new List<CourseInstructor>();

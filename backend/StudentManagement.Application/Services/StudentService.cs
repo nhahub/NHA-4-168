@@ -53,6 +53,14 @@ public class StudentService : IStudentService
         return MapToDto(student);
     }
 
+    public async Task<StudentDto> GetCurrentStudentAsync(string userId)
+    {
+        var student = await _studentRepository.GetByUserIdAsync(userId)
+            ?? throw new NotFoundException("Student not found.");
+
+        return MapToDto(student);
+    }
+
     public async Task<StudentDto> CreateStudentAsync(CreateStudentRequest request)
     {
         await ValidateAsync(_createValidator, request);

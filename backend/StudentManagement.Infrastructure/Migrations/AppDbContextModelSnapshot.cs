@@ -242,6 +242,11 @@ namespace StudentManagement.Infrastructure.Migrations
                     b.Property<decimal?>("Fee")
                         .HasColumnType("decimal(10,2)");
 
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
                     b.Property<bool>("IsPaid")
                         .HasColumnType("bit");
 
@@ -320,6 +325,13 @@ namespace StudentManagement.Infrastructure.Migrations
 
                     b.Property<decimal?>("Rating")
                         .HasColumnType("decimal(3,2)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasDefaultValue("Active");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");

@@ -77,7 +77,8 @@ export default function DriverDetailPage() {
         carModel: driver.carModel,
         carPlate: driver.carPlate,
         carYear: driver.carYear,
-        userId: driver.userId
+        userId: driver.userId,
+        status: selectedStatus,
       });
       
       setDriver({ ...driver, status: response.status });

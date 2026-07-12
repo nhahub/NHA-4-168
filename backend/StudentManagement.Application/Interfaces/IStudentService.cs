@@ -10,6 +10,7 @@ public interface IStudentService
     Task<StudentDto> CreateStudentAsync(CreateStudentRequest request);
     Task<StudentDto> UpdateStudentAsync(int ssn, UpdateStudentRequest request, string? userId, IEnumerable<string> roles);
     Task<StudentStatusResponse> UpdateStudentStatusAsync(int ssn, UpdateStudentStatusRequest request);
+    Task<StudentDto> GetCurrentStudentAsync(string userId);
 }
 
 public class StudentStatusResponse

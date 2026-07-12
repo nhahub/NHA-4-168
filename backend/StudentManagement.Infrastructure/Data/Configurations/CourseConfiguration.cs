@@ -15,5 +15,6 @@ public class CourseConfiguration : IEntityTypeConfiguration<Course>
         builder.Property(c => c.Description).HasColumnType("nvarchar(max)");
         builder.Property(c => c.Level).HasMaxLength(20);
         builder.Property(c => c.Fee).HasColumnType("decimal(10,2)");
+        builder.Property(c => c.IsActive).HasDefaultValue(true);
     }
 }

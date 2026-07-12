@@ -10,6 +10,10 @@ using StudentManagement.Application.DTOs.Student;
 using StudentManagement.Application.Interfaces;
 using StudentManagement.Application.Services;
 using StudentManagement.Application.Validators.Student;
+using StudentManagement.Application.DTOs.Course;
+using StudentManagement.Application.Validators.Course;
+using StudentManagement.Application.DTOs.Instructor;
+using StudentManagement.Application.Validators.Instructor;
 using StudentManagement.Infrastructure.Data;
 using StudentManagement.Infrastructure.Repositories;
 using StudentManagement.Infrastructure.Services;
@@ -88,8 +92,8 @@ builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<StudentManagement.Application.Interfaces.IDriverService, StudentManagement.Infrastructure.Services.DriverService>();
 builder.Services.AddScoped<StudentManagement.Application.Services.IDashboardService, DashboardService>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
-builder.Services.AddScoped<IStudentDashboardService, StudentDashboardService>();
 builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<IStudentDashboardService, StudentDashboardService>();
 builder.Services.AddScoped<IDriverService, DriverService>();
 builder.Services.AddScoped<ITripRepository, TripRepository>();
 builder.Services.AddScoped<ITripService, TripService>();
@@ -100,6 +104,21 @@ builder.Services.AddScoped<IValidator<CreateStudentRequest>, CreateStudentReques
 builder.Services.AddScoped<IValidator<UpdateStudentRequest>, UpdateStudentRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateStudentStatusRequest>, UpdateStudentStatusRequestValidator>();
 builder.Services.AddScoped<IValidator<StudentQueryParameters>, StudentQueryParametersValidator>();
+builder.Services.AddScoped<EnrollmentService>();
+builder.Services.AddScoped<PaymentService>();
+
+builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+builder.Services.AddScoped<ICourseService, CourseService>();
+builder.Services.AddScoped<IValidator<CreateCourseRequest>, CreateCourseRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateCourseRequest>, UpdateCourseRequestValidator>();
+builder.Services.AddScoped<IValidator<CourseQueryParameters>, CourseQueryParametersValidator>();
+builder.Services.AddScoped<IValidator<AssignInstructorRequest>, AssignInstructorRequestValidator>();
+
+builder.Services.AddScoped<IInstructorRepository, InstructorRepository>();
+builder.Services.AddScoped<IInstructorService, InstructorService>();
+builder.Services.AddScoped<IValidator<CreateInstructorRequest>, CreateInstructorRequestValidator>();
+builder.Services.AddScoped<IValidator<UpdateInstructorRequest>, UpdateInstructorRequestValidator>();
+builder.Services.AddScoped<IValidator<InstructorQueryParameters>, InstructorQueryParametersValidator>();
 
 var app = builder.Build();
 
