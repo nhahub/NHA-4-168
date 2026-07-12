@@ -1,7 +1,7 @@
 import { BusFront, BookOpen, GraduationCap, LayoutDashboard, LifeBuoy, LogOut, Users, Wallet, X } from 'lucide-react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
-import { isAdmin } from '../utils/auth'
+import { isAdmin, isStudent } from '../utils/auth'
 
 type SidebarProps = {
   isOpen: boolean
@@ -36,6 +36,76 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
   const roleLabel = user?.roles?.join(', ') || 'User'
   const avatarChar = firstName.charAt(0).toUpperCase()
   const canAccessAdminViews = isAdmin(user?.roles)
+  const canAccessStudentViews = isStudent(user?.roles)
+
+  const navigationItems = [
+  { label: 'Dashboard', icon: LayoutDashboard, to: canAccessAdminViews ? '/admin' : (canAccessStudentViews ? '/student-dashboard' : '/drivers'), enabled: true,  },
+  { label: 'Students', icon: GraduationCap, to: '/students', enabled: true, adminOnly: true },
+
+  canAccessAdminViews
+  ? {
+      label: 'Instructors',
+      icon: Users,
+      to: '/instructors',
+      enabled: true,
+    }
+  : {
+      label: 'My Instructors',
+      icon: Users,
+      to: '/student/instructors',
+      enabled: false,
+    },
+
+    canAccessAdminViews
+  ? {
+      label: 'Courses',
+      icon: BookOpen,
+      to: '/courses',
+      enabled: true,
+    }
+  : {
+      label: 'My Courses',
+      icon: BookOpen,
+      to: '/student/courses',
+      enabled: false,
+    },
+
+
+  canAccessAdminViews
+  ? {
+      label: 'Enrollments',
+      icon: BookOpen,
+      to: '/admin/enrollments',
+      enabled: true,
+    }
+  : {
+      label: 'My Enrollments',
+      icon: BookOpen,
+      to: '/student/enrollments',
+      enabled: true,
+    },
+
+
+  canAccessAdminViews
+  ? {
+      label: 'Payments',
+      icon: Wallet,
+      to: '/admin/payments',
+      enabled: true,
+    }
+  : {
+      label: 'Payment History',
+      icon: Wallet,
+      to: '/student/payments',
+      enabled: true,
+    },
+
+
+  { label: 'Services', icon: LifeBuoy, to: '/services', enabled: false,  },
+  { label: 'Drivers', icon: BusFront, to: '/drivers', enabled: true, adminOnly: false },
+  { label: 'Trips', icon: BusFront, to: '/trips', enabled: true, adminOnly: false },
+]
+
   const visibleNavigationItems = navigationItems.filter((item) => !item.adminOnly || canAccessAdminViews)
 
   return (

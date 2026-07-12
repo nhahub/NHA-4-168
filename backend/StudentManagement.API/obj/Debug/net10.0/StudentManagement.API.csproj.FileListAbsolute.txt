@@ -681,9 +681,6 @@ D:\Uniflow\2\NHA-4-168-Student-Dashboard\backend\StudentManagement.API\obj\Debug
 D:\Uniflow\2\NHA-4-168-Student-Dashboard\backend\StudentManagement.API\obj\Debug\net10.0\StudentManagement.API.pdb
 D:\Uniflow\2\NHA-4-168-Student-Dashboard\backend\StudentManagement.API\obj\Debug\net10.0\StudentManagement.API.genruntimeconfig.cache
 D:\Uniflow\2\NHA-4-168-Student-Dashboard\backend\StudentManagement.API\obj\Debug\net10.0\ref\StudentManagement.API.dll
-D:\Uniflow\3\NHA-4-168\backend\StudentManagement.API\obj\Debug\net10.0\StudentManagement.API.dll
-D:\Uniflow\3\NHA-4-168\backend\StudentManagement.API\obj\Debug\net10.0\refint\StudentManagement.API.dll
-D:\Uniflow\3\NHA-4-168\backend\StudentManagement.API\obj\Debug\net10.0\StudentManagement.API.pdb
 D:\Uniflow\3\NHA-4-168\backend\StudentManagement.API\bin\Debug\net10.0\appsettings.Development.json
 D:\Uniflow\3\NHA-4-168\backend\StudentManagement.API\bin\Debug\net10.0\appsettings.json
 D:\Uniflow\3\NHA-4-168\backend\StudentManagement.API\bin\Debug\net10.0\StudentManagement.API.staticwebassets.endpoints.json
@@ -850,5 +847,8 @@ D:\Uniflow\3\NHA-4-168\backend\StudentManagement.API\obj\Debug\net10.0\staticweb
 D:\Uniflow\3\NHA-4-168\backend\StudentManagement.API\obj\Debug\net10.0\staticwebassets.build.endpoints.json
 D:\Uniflow\3\NHA-4-168\backend\StudentManagement.API\obj\Debug\net10.0\swae.build.ex.cache
 D:\Uniflow\3\NHA-4-168\backend\StudentManagement.API\obj\Debug\net10.0\StudentM.5E3A42D4.Up2Date
+D:\Uniflow\3\NHA-4-168\backend\StudentManagement.API\obj\Debug\net10.0\StudentManagement.API.dll
+D:\Uniflow\3\NHA-4-168\backend\StudentManagement.API\obj\Debug\net10.0\refint\StudentManagement.API.dll
+D:\Uniflow\3\NHA-4-168\backend\StudentManagement.API\obj\Debug\net10.0\StudentManagement.API.pdb
 D:\Uniflow\3\NHA-4-168\backend\StudentManagement.API\obj\Debug\net10.0\StudentManagement.API.genruntimeconfig.cache
 D:\Uniflow\3\NHA-4-168\backend\StudentManagement.API\obj\Debug\net10.0\ref\StudentManagement.API.dll

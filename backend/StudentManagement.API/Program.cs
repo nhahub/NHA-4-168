@@ -93,6 +93,7 @@ builder.Services.AddScoped<StudentManagement.Application.Interfaces.IDriverServi
 builder.Services.AddScoped<StudentManagement.Application.Services.IDashboardService, DashboardService>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<IStudentDashboardService, StudentDashboardService>();
 builder.Services.AddScoped<IDriverService, DriverService>();
 builder.Services.AddScoped<ITripRepository, TripRepository>();
 builder.Services.AddScoped<ITripService, TripService>();
@@ -103,6 +104,8 @@ builder.Services.AddScoped<IValidator<CreateStudentRequest>, CreateStudentReques
 builder.Services.AddScoped<IValidator<UpdateStudentRequest>, UpdateStudentRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateStudentStatusRequest>, UpdateStudentStatusRequestValidator>();
 builder.Services.AddScoped<IValidator<StudentQueryParameters>, StudentQueryParametersValidator>();
+builder.Services.AddScoped<EnrollmentService>();
+builder.Services.AddScoped<PaymentService>();
 
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<ICourseService, CourseService>();

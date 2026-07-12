@@ -29,7 +29,8 @@ public class DriverService : IDriverService
                 CarPlate = d.CarPlate,
                 CarYear = d.CarYear,
                 Rating = d.Rating,
-                UserId = d.UserId
+                UserId = d.UserId,
+                Status = d.Status
             }).ToListAsync();
     }
 
@@ -49,7 +50,8 @@ public class DriverService : IDriverService
             CarPlate = d.CarPlate,
             CarYear = d.CarYear,
             Rating = d.Rating,
-            UserId = d.UserId
+            UserId = d.UserId,
+            Status = d.Status
         };
     }
 
@@ -83,14 +85,15 @@ public class DriverService : IDriverService
             CarPlate = driver.CarPlate,
             CarYear = driver.CarYear,
             Rating = driver.Rating,
-            UserId = driver.UserId
+            UserId = driver.UserId,
+            Status = driver.Status
         };
     }
 
-    public async Task<bool> UpdateDriverAsync(int ssn, UpdateDriverDto dto)
+    public async Task<DriverDto?> UpdateDriverAsync(int ssn, UpdateDriverDto dto)
     {
         var d = await _context.Drivers.FirstOrDefaultAsync(x => x.DriverSsn == ssn);
-        if (d == null) return false;
+        if (d == null) return null;
 
         d.FirstName = dto.FirstName;
         d.LastName = dto.LastName;
@@ -99,9 +102,24 @@ public class DriverService : IDriverService
         d.CarModel = dto.CarModel;
         d.CarPlate = dto.CarPlate;
         d.CarYear = dto.CarYear;
+        d.Status = dto.Status;
 
         await _context.SaveChangesAsync();
-        return true;
+
+        return new DriverDto
+        {
+            DriverSsn = d.DriverSsn,
+            FirstName = d.FirstName,
+            LastName = d.LastName,
+            Phone = d.Phone,
+            LicenseNumber = d.LicenseNumber,
+            CarModel = d.CarModel,
+            CarPlate = d.CarPlate,
+            CarYear = d.CarYear,
+            Rating = d.Rating,
+            UserId = d.UserId,
+            Status = d.Status
+        };
     }
 
     public async Task<bool> DeleteDriverAsync(int ssn)

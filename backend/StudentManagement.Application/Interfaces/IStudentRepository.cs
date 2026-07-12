@@ -11,4 +11,5 @@ public interface IStudentRepository
     Task<bool> EmailExistsAsync(string email, int? excludingSsn = null);
     Task<Student> CreateWithGeneratedSsnAsync(Student student);
     Task SaveChangesAsync();
+    Task<Student?> GetByUserIdAsync(string userId);
 }

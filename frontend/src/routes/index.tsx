@@ -6,6 +6,7 @@ import AdminDashboardPage from '../pages/AdminDashboardPage';
 import StudentsPage from '../pages/admin/StudentsPage';
 import StudentDetailPage from '../pages/admin/StudentDetailPage';
 import StudentFormPage from '../pages/admin/StudentFormPage';
+import StudentDashboardPage from '../pages/StudentDashboardPage';
 import UnauthorizedPage from '../pages/UnauthorizedPage';
 import NotFoundPage from '../pages/NotFoundPage';
 import ProtectedRoute from './ProtectedRoute';
@@ -22,7 +23,12 @@ import CourseFormPage from '../pages/admin/CourseFormPage';
 import InstructorsPage from '../pages/admin/InstructorsPage';
 import InstructorDetailPage from '../pages/admin/InstructorDetailPage';
 import InstructorFormPage from '../pages/admin/InstructorFormPage';
-import { isAdmin } from '../utils/auth';
+import { isAdmin, isStudent } from '../utils/auth';
+import EnrollmentManagementPage from "../pages/Enrollment/EnrollmentManagementPage";
+import StudentEnrollmentsPage from "../pages/Enrollment/StudentEnrollmentsPage";
+import PaymentManagementPage from "../pages/payment/PaymentManagementPage";
+import StudentPaymentHistoryPage from "../pages/payment/StudentPaymentHistoryPage";
+import StudentCompletePaymentPage from "../pages/payment/StudentCompletePaymentPage";
 
 function HomeRedirect() {
   const { isAuthenticated, user } = useAuth();
@@ -31,13 +37,21 @@ function HomeRedirect() {
     return <Navigate to="/login" replace />;
   }
 
-  return <Navigate to={isAdmin(user?.roles) ? '/admin' : '/drivers'} replace />;
+  let redirectTo = '/drivers';
+  if (isAdmin(user?.roles)) {
+    redirectTo = '/admin';
+  } else if (isStudent(user?.roles)) {
+    redirectTo = '/student-dashboard';
+  }
+
+  return <Navigate to={redirectTo} replace />;
 }
 
 export const routes: RouteObject[] = [
   { path: '/', element: <HomeRedirect /> },
   { path: '/login', element: <LoginPage /> },
   { path: '/admin', element: <ProtectedRoute allowedRoles={['admin']}><AdminDashboardPage /></ProtectedRoute> },
+  { path: '/student-dashboard', element: <ProtectedRoute allowedRoles={['admin', 'student']}><StudentDashboardPage /></ProtectedRoute> },
   { path: '/dashboard', element: <HomeRedirect /> },
   { path: '/drivers', element: <ProtectedRoute allowedRoles={['admin', 'student']}><DriversPage /></ProtectedRoute> },
   { path: '/students', element: <ProtectedRoute allowedRoles={['admin']}><StudentsPage /></ProtectedRoute> },
@@ -62,4 +76,10 @@ export const routes: RouteObject[] = [
   { path: '/instructors/new', element: <ProtectedRoute allowedRoles={['admin']}><InstructorFormPage mode="create" /></ProtectedRoute> },
   { path: '/instructors/:ssn', element: <ProtectedRoute allowedRoles={['admin']}><InstructorDetailPage /></ProtectedRoute> },
   { path: '/instructors/:ssn/edit', element: <ProtectedRoute allowedRoles={['admin']}><InstructorFormPage mode="edit" /></ProtectedRoute> },
+    { path: '/admin/enrollments', element: <ProtectedRoute allowedRoles={['admin']}><EnrollmentManagementPage /></ProtectedRoute> },
+    { path: '/admin/payments',   element: <ProtectedRoute allowedRoles={['admin']}><PaymentManagementPage /></ProtectedRoute> },
+    { path: '/student/enrollments', element: <ProtectedRoute allowedRoles={['student', 'admin']}><StudentEnrollmentsPage /></ProtectedRoute> },
+    { path: '/student/payments',    element: <ProtectedRoute allowedRoles={['student', 'admin']}><StudentPaymentHistoryPage /></ProtectedRoute> },
 ];
+
+

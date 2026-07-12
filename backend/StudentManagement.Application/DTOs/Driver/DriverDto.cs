@@ -12,4 +12,5 @@ public class DriverDto
     public int? CarYear { get; set; }
     public decimal? Rating { get; set; } // عشان يعرض التقييم الحالي للسواق
     public string? UserId { get; set; }
+    public string Status { get; set; } = string.Empty;
 }
