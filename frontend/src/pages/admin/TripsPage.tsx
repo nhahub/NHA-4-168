@@ -2,10 +2,12 @@ import { Eye, Pencil, Plus, Search } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import { BookTripDialog } from '../../features/trips/BookTripDialog';
 import { TripStatusBadge } from '../../features/trips/TripStatusBadge';
 import { formatDateTime, sortTripsByTime, tripStatuses } from '../../features/trips/tripUtils';
 import { getApiErrorMessage, tripService } from '../../services/api/tripService';
 import type { TripDto, TripStatus } from '../../services/api/tripService';
+import { studentService } from '../../services/api/studentService';
 import { isAdmin } from '../../utils/auth';
 import { loadTripSuggestions } from '../../utils/tripSuggestions';
 
@@ -19,6 +21,12 @@ export default function TripsPage() {
   const [status, setStatus] = useState<TripStatus | ''>('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const [studentSsn, setStudentSsn] = useState<number | null>(null);
+
+  const [selectedTrip, setSelectedTrip] = useState<TripDto | null>(null);
+  const [isBooking, setIsBooking] = useState(false);
+  const [bookError, setBookError] = useState<string | null>(null);
 
   useEffect(() => {
     setSuggestions(loadTripSuggestions());
@@ -48,6 +56,25 @@ export default function TripsPage() {
     };
   }, []);
 
+  // Students need their own SSN to book a seat and to know which trips they've already joined.
+  useEffect(() => {
+    if (canManageTrips) return;
+    let active = true;
+
+    studentService
+      .getCurrentStudent()
+      .then((student) => {
+        if (active) setStudentSsn(student.studentSsn);
+      })
+      .catch(() => {
+        // Silently ignore — booking simply won't be available if this fails.
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [canManageTrips]);
+
   useEffect(() => {
     const handleSuggestionsChange = () => {
       setSuggestions(loadTripSuggestions());
@@ -74,6 +101,34 @@ export default function TripsPage() {
     });
     return sortTripsByTime(filtered);
   }, [trips, search, status]);
+
+  const openBookingDialog = (trip: TripDto) => {
+    setBookError(null);
+    setSelectedTrip(trip);
+  };
+
+  const closeBookingDialog = () => {
+    if (isBooking) return;
+    setSelectedTrip(null);
+    setBookError(null);
+  };
+
+  const handleConfirmBooking = async () => {
+    if (!selectedTrip || studentSsn == null) return;
+
+    setIsBooking(true);
+    setBookError(null);
+
+    try {
+      const updatedTrip = await tripService.addStudentToTrip(selectedTrip.tripId, { studentSsn });
+      setTrips((current) => current.map((trip) => (trip.tripId === updatedTrip.tripId ? updatedTrip : trip)));
+      setSelectedTrip(null);
+    } catch (requestError) {
+      setBookError(getApiErrorMessage(requestError));
+    } finally {
+      setIsBooking(false);
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -191,47 +246,78 @@ export default function TripsPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-outline-variant/60">
-                {visibleTrips.map((trip) => (
-                  <tr key={trip.tripId} className="hover:bg-table-row-hover">
-                    <td className="px-6 py-4 text-body-sm font-semibold text-on-surface">#{trip.tripId}</td>
-                    <td className="px-6 py-4 text-body-sm text-on-surface-variant">{trip.driverName}</td>
-                    <td className="px-6 py-4 text-body-sm text-on-surface-variant">{trip.destination}</td>
-                    <td className="px-6 py-4 text-body-sm text-on-surface-variant">{trip.pickupArea}</td>
-                    <td className="px-6 py-4 text-body-sm text-on-surface-variant">{formatDateTime(trip.estimatedTimeOfArrival)}</td>
-                    <td className="px-6 py-4 text-body-sm text-on-surface-variant">
-                      {trip.seatsTaken} / {trip.maxSeats}
-                    </td>
-                    <td className="px-6 py-4 text-body-sm text-on-surface-variant">{trip.price.toFixed(2)}</td>
-                    <td className="px-6 py-4">
-                      <TripStatusBadge status={trip.status} />
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-2">
-                        <Link
-                          to={`/trips/${trip.tripId}`}
-                          className="rounded-full p-2 text-on-surface-variant hover:bg-surface-container-low hover:text-secondary"
-                          aria-label={`View trip ${trip.tripId}`}
-                        >
-                          <Eye className="h-4 w-4" />
-                        </Link>
-                        {canManageTrips ? (
+                {visibleTrips.map((trip) => {
+                  const isFull = trip.seatsTaken >= trip.maxSeats;
+                  const alreadyBooked = studentSsn != null && trip.students.some((student) => student.studentSsn === studentSsn);
+                  const canBook = !canManageTrips && studentSsn != null && !isFull && !alreadyBooked;
+
+                  return (
+                    <tr key={trip.tripId} className="hover:bg-table-row-hover">
+                      <td className="px-6 py-4 text-body-sm font-semibold text-on-surface">#{trip.tripId}</td>
+                      <td className="px-6 py-4 text-body-sm text-on-surface-variant">{trip.driverName}</td>
+                      <td className="px-6 py-4 text-body-sm text-on-surface-variant">{trip.destination}</td>
+                      <td className="px-6 py-4 text-body-sm text-on-surface-variant">{trip.pickupArea}</td>
+                      <td className="px-6 py-4 text-body-sm text-on-surface-variant">{formatDateTime(trip.estimatedTimeOfArrival)}</td>
+                      <td className="px-6 py-4 text-body-sm text-on-surface-variant">
+                        {trip.seatsTaken} / {trip.maxSeats}
+                      </td>
+                      <td className="px-6 py-4 text-body-sm text-on-surface-variant">{trip.price.toFixed(2)}</td>
+                      <td className="px-6 py-4">
+                        <TripStatusBadge status={trip.status} />
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="flex items-center gap-2">
                           <Link
-                            to={`/trips/${trip.tripId}/edit`}
+                            to={`/trips/${trip.tripId}`}
                             className="rounded-full p-2 text-on-surface-variant hover:bg-surface-container-low hover:text-secondary"
-                            aria-label={`Edit trip ${trip.tripId}`}
+                            aria-label={`View trip ${trip.tripId}`}
                           >
-                            <Pencil className="h-4 w-4" />
+                            <Eye className="h-4 w-4" />
                           </Link>
-                        ) : null}
-                      </div>
-                    </td>
-                  </tr>
-                ))}
+                          {canManageTrips ? (
+                            <Link
+                              to={`/trips/${trip.tripId}/edit`}
+                              className="rounded-full p-2 text-on-surface-variant hover:bg-surface-container-low hover:text-secondary"
+                              aria-label={`Edit trip ${trip.tripId}`}
+                            >
+                              <Pencil className="h-4 w-4" />
+                            </Link>
+                          ) : null}
+                          {!canManageTrips ? (
+                            alreadyBooked ? (
+                              <span className="rounded-lg border border-outline-variant px-3 py-1.5 text-body-sm font-semibold text-on-surface-variant">
+                                Booked
+                              </span>
+                            ) : (
+                              <button
+                                type="button"
+                                disabled={!canBook}
+                                onClick={() => openBookingDialog(trip)}
+                                className="rounded-lg bg-secondary px-3 py-1.5 text-body-sm font-semibold text-on-secondary hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+                              >
+                                {isFull ? 'Full' : 'Book'}
+                              </button>
+                            )
+                          ) : null}
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
         )}
       </section>
+
+      <BookTripDialog
+        open={Boolean(selectedTrip)}
+        trip={selectedTrip}
+        isSubmitting={isBooking}
+        error={bookError}
+        onConfirm={handleConfirmBooking}
+        onCancel={closeBookingDialog}
+      />
     </div>
   );
 }
