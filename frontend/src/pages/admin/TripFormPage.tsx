@@ -27,6 +27,7 @@ export default function TripFormPage() {
   const [trip, setTrip] = useState<TripDto | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(mode === 'edit');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isDeletingSuggestion, setIsDeletingSuggestion] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const finderState = (location.state as FinderState | null) ?? undefined;
@@ -104,6 +105,19 @@ export default function TripFormPage() {
     }
   };
 
+  const handleDeleteSuggestion = () => {
+    if (!reviewSuggestion) return;
+
+    const confirmed = window.confirm(
+      `Delete this suggestion from ${reviewSuggestion.submittedByName}? This cannot be undone.`
+    );
+    if (!confirmed) return;
+
+    setIsDeletingSuggestion(true);
+    removeTripSuggestion(reviewSuggestion.id);
+    navigate('/trips/all');
+  };
+
   return (
     <div className="space-y-6">
       <div>
@@ -111,22 +125,46 @@ export default function TripFormPage() {
         <p className="mt-1 text-body-md text-on-surface-variant">
           {mode === 'edit' ? `Trip #${tripId}` : isReviewMode ? 'Finalize the student suggestion by assigning a driver and price, then save it as a real trip.' : isSuggestionMode ? 'Share your preferred trip details and an administrator will review it.' : 'Fill in the trip details below'}
         </p>
+        {isReviewMode && reviewSuggestion ? (
+          <p className="mt-1 text-body-sm text-on-surface-variant">
+            Suggested by {reviewSuggestion.submittedByName}
+          </p>
+        ) : null}
       </div>
 
       {isLoading ? (
         <p className="text-body-sm text-on-surface-variant">Loading trip...</p>
       ) : (
-        <TripForm
-          mode={mode}
-          initialTrip={trip}
-          initialValues={prefilledValues}
-          isSuggestionMode={isSuggestionMode}
-          reviewMode={isReviewMode}
-          isSubmitting={isSubmitting}
-          error={error}
-          onSubmit={handleSubmit}
-          onCancel={() => navigate(-1)}
-        />
+        <>
+          <TripForm
+            mode={mode}
+            initialTrip={trip}
+            initialValues={prefilledValues}
+            isSuggestionMode={isSuggestionMode}
+            reviewMode={isReviewMode}
+            isSubmitting={isSubmitting}
+            error={error}
+            onSubmit={handleSubmit}
+            onCancel={() => navigate(-1)}
+          />
+
+          {isReviewMode ? (
+            <div className="rounded-xl border border-error/30 bg-error/5 p-6">
+              <h2 className="text-body-md font-semibold text-on-background">Reject this suggestion</h2>
+              <p className="mt-1 text-body-sm text-on-surface-variant">
+                If this trip suggestion isn't needed, you can delete it instead of approving it. This removes it permanently and does not create a trip.
+              </p>
+              <button
+                type="button"
+                onClick={handleDeleteSuggestion}
+                disabled={isDeletingSuggestion}
+                className="mt-4 rounded-lg border border-error px-4 py-2 text-body-sm font-semibold text-error hover:bg-error/10 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {isDeletingSuggestion ? 'Deleting...' : 'Delete Suggestion'}
+              </button>
+            </div>
+          ) : null}
+        </>
       )}
     </div>
   );

@@ -16,6 +16,16 @@ public class DashboardService : IDashboardService
 
     public async Task<DashboardSummaryDto> GetSummaryAsync()
     {
+        var paymentsRevenue = await _context.Payments
+            .Where(payment => payment.Status == "Paid")
+            .SumAsync(payment => (decimal?)payment.Amount) ?? 0m;
+
+        // Trip bookings aren't recorded as Payments (they're not tied to an Enrollment),
+        // so we add their revenue here: every row in TripStudents represents one booked
+        // seat, charged at that trip's price.
+        var tripsRevenue = await _context.TripStudents
+            .SumAsync(tripStudent => (decimal?)tripStudent.Trip.Price) ?? 0m;
+
         return await _context.Students
             .AsNoTracking()
             .GroupBy(_ => 1)
@@ -26,7 +36,7 @@ public class DashboardService : IDashboardService
                 PendingPayments = _context.Payments.Count(payment => payment.Status == "Pending"),
                 PendingServiceRequests = _context.StudentServices.Count(serviceRequest => serviceRequest.Status == "Pending"),
                 ActiveRides = _context.Trips.Count(ride => ride.Status == "Active" || ride.Status == "Pending"),
-                TotalRevenue = _context.Payments.Where(payment => payment.Status == "Paid").Sum(payment => (decimal?)payment.Amount) ?? 0m
+                TotalRevenue = paymentsRevenue + tripsRevenue
             })
             .FirstAsync();
     }

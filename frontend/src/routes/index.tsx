@@ -2,11 +2,13 @@ import { Navigate } from 'react-router-dom';
 import type { RouteObject } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import LoginPage from '../pages/LoginPage';
+import SignupPage from '../pages/SignupPage';
 import AdminDashboardPage from '../pages/AdminDashboardPage';
 import StudentsPage from '../pages/admin/StudentsPage';
 import StudentDetailPage from '../pages/admin/StudentDetailPage';
 import StudentFormPage from '../pages/admin/StudentFormPage';
 import StudentDashboardPage from '../pages/StudentDashboardPage';
+import StudentTripsPage from '../pages/StudentTripsPage';
 import UnauthorizedPage from '../pages/UnauthorizedPage';
 import NotFoundPage from '../pages/NotFoundPage';
 import ProtectedRoute from './ProtectedRoute';
@@ -50,8 +52,10 @@ function HomeRedirect() {
 export const routes: RouteObject[] = [
   { path: '/', element: <HomeRedirect /> },
   { path: '/login', element: <LoginPage /> },
+  { path: '/signup', element: <SignupPage /> },
   { path: '/admin', element: <ProtectedRoute allowedRoles={['admin']}><AdminDashboardPage /></ProtectedRoute> },
   { path: '/student-dashboard', element: <ProtectedRoute allowedRoles={['admin', 'student']}><StudentDashboardPage /></ProtectedRoute> },
+  { path: '/student/trips', element: <ProtectedRoute allowedRoles={['admin', 'student']}><StudentTripsPage /></ProtectedRoute> },
   { path: '/dashboard', element: <HomeRedirect /> },
   { path: '/drivers', element: <ProtectedRoute allowedRoles={['admin', 'student']}><DriversPage /></ProtectedRoute> },
   { path: '/students', element: <ProtectedRoute allowedRoles={['admin']}><StudentsPage /></ProtectedRoute> },
@@ -81,5 +85,3 @@ export const routes: RouteObject[] = [
     { path: '/student/enrollments', element: <ProtectedRoute allowedRoles={['student', 'admin']}><StudentEnrollmentsPage /></ProtectedRoute> },
     { path: '/student/payments',    element: <ProtectedRoute allowedRoles={['student', 'admin']}><StudentPaymentHistoryPage /></ProtectedRoute> },
 ];
-
-
