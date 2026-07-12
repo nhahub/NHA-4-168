@@ -102,7 +102,7 @@ const [isSuccess, setIsSuccess] = useState(false);
 
         {/* Course Card */}
 
-        <div className="bg-white rounded-2xl border shadow-sm p-6">
+        <div className="bg-surface-lowest rounded-2xl border shadow-sm p-6">
 
           <div className="flex items-start justify-between">
 
@@ -128,7 +128,7 @@ const [isSuccess, setIsSuccess] = useState(false);
 
         {/* Payment Method */}
 
-        <div className="bg-white rounded-2xl border shadow-sm p-6">
+        <div className="bg-surface-lowest rounded-2xl border shadow-sm p-6">
 
           <h2 className="text-xl font-semibold mb-6">
             Select Payment Method
@@ -179,7 +179,7 @@ const [isSuccess, setIsSuccess] = useState(false);
         {/* Card Information */}
 
     {paymentMethod === "card" && (
-  <div className="bg-white rounded-2xl border shadow-sm p-6">
+  <div className="bg-surface-lowest rounded-2xl border shadow-sm p-6">
 
     <h2 className="text-xl font-semibold mb-6">
       Card Information
@@ -281,7 +281,7 @@ const [isSuccess, setIsSuccess] = useState(false);
 
 <div className="lg:col-span-4">
 
-  <div className="bg-white rounded-2xl border shadow-sm overflow-hidden">
+  <div className="bg-surface-lowest rounded-2xl border shadow-sm overflow-hidden">
 
     <div className="p-6 border-b">
       <h2 className="text-xl font-semibold">

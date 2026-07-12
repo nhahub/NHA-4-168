@@ -71,11 +71,11 @@ export default function InstructorFormPage({ mode }: { mode: 'create' | 'edit' }
   };
 
   if (isLoading) {
-    return <div className="rounded-xl border border-card-border bg-white p-6 text-body-sm text-on-surface-variant shadow-card">Loading instructor...</div>;
+    return <div className="rounded-xl border border-card-border bg-surface-lowest p-6 text-body-sm text-on-surface-variant shadow-card">Loading instructor...</div>;
   }
 
   if (loadError) {
-    return <div className="rounded-xl border border-card-border bg-white p-6 text-body-sm text-error shadow-card">{loadError}</div>;
+    return <div className="rounded-xl border border-card-border bg-surface-lowest p-6 text-body-sm text-error shadow-card">{loadError}</div>;
   }
 
   return (

@@ -55,7 +55,7 @@ export function DriverForm({ mode, initialDriver, isSubmitting, error, onSubmit,
   };
 
   return (
-    <form onSubmit={handleSubmit} className="rounded-xl border border-card-border bg-white p-6 shadow-card">
+    <form onSubmit={handleSubmit} className="rounded-xl border border-card-border bg-surface-lowest p-6 shadow-card">
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
         
         {/* Driver SSN */}
@@ -121,7 +121,7 @@ export function DriverForm({ mode, initialDriver, isSubmitting, error, onSubmit,
           <select
             value={values.status}
             onChange={(event) => updateField('status', event.target.value)}
-            className="mt-2 w-full rounded-lg border border-input-border bg-white px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
+            className="mt-2 w-full rounded-lg border border-input-border bg-surface-lowest px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
           >
             {driverStatuses.map((status) => (
               <option key={status} value={status}>

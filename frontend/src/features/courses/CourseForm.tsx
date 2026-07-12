@@ -45,7 +45,7 @@ export function CourseForm({ mode, initialCourse, isSubmitting, error, onSubmit,
   };
 
   return (
-    <form onSubmit={handleSubmit} className="rounded-xl border border-card-border bg-white p-6 shadow-card">
+    <form onSubmit={handleSubmit} className="rounded-xl border border-card-border bg-surface-lowest p-6 shadow-card">
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
         <label className="block text-[12px] font-semibold uppercase tracking-[0.08em] text-on-surface-variant md:col-span-2">
           Course Name
@@ -72,7 +72,7 @@ export function CourseForm({ mode, initialCourse, isSubmitting, error, onSubmit,
           <select
             value={values.level}
             onChange={(event) => updateField('level', event.target.value as CourseLevel | '')}
-            className="mt-2 w-full rounded-lg border border-input-border bg-white px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
+            className="mt-2 w-full rounded-lg border border-input-border bg-surface-lowest px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
           >
             <option value="">Select level</option>
             {courseLevels.map((level) => (

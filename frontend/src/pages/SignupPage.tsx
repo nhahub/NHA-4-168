@@ -1,10 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import type { FormEvent } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import { Link, useNavigate } from 'react-router-dom';
 import { authService } from '../services/api/authService';
 import { getApiErrorMessage } from '../utils/errorMessage';
-import { isAdmin } from '../utils/auth';
 
 function MailIcon() {
   return (
@@ -20,6 +18,15 @@ function LockIcon() {
     <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
       <rect x="4" y="11" width="16" height="9" rx="2" />
       <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+    </svg>
+  );
+}
+
+function UserIcon() {
+  return (
+    <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <circle cx="12" cy="8" r="4" />
+      <path d="M4 20c0-4 3.5-6 8-6s8 2 8 6" />
     </svg>
   );
 }
@@ -59,49 +66,46 @@ function SchoolIcon() {
   );
 }
 
-export default function LoginPage() {
+export default function SignupPage() {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { login, isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
-  const from = (location.state as { from?: string } | null)?.from ?? '/student-dashboard';
-  const signupSuccess = Boolean((location.state as { signupSuccess?: boolean } | null)?.signupSuccess);
-
-  useEffect(() => {
-    if (isAuthenticated && user) {
-      const targetPath = isAdmin(user.roles) ? '/admin' : '/student-dashboard';
-      navigate(targetPath, { replace: true });
-    }
-  }, [isAuthenticated, navigate, user]);
-
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
 
-    if (!email || !password) {
-      setError('Email and password are required.');
+    if (!firstName || !lastName || !email || !password) {
+      setError('All fields are required.');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError('Passwords do not match.');
       return;
     }
 
     setIsSubmitting(true);
     try {
-      const response = await authService.login({ email, password });
+      const response = await authService.register({ email, password, firstName, lastName });
 
-      if (!response.success || !response.data) {
-        setError(response.message || 'Invalid email or password.');
+      if (!response.success) {
+        setError(response.message || 'Could not create your account.');
         return;
       }
 
-      login(response.data.token, response.data.user);
-      const targetPath = isAdmin(response.data.user.roles) ? '/admin' : '/student-dashboard';
-      navigate(targetPath, { replace: true });
+      navigate('/login', {
+        replace: true,
+        state: { signupSuccess: true },
+      });
     } catch (err) {
-      console.error('Login failed:', err);
+      console.error('Signup failed:', err);
       setError(getApiErrorMessage(err));
     } finally {
       setIsSubmitting(false);
@@ -122,19 +126,53 @@ export default function LoginPage() {
           <div className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-xl bg-primary text-on-primary shadow-card">
             <SchoolIcon />
           </div>
-          <h1 className="mb-2 text-headline-md text-primary">Student Management System</h1>
+          <h1 className="mb-2 text-headline-md text-primary">Create Your Account</h1>
           <p className="text-body-md text-on-surface-variant">
-            Welcome back. Please sign in to continue.
+            Sign up to get started.
           </p>
         </div>
 
-        {signupSuccess && (
-          <div className="mb-6 rounded-lg bg-secondary/10 px-3 py-2 text-body-sm text-secondary" role="status">
-            Account created successfully. Please sign in.
-          </div>
-        )}
-
         <form className="space-y-6" onSubmit={handleSubmit} noValidate>
+          {/* First & Last name */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <label htmlFor="firstName" className="block text-label-caps uppercase text-on-surface-variant">
+                First Name
+              </label>
+              <div className="relative">
+                <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-outline">
+                  <UserIcon />
+                </span>
+                <input
+                  id="firstName"
+                  type="text"
+                  autoComplete="given-name"
+                  placeholder="John"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  disabled={isSubmitting}
+                  className="w-full rounded-lg border border-outline-variant bg-surface-lowest py-3 pl-10 pr-4 text-body-md text-on-surface outline-none transition placeholder:text-outline/50 focus:border-secondary focus:shadow-focus"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label htmlFor="lastName" className="block text-label-caps uppercase text-on-surface-variant">
+                Last Name
+              </label>
+              <input
+                id="lastName"
+                type="text"
+                autoComplete="family-name"
+                placeholder="Doe"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                disabled={isSubmitting}
+                className="w-full rounded-lg border border-outline-variant bg-surface-lowest px-4 py-3 text-body-md text-on-surface outline-none transition placeholder:text-outline/50 focus:border-secondary focus:shadow-focus"
+              />
+            </div>
+          </div>
+
           {/* Email */}
           <div className="space-y-2">
             <label htmlFor="email" className="block text-label-caps uppercase text-on-surface-variant">
@@ -169,7 +207,7 @@ export default function LoginPage() {
               <input
                 id="password"
                 type={showPassword ? 'text' : 'password'}
-                autoComplete="current-password"
+                autoComplete="new-password"
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -187,6 +225,28 @@ export default function LoginPage() {
             </div>
           </div>
 
+          {/* Confirm Password */}
+          <div className="space-y-2">
+            <label htmlFor="confirmPassword" className="block text-label-caps uppercase text-on-surface-variant">
+              Confirm Password
+            </label>
+            <div className="relative">
+              <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-outline">
+                <LockIcon />
+              </span>
+              <input
+                id="confirmPassword"
+                type={showPassword ? 'text' : 'password'}
+                autoComplete="new-password"
+                placeholder="••••••••"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                disabled={isSubmitting}
+                className="w-full rounded-lg border border-outline-variant bg-surface-lowest py-3 pl-10 pr-4 text-body-md text-on-surface outline-none transition placeholder:text-outline/50 focus:border-secondary focus:shadow-focus"
+              />
+            </div>
+          </div>
+
           {error && (
             <div className="rounded-lg bg-error-container px-3 py-2 text-body-sm text-error" role="alert">
               {error}
@@ -198,20 +258,17 @@ export default function LoginPage() {
             disabled={isSubmitting}
             className="group flex w-full items-center justify-center gap-2 rounded-lg bg-secondary py-3.5 text-title-sm text-on-secondary transition-all hover:bg-secondary/90 active:scale-[0.98] disabled:opacity-60"
           >
-            <span>{isSubmitting ? 'Signing in…' : 'Sign In'}</span>
+            <span>{isSubmitting ? 'Creating account…' : 'Sign Up'}</span>
             {!isSubmitting && <ArrowIcon />}
           </button>
         </form>
 
         <div className="mt-8 border-t border-outline-variant pt-6 text-center">
           <p className="text-body-sm text-on-surface-variant">
-            Don&apos;t have an account?{' '}
-            <Link to="/signup" className="font-semibold text-secondary hover:underline">
-              Sign up
+            Already have an account?{' '}
+            <Link to="/login" className="font-semibold text-secondary hover:underline">
+              Sign in
             </Link>
-          </p>
-          <p className="mt-2 text-body-sm text-on-surface-variant">
-            Trouble signing in? Contact your administrator.
           </p>
         </div>
       </div>

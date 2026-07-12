@@ -28,7 +28,7 @@ export function AssignInstructorDialog({ open, isSubmitting, error, onCancel, on
 
   return (
     <div className="fixed inset-0 z-[70] flex items-center justify-center bg-slate-950/50 px-4">
-      <div className="w-full max-w-md rounded-xl border border-outline-variant bg-white p-6 shadow-modal">
+      <div className="w-full max-w-md rounded-xl border border-outline-variant bg-surface-lowest p-6 shadow-modal">
         <h2 className="text-title-sm font-semibold text-on-surface">Assign Instructor</h2>
         <p className="mt-2 text-body-sm text-on-surface-variant">
           Enter the instructor SSN and choose their role on this course.
@@ -49,7 +49,7 @@ export function AssignInstructorDialog({ open, isSubmitting, error, onCancel, on
           <select
             value={role}
             onChange={(event) => setRole(event.target.value as InstructorAssignmentRole | '')}
-            className="mt-2 w-full rounded-lg border border-input-border bg-white px-3 py-2 text-body-sm text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
+            className="mt-2 w-full rounded-lg border border-input-border bg-surface-lowest px-3 py-2 text-body-sm text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
           >
             <option value="">Select role</option>
             {instructorAssignmentRoles.map((assignmentRole) => (
