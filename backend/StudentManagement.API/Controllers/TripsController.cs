@@ -33,14 +33,14 @@ public class TripsController : ControllerBase
         return Ok(trip);
     }
 
-    [HttpGet("driver/{driverSsn:int}")]
+    [HttpGet("driver/{driverSsn:long}")]
     public async Task<ActionResult<IEnumerable<TripDto>>> GetByDriver(long driverSsn)
     {
         var trips = await _tripService.GetByDriverSsnAsync(driverSsn);
         return Ok(trips);
     }
 
-    [HttpGet("student/{studentSsn:int}")]
+    [HttpGet("student/{studentSsn:long}")]
     public async Task<ActionResult<IEnumerable<TripDto>>> GetByStudent(long studentSsn)
     {
         var trips = await _tripService.GetByStudentSsnAsync(studentSsn);
@@ -78,7 +78,7 @@ public class TripsController : ControllerBase
         return Ok(updated);
     }
 
-    [HttpDelete("{id:int}/students/{studentSsn:int}")]
+    [HttpDelete("{id:int}/students/{studentSsn:long}")]
     public async Task<IActionResult> RemoveStudent(int id, long studentSsn)
     {
         await _tripService.RemoveStudentAsync(id, studentSsn);

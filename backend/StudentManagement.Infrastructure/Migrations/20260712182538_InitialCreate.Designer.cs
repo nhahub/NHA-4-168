@@ -12,13 +12,8 @@ using StudentManagement.Infrastructure.Data;
 namespace StudentManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-<<<<<<<< HEAD:backend/StudentManagement.Infrastructure/Migrations/20260712180321_InitialCreate.Designer.cs
-    [Migration("20260712180321_InitialCreate")]
+    [Migration("20260712182538_InitialCreate")]
     partial class InitialCreate
-========
-    [Migration("20260712175623_InitialBaseline")]
-    partial class InitialBaseline
->>>>>>>> main:backend/StudentManagement.Infrastructure/Migrations/20260712175623_InitialBaseline.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
