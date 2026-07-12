@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "V8JHEX8xLFY=",
+  "dgSpecHash": "ucPrtBcTN50=",
   "success": true,
-  "projectFilePath": "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Infrastructure\\StudentManagement.Infrastructure.csproj",
+  "projectFilePath": "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Infrastructure\\StudentManagement.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Mazen\\.nuget\\packages\\automapper\\16.2.0\\automapper.16.2.0.nupkg.sha512",
     "C:\\Users\\Mazen\\.nuget\\packages\\azure.core\\1.47.1\\azure.core.1.47.1.nupkg.sha512",

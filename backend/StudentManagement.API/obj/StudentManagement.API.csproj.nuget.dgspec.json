@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.API\\StudentManagement.API.csproj": {}
+    "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.API\\StudentManagement.API.csproj": {}
   },
   "projects": {
-    "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.API\\StudentManagement.API.csproj": {
+    "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.API\\StudentManagement.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.API\\StudentManagement.API.csproj",
+        "projectUniqueName": "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.API\\StudentManagement.API.csproj",
         "projectName": "StudentManagement.API",
-        "projectPath": "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.API\\StudentManagement.API.csproj",
+        "projectPath": "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.API\\StudentManagement.API.csproj",
         "packagesPath": "C:\\Users\\Mazen\\.nuget\\packages\\",
-        "outputPath": "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.API\\obj\\",
+        "outputPath": "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -33,14 +33,14 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj": {
-                "projectPath": "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj"
+              "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj": {
+                "projectPath": "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj"
               },
-              "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj": {
-                "projectPath": "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj"
+              "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj": {
+                "projectPath": "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj"
               },
-              "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Infrastructure\\StudentManagement.Infrastructure.csproj": {
-                "projectPath": "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Infrastructure\\StudentManagement.Infrastructure.csproj"
+              "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Infrastructure\\StudentManagement.Infrastructure.csproj": {
+                "projectPath": "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Infrastructure\\StudentManagement.Infrastructure.csproj"
               }
             }
           }
@@ -518,14 +518,14 @@
         }
       }
     },
-    "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj": {
+    "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj",
+        "projectUniqueName": "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj",
         "projectName": "StudentManagement.Application",
-        "projectPath": "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj",
+        "projectPath": "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj",
         "packagesPath": "C:\\Users\\Mazen\\.nuget\\packages\\",
-        "outputPath": "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Application\\obj\\",
+        "outputPath": "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -547,8 +547,8 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj": {
-                "projectPath": "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj"
+              "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj": {
+                "projectPath": "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj"
               }
             }
           }
@@ -873,14 +873,14 @@
         }
       }
     },
-    "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj": {
+    "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj",
+        "projectUniqueName": "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj",
         "projectName": "StudentManagement.Domain",
-        "projectPath": "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj",
+        "projectPath": "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj",
         "packagesPath": "C:\\Users\\Mazen\\.nuget\\packages\\",
-        "outputPath": "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Domain\\obj\\",
+        "outputPath": "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1220,14 +1220,14 @@
         }
       }
     },
-    "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Infrastructure\\StudentManagement.Infrastructure.csproj": {
+    "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Infrastructure\\StudentManagement.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Infrastructure\\StudentManagement.Infrastructure.csproj",
+        "projectUniqueName": "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Infrastructure\\StudentManagement.Infrastructure.csproj",
         "projectName": "StudentManagement.Infrastructure",
-        "projectPath": "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Infrastructure\\StudentManagement.Infrastructure.csproj",
+        "projectPath": "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Infrastructure\\StudentManagement.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\Mazen\\.nuget\\packages\\",
-        "outputPath": "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Infrastructure\\obj\\",
+        "outputPath": "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1249,11 +1249,11 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj": {
-                "projectPath": "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj"
+              "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj": {
+                "projectPath": "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Application\\StudentManagement.Application.csproj"
               },
-              "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj": {
-                "projectPath": "D:\\Uniflow\\2\\NHA-4-168-Student-Dashboard\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj"
+              "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj": {
+                "projectPath": "D:\\Uniflow\\3\\NHA-4-168\\backend\\StudentManagement.Domain\\StudentManagement.Domain.csproj"
               }
             }
           }
