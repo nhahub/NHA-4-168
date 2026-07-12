@@ -119,10 +119,10 @@ export default function LoginPage() {
       <div className="relative w-full max-w-[440px] rounded-xl border border-outline-variant bg-surface-lowest p-8 shadow-card md:p-10">
         {/* Branding header */}
         <div className="mb-10 text-center">
-          <div className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-xl bg-primary text-on-primary shadow-card">
-            <SchoolIcon />
+          <div className="flex items-center gap-3 justify-center mb-4">
+              <img src="src\assets\Logo.png" alt="UniVerse logo" className="h-16 w-16 shrink-0 rounded-lg object-contain"/>
           </div>
-          <h1 className="mb-2 text-headline-md text-primary">Student Management System</h1>
+          <h1 className="text-3xl font-bold text-on-background mb-8">UniVerse</h1>
           <p className="text-body-md text-on-surface-variant">
             Welcome back. Please sign in to continue.
           </p>

@@ -283,7 +283,7 @@ setEditGrade("");
   <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
 
     <div>
-      <h1 className="text-4xl font-bold text-primary">
+      <h1 className="text-3xl font-bold text-on-background mb-8">
         Enrollment Management
       </h1>
 

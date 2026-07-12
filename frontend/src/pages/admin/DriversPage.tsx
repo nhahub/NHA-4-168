@@ -127,7 +127,7 @@ export default function DriversPage() {
     <div className="space-y-6">
       <section className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
         <div>
-          <h1 className="text-display-lg font-bold text-on-background">Drivers</h1>
+          <h1 className="text-3xl font-bold text-on-background mb-8">Drivers</h1>
           <p className="mt-1 text-body-md text-on-surface-variant">{totalCount} records</p>
           {!canManageDrivers ? (
             <p className="mt-2 inline-flex items-center rounded-full border border-outline-variant bg-surface-container-low px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-on-surface-variant">

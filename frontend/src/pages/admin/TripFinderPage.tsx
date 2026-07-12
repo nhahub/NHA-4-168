@@ -70,7 +70,7 @@ export default function TripFinderPage() {
     <div className="space-y-6">
       <section className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
         <div>
-          <h1 className="text-display-lg font-bold text-on-background">Find a Trip</h1>
+          <h1 className="text-3xl font-bold text-on-background mb-8">Find a Trip</h1>
           <p className="mt-1 text-body-md text-on-surface-variant">
             Search for an existing trip, or create a new one if nothing matches.
           </p>

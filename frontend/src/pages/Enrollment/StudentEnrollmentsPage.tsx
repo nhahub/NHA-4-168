@@ -78,7 +78,7 @@ const summaryCards = [
 
   return (
     <>
-        <h1 className="text-3xl font-bold text-gray-900">My Enrollments</h1>
+        <h1 className="text-3xl font-bold text-on-background mb-8">My Enrollments</h1>
       <div className="pt-6 pb-12">
 
         {/* Summary Cards */}
