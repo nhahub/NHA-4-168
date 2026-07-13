@@ -3,7 +3,7 @@ import axiosInstance from './axiosInstance';
 export interface StudentSummaryDto {
   activeCourses: number;
   activeRides: number;
-  pendingPayments: number;
+  paidPayments: number;
   status: string;
 }
 

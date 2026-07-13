@@ -43,6 +43,7 @@ public class InstructorRepository : IInstructorRepository
             .OrderBy(instructor => instructor.LastName)
             .ThenBy(instructor => instructor.FirstName)
             .ThenBy(instructor => instructor.InstructorSsn)
+            .Include(instructor => instructor.Ratings)
             .Skip((query.Page - 1) * query.PageSize)
             .Take(query.PageSize)
             .ToListAsync();
@@ -62,6 +63,7 @@ public class InstructorRepository : IInstructorRepository
             .AsNoTracking()
             .Include(instructor => instructor.CourseInstructors)
                 .ThenInclude(ci => ci.Course)
+            .Include(instructor => instructor.Ratings)
             .FirstOrDefaultAsync(instructor => instructor.InstructorSsn == ssn);
     }
 

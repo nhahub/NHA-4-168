@@ -30,6 +30,11 @@ D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\obj\Debug\net10.0\S
 D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\obj\Debug\net10.0\refint\StudentManagement.Application.dll
 D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\obj\Debug\net10.0\StudentManagement.Application.pdb
 D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\obj\Debug\net10.0\ref\StudentManagement.Application.dll
+D:\Programing\NHA-4-168\backend\StudentManagement.Application\bin\ef_tmp\StudentManagement.Application.deps.json
+D:\Programing\NHA-4-168\backend\StudentManagement.Application\bin\ef_tmp\StudentManagement.Application.dll
+D:\Programing\NHA-4-168\backend\StudentManagement.Application\bin\ef_tmp\StudentManagement.Application.pdb
+D:\Programing\NHA-4-168\backend\StudentManagement.Application\bin\ef_tmp\StudentManagement.Domain.dll
+D:\Programing\NHA-4-168\backend\StudentManagement.Application\bin\ef_tmp\StudentManagement.Domain.pdb
 D:\Programing\NHA-4-168\backend\StudentManagement.Application\bin\Debug\net10.0\StudentManagement.Application.deps.json
 D:\Programing\NHA-4-168\backend\StudentManagement.Application\bin\Debug\net10.0\StudentManagement.Application.dll
 D:\Programing\NHA-4-168\backend\StudentManagement.Application\bin\Debug\net10.0\StudentManagement.Application.pdb

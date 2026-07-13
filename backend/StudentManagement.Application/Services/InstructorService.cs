@@ -148,7 +148,7 @@ public class InstructorService : IInstructorService
             Email = instructor.Email,
             Phone = instructor.Phone,
             Specialization = instructor.Specialization,
-            Rating = instructor.Rating,
+            Rating = AverageRating(instructor),
             CommissionRate = instructor.CommissionRate,
             HireDate = instructor.HireDate
         };
@@ -165,7 +165,7 @@ public class InstructorService : IInstructorService
             Email = instructor.Email,
             Specialization = instructor.Specialization,
             HireDate = instructor.HireDate,
-            Rating = instructor.Rating,
+            Rating = AverageRating(instructor),
             Courses = instructor.CourseInstructors
                 .Select(ci => new InstructorCourseSummaryDto
                 {
@@ -175,5 +175,15 @@ public class InstructorService : IInstructorService
                 })
                 .ToList()
         };
+    }
+
+    private static decimal? AverageRating(Domain.Entities.Instructor instructor)
+    {
+        if (instructor.Ratings == null || instructor.Ratings.Count == 0)
+        {
+            return 0m;
+        }
+
+        return Math.Round(instructor.Ratings.Average(r => r.Score), 2);
     }
 }

@@ -1,9 +1,11 @@
-import { ArrowLeft, Pencil } from 'lucide-react';
+import { ArrowLeft, Pencil, Star } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { formatDate, formatRating, getApiErrorMessage } from '../../features/instructors/instructorUtils';
 import { instructorService } from '../../services/api/instructorService';
+import { instructorRatingApi } from '../../services/api/instructorRatingApi';
 import type { InstructorDto } from '../../services/api/instructorService';
+import type { InstructorRatingDto } from '../../services/api/instructorRatingApi';
 
 export default function InstructorDetailPage() {
   const { ssn } = useParams();
@@ -12,6 +14,9 @@ export default function InstructorDetailPage() {
   const [instructor, setInstructor] = useState<InstructorDto | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [ratings, setRatings] = useState<InstructorRatingDto[]>([]);
+  const [ratingsLoading, setRatingsLoading] = useState(true);
+  const [ratingsError, setRatingsError] = useState<string | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -42,6 +47,28 @@ export default function InstructorDetailPage() {
     }
 
     loadInstructor();
+
+    const loadRatings = async () => {
+      if (Number.isNaN(parsedSsn)) return;
+      setRatingsLoading(true);
+      setRatingsError(null);
+      try {
+        const data = await instructorRatingApi.getByInstructor(parsedSsn);
+        if (active) {
+          setRatings(data);
+        }
+      } catch (requestError) {
+        if (active) {
+          setRatingsError(getApiErrorMessage(requestError));
+        }
+      } finally {
+        if (active) {
+          setRatingsLoading(false);
+        }
+      }
+    };
+
+    loadRatings();
 
     return () => {
       active = false;
@@ -118,6 +145,41 @@ export default function InstructorDetailPage() {
                 ))}
               </tbody>
             </table>
+          </div>
+        )}
+      </section>
+
+      <section className="rounded-xl border border-card-border bg-surface-lowest shadow-card">
+        <div className="border-b border-outline-variant p-6">
+          <h2 className="text-title-sm font-semibold text-on-surface">Student Ratings & Comments</h2>
+          <p className="mt-1 text-body-sm text-on-surface-variant">Feedback from students enrolled in this instructor's courses.</p>
+        </div>
+
+        {ratingsLoading ? (
+          <div className="flex items-center justify-center py-8 text-body-sm text-on-surface-variant">Loading ratings...</div>
+        ) : ratingsError ? (
+          <div className="p-6 text-body-sm text-error shadow-card">{ratingsError}</div>
+        ) : ratings.length === 0 ? (
+          <div className="p-6 text-body-sm text-on-surface-variant">No ratings yet.</div>
+        ) : (
+          <div className="divide-y divide-outline-variant/60">
+            {ratings.map((rating) => (
+              <div key={`${rating.studentSsn}-${rating.ratedAt}`} className="p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-body-sm font-semibold text-on-surface">{rating.studentName}</p>
+                    <p className="text-[12px] text-outline">{new Date(rating.ratedAt).toLocaleDateString()}</p>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
+                    <span className="text-body-sm font-semibold text-on-surface">{rating.score.toFixed(1)}</span>
+                  </div>
+                </div>
+                {rating.comment && (
+                  <p className="mt-3 text-body-sm text-on-surface-variant italic">"{rating.comment}"</p>
+                )}
+              </div>
+            ))}
           </div>
         )}
       </section>

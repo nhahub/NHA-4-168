@@ -12,7 +12,7 @@ export default function StudentDashboardPage() {
   const statCards = useMemo(() => ([
     { label: 'Enrolled Courses', value: summary?.activeCourses ?? 0, icon: BookOpen },
     { label: 'Active Ride Bookings', value: summary?.activeRides ?? 0, icon: BusFront },
-    { label: 'Pending Payments', value: summary ? formatCurrency(summary.pendingPayments) : '—', icon: Wallet },
+    { label: 'My Payments', value: summary ? formatCurrency(summary.paidPayments) : '—', icon: Wallet },
     { label: 'Academic Status', value: summary?.status ?? '—', icon: GraduationCap },
   ]), [summary]);
 
