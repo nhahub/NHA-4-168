@@ -20,6 +20,7 @@ export function InstructorForm({ mode, initialInstructor, isSubmitting, error, o
     email: initialInstructor?.email ?? '',
     phone: initialInstructor?.phone ?? '',
     specialization: initialInstructor?.specialization ?? '',
+    commissionRate: initialInstructor?.commissionRate != null ? String(initialInstructor.commissionRate) : '',
     hireDate: toDateInputValue(initialInstructor?.hireDate),
   }), [initialInstructor]);
 
@@ -38,6 +39,7 @@ export function InstructorForm({ mode, initialInstructor, isSubmitting, error, o
       email: values.email.trim(),
       phone: emptyToNull(values.phone),
       specialization: emptyToNull(values.specialization),
+      commissionRate: values.commissionRate.trim() ? Number(values.commissionRate) : null,
       hireDate: emptyToNull(values.hireDate),
     });
   };
@@ -103,6 +105,19 @@ export function InstructorForm({ mode, initialInstructor, isSubmitting, error, o
           <input
             value={values.specialization}
             onChange={(event) => updateField('specialization', event.target.value)}
+            className="mt-2 w-full rounded-lg border border-input-border px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
+          />
+        </label>
+
+        <label className="block text-[12px] font-semibold uppercase tracking-[0.08em] text-on-surface-variant">
+          Commission Rate (%)
+          <input
+            type="number"
+            min="0"
+            max="100"
+            step="0.1"
+            value={values.commissionRate}
+            onChange={(event) => updateField('commissionRate', event.target.value)}
             className="mt-2 w-full rounded-lg border border-input-border px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
           />
         </label>

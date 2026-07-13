@@ -1,17 +1,19 @@
-import { Bell, BusFront, GraduationCap, HelpCircle, Loader2, LogOut, Menu, MapPinned, Moon, Search, Settings, Sun, User } from 'lucide-react'
+import { Bell, BusFront, BookOpen, GraduationCap, HelpCircle, Loader2, LogOut, Menu, MapPinned, Moon, Search, Settings, Sun, User } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useNotifications } from '../hooks/useNotifications'
 import { useAuth } from '../contexts/AuthContext'
 import { useTheme } from '../contexts/ThemeContext'
 import { useToast } from '../contexts/ToastContext'
-import { isAdmin } from '../utils/auth'
+import { isAdmin, isInstructor } from '../utils/auth'
 import { studentService } from '../services/api/studentService'
 import type { StudentListItemDto } from '../services/api/studentService'
 import { driverService } from '../services/api/driverService'
 import type { DriverDto } from '../services/api/driverService'
 import { tripService } from '../services/api/tripService'
 import type { TripDto } from '../services/api/tripService'
+import { getInstructorCourses } from '../services/api/instructorDashboardApi'
+import type { InstructorDashboardCourseDto } from '../services/api/instructorDashboardApi'
 
 type SearchbarProps = {
   query: string
@@ -37,6 +39,7 @@ function Searchbar({ query, onQueryChange, onMenuClick }: SearchbarProps) {
   const settingsRef = useRef<HTMLDivElement>(null)
 
   const canSeeStudents = isAdmin(user?.roles)
+  const canSeeInstructorCourses = isInstructor(user?.roles)
 
   const [isOpen, setIsOpen] = useState(false)
   const [isSearching, setIsSearching] = useState(false)
@@ -59,7 +62,7 @@ function Searchbar({ query, onQueryChange, onMenuClick }: SearchbarProps) {
       try {
         const lowerTerm = term.toLowerCase()
 
-        const [studentResults, driverResults, tripResults] = await Promise.all([
+        const [studentResults, driverResults, tripResults, instructorCourseResults] = await Promise.all([
           canSeeStudents
             ? studentService
               .getStudents({ page: 1, pageSize: 5, search: term })
@@ -85,6 +88,13 @@ function Searchbar({ query, onQueryChange, onMenuClick }: SearchbarProps) {
               ),
             )
             .catch(() => [] as TripDto[]),
+          canSeeInstructorCourses
+            ? getInstructorCourses()
+              .then((courses) =>
+                courses.filter((course) => course.courseName.toLowerCase().includes(lowerTerm)),
+              )
+              .catch(() => [] as InstructorDashboardCourseDto[])
+            : Promise.resolve([] as InstructorDashboardCourseDto[]),
         ])
 
         if (!active) return
@@ -130,6 +140,19 @@ function Searchbar({ query, onQueryChange, onMenuClick }: SearchbarProps) {
           })
         }
 
+        if (instructorCourseResults.length > 0) {
+          nextGroups.push({
+            label: 'My Courses',
+            icon: BookOpen,
+            items: instructorCourseResults.slice(0, 5).map((course) => ({
+              key: `instructor-course-${course.courseId}`,
+              title: course.courseName,
+              subtitle: `${course.enrolledStudentsCount} students · ${course.isActive ? 'Active' : 'Inactive'}`,
+              to: `/instructor/courses`,
+            })),
+          })
+        }
+
         setGroups(nextGroups)
         setIsOpen(true)
       } finally {
@@ -141,7 +164,7 @@ function Searchbar({ query, onQueryChange, onMenuClick }: SearchbarProps) {
       active = false
       window.clearTimeout(timeoutId)
     }
-  }, [query, canSeeStudents])
+  }, [query, canSeeStudents, canSeeInstructorCourses])
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -193,7 +216,7 @@ function Searchbar({ query, onQueryChange, onMenuClick }: SearchbarProps) {
                 if (hasResults) setIsOpen(true)
               }}
               className="w-full rounded-lg border border-transparent bg-surface-container-low py-2 pl-10 pr-4 text-[14px] leading-5 text-on-surface outline-none transition focus:border-input-border-focus focus:bg-surface-lowest focus:shadow-[0_0_0_3px_rgba(0,88,190,0.15)]"
-              placeholder="Search students, drivers, or trips..."
+              placeholder="Search students, drivers, trips, or courses..."
               type="search"
             />
 

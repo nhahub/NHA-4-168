@@ -39,3 +39,42 @@ export async function getInstructorActivities(limit = 10) {
   );
   return response.data;
 }
+
+export interface InstructorCourseStudentDto {
+  studentSsn: number;
+  studentName: string;
+  email: string;
+  enrolledOn: string | null;
+  status: string;
+  grade: string | null;
+}
+
+export interface InstructorCoursePaymentDto {
+  courseId: number;
+  courseName: string;
+  isActive: boolean;
+  courseRevenue: number;
+  earnings: number;
+}
+
+export interface InstructorPaymentSummaryDto {
+  commissionRatePercent: number;
+  totalCoursesTaught: number;
+  activeCoursesTaught: number;
+  totalRevenue: number;
+  totalEarned: number;
+  activeCoursesEarnings: number;
+  courses: InstructorCoursePaymentDto[];
+}
+
+export async function getInstructorCourseStudents(courseId: number) {
+  const response = await axiosInstance.get<InstructorCourseStudentDto[]>(
+    `/instructor-dashboard/courses/${courseId}/students`
+  );
+  return response.data;
+}
+
+export async function getInstructorPayments() {
+  const response = await axiosInstance.get<InstructorPaymentSummaryDto>('/instructor-dashboard/payments');
+  return response.data;
+}
