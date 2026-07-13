@@ -12,6 +12,7 @@ public class Instructor
     public string?   Specialization { get; set; }
     public DateTime? HireDate       { get; set; }
     public decimal?  Rating         { get; set; }
+    public decimal?  CommissionRate { get; set; }
     public string?   UserId         { get; set; }
 
     public ICollection<CourseInstructor> CourseInstructors { get; set; } = new List<CourseInstructor>();

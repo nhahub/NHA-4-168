@@ -75,6 +75,7 @@ public class InstructorService : IInstructorService
             Phone = NormalizeOptional(request.Phone),
             Email = request.Email.Trim(),
             Specialization = NormalizeOptional(request.Specialization),
+            CommissionRate = request.CommissionRate,
             HireDate = request.HireDate ?? DateTime.UtcNow
         };
 
@@ -101,6 +102,7 @@ public class InstructorService : IInstructorService
         instructor.Phone = NormalizeOptional(request.Phone);
         instructor.Email = trimmedEmail;
         instructor.Specialization = NormalizeOptional(request.Specialization);
+        instructor.CommissionRate = request.CommissionRate;
         instructor.HireDate = request.HireDate;
 
         await _instructorRepository.SaveChangesAsync();
@@ -141,6 +143,7 @@ public class InstructorService : IInstructorService
             Phone = instructor.Phone,
             Specialization = instructor.Specialization,
             Rating = instructor.Rating,
+            CommissionRate = instructor.CommissionRate,
             HireDate = instructor.HireDate
         };
     }

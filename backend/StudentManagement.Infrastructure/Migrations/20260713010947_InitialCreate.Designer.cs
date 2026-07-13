@@ -12,7 +12,7 @@ using StudentManagement.Infrastructure.Data;
 namespace StudentManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260712182538_InitialCreate")]
+    [Migration("20260713010947_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -415,6 +415,9 @@ namespace StudentManagement.Infrastructure.Migrations
                     b.Property<string>("Phone")
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
+
+                    b.Property<decimal?>("RatePerCourse")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal?>("Rating")
                         .HasColumnType("decimal(3,2)");

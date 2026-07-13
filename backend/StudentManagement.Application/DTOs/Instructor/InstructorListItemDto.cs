@@ -9,5 +9,6 @@ public class InstructorListItemDto
     public string? Phone { get; set; }
     public string? Specialization { get; set; }
     public decimal? Rating { get; set; }
+    public decimal? CommissionRate { get; set; }
     public DateTime? HireDate { get; set; }
 }

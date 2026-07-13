@@ -74,4 +74,40 @@ public class InstructorDashboardController : ControllerBase
             return StatusCode(500, "Internal server error");
         }
     }
+
+    [HttpGet("courses/{courseId:int}/students")]
+    public async Task<ActionResult<IEnumerable<InstructorDashboardStudentDto>>> GetCourseStudents(int courseId)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (userId == null) return Unauthorized();
+
+        try
+        {
+            var students = await _instructorDashboardService.GetCourseStudentsAsync(userId, courseId);
+            return Ok(students);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error retrieving students for course {CourseId}, user {UserId}", courseId, userId);
+            return StatusCode(500, "Internal server error");
+        }
+    }
+
+    [HttpGet("payments")]
+    public async Task<ActionResult<InstructorPaymentSummaryDto>> GetPayments()
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (userId == null) return Unauthorized();
+
+        try
+        {
+            var payments = await _instructorDashboardService.GetPaymentsAsync(userId);
+            return Ok(payments);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error retrieving payments for user {UserId}", userId);
+            return StatusCode(500, "Internal server error");
+        }
+    }
 }

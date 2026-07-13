@@ -10,5 +10,6 @@ public class InstructorDto
     public string? Specialization { get; set; }
     public DateTime? HireDate { get; set; }
     public decimal? Rating { get; set; }
+    public decimal? CommissionRate { get; set; } 
     public List<InstructorCourseSummaryDto> Courses { get; set; } = new();
 }
