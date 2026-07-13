@@ -44,7 +44,7 @@ export function StudentForm({ mode, initialStudent, isSubmitting, error, onSubmi
       dateOfBirth: emptyToNull(values.dateOfBirth),
       address: emptyToNull(values.address),
       enrollmentDate: emptyToNull(values.enrollmentDate),
-      status: mode === 'create' ? (values.status as StudentStatus) : undefined,
+      status: values.status as StudentStatus,
     });
   };
 
@@ -62,24 +62,32 @@ export function StudentForm({ mode, initialStudent, isSubmitting, error, onSubmi
               className="mt-2 w-full rounded-lg border border-input-border px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
             />
           </label>
-        ) : null}
-
-        {mode === 'create' ? (
+        ) : (
           <label className="block text-[12px] font-semibold uppercase tracking-[0.08em] text-on-surface-variant">
-            Status
-            <select
-              value={values.status}
-              onChange={(event) => updateField('status', event.target.value)}
-              className="mt-2 w-full rounded-lg border border-input-border bg-surface-lowest px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
-            >
-              {STUDENT_STATUSES.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
+            SSN
+            <input
+              type="text"
+              disabled
+              value={values.studentSsn}
+              className="mt-2 w-full rounded-lg border border-input-border px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none disabled:cursor-not-allowed disabled:bg-surface-container-low disabled:opacity-70"
+            />
           </label>
-        ) : null}
+        )}
+
+        <label className="block text-[12px] font-semibold uppercase tracking-[0.08em] text-on-surface-variant">
+          Status
+          <select
+            value={values.status}
+            onChange={(event) => updateField('status', event.target.value)}
+            className="mt-2 w-full rounded-lg border border-input-border bg-surface-lowest px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
+          >
+            {STUDENT_STATUSES.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </label>
 
         <label className="block text-[12px] font-semibold uppercase tracking-[0.08em] text-on-surface-variant">
           First Name

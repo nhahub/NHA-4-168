@@ -143,6 +143,11 @@ public class StudentService : IStudentService
             {
                 student.EnrollmentDate = request.EnrollmentDate;
             }
+
+            if (request.Status is not null)
+            {
+                student.Status = request.Status.Trim();
+            }
         }
 
         if (request.Phone is not null)
