@@ -91,6 +91,28 @@ public class StudentRepository : IStudentRepository
                 && (excludingSsn == null || student.StudentSsn != excludingSsn.Value));
     }
 
+    public Task<bool> SsnExistsAsync(long ssn)
+    {
+        return _context.Students
+            .AsNoTracking()
+            .AnyAsync(student => student.StudentSsn == ssn);
+    }
+
+    public async Task<Student> CreateAsync(Student student)
+    {
+        try
+        {
+            _context.Students.Add(student);
+            await _context.SaveChangesAsync();
+            return student;
+        }
+        catch (DbUpdateException ex) when (IsDuplicateStudentSsnException(ex))
+        {
+            _context.Entry(student).State = EntityState.Detached;
+            throw new ApiException($"A student with SSN '{student.StudentSsn}' already exists.", 409, "DUPLICATE_SSN");
+        }
+    }
+
     public async Task<Student> CreateWithGeneratedSsnAsync(Student student)
     {
         for (var attempt = 1; attempt <= MaxCreateRetries; attempt++)

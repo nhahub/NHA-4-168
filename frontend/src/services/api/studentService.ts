@@ -37,6 +37,7 @@ export interface StudentQueryParameters {
 }
 
 export interface StudentFormPayload {
+  studentSsn?: number;
   firstName: string;
   lastName: string;
   email: string;
@@ -44,6 +45,7 @@ export interface StudentFormPayload {
   dateOfBirth?: string | null;
   address?: string | null;
   enrollmentDate?: string | null;
+  status?: StudentStatus;
 }
 
 export const studentService = {

@@ -5,8 +5,15 @@ namespace StudentManagement.Application.Validators.Student;
 
 public class CreateStudentRequestValidator : AbstractValidator<CreateStudentRequest>
 {
+    public static readonly string[] AllowedStatuses = { "Active", "Inactive", "Graduated", "Suspended" };
+
     public CreateStudentRequestValidator()
     {
+        RuleFor(x => x.StudentSsn)
+            .GreaterThan(0)
+            .When(x => x.StudentSsn.HasValue)
+            .WithMessage("StudentSsn must be greater than 0 if provided.");
+
         RuleFor(x => x.FirstName)
             .NotEmpty()
             .MaximumLength(50);
@@ -25,5 +32,10 @@ public class CreateStudentRequestValidator : AbstractValidator<CreateStudentRequ
 
         RuleFor(x => x.Address)
             .MaximumLength(255);
+
+        RuleFor(x => x.Status)
+            .Must(status => AllowedStatuses.Contains(status))
+            .When(x => !string.IsNullOrWhiteSpace(x.Status))
+            .WithMessage($"Status must be one of: {string.Join(", ", AllowedStatuses)}");
     }
 }
