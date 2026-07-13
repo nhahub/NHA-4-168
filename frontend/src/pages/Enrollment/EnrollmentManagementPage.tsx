@@ -6,6 +6,9 @@ import enrollmentService, {
   type EnrollmentDto,
 } from "../../services/api/enrollmentService";
 import { Pencil } from "lucide-react";
+import paymentService from "../../services/api/paymentService";
+
+import { courseService } from "../../services/api/courseService";
 
 const getStatusColor = (status: string) => {
   switch (status) {
@@ -43,7 +46,16 @@ const [saving, setSaving] = useState(false);
 const [search, setSearch] = useState("");
 const [courseFilter, setCourseFilter] = useState("");
 const [statusFilter, setStatusFilter] = useState("");
-const [, setShowCreateModal] = useState(false);
+const [showCreateModal, setShowCreateModal] = useState(false);
+
+const [newStudentSsn, setNewStudentSsn] = useState<number | "">("");
+const [newCourseId, setNewCourseId] = useState<number | "">("");
+const [creating, setCreating] = useState(false);
+const [newStudentName, setNewStudentName] = useState("");
+const [newCourseName, setNewCourseName] = useState("");
+const [students, setStudents] = useState([]);
+
+
 
 useEffect(() => {
   const loadEnrollments = async () => {
@@ -238,6 +250,12 @@ const hasChanges =
 
 const handleSave = async () => {
   if (!selectedEnrollment) return;
+
+  if (editStatus === "Completed" && !editGrade) {
+    alert("Completed enrollment must have a grade.");
+    return;
+  }
+
   setSaving(true);
   try {
     await enrollmentService.updateStatus(
@@ -271,6 +289,67 @@ setEditGrade("");
   finally {
     setSaving(false);
 }
+};
+
+
+
+const handleCreateEnrollment = async () => {
+  if (!newStudentSsn || !newCourseId) {
+    alert("Select student and course");
+    return;
+  }
+
+
+  const alreadyEnrolled = enrollments.find(
+  (e) =>
+    e.studentSsn === Number(newStudentSsn) &&
+    e.courseId === Number(newCourseId) &&
+    e.status !== "Withdrawn"
+);
+
+
+
+  if (alreadyEnrolled) {
+    alert("Student already enrolled in this course.");
+    return;
+  }
+
+
+  setCreating(true);
+
+  try {
+
+    const created = await enrollmentService.create({
+      studentSsn: Number(newStudentSsn),
+      courseId: Number(newCourseId),
+    });
+
+    const course = await courseService.getCourse(Number(newCourseId));
+
+
+
+    setEnrollments((prev)=>[
+      ...prev,
+      created
+    ]);
+
+
+    setShowCreateModal(false);
+
+    setNewStudentSsn("");
+    setNewCourseId("");
+
+
+  } catch(error){
+
+    console.error(error);
+    alert("Failed to create enrollment");
+
+  } finally {
+
+    setCreating(false);
+
+  }
 };
 
 
@@ -485,7 +564,9 @@ setEditGrade("");
       <td className="px-6 py-4">
         <p>{enrollment.courseName}</p>
         <p className="text-sm text-on-surface-variant">
-          -
+          <p className="text-xs text-on-surface-variant">
+                              Course ID: {enrollment.courseId}
+                            </p>
         </p>
       </td>
 
@@ -659,17 +740,19 @@ setEditGrade("");
           </label>
 
           <select
-            value={editStatus}
-            onChange={(e) => {
-  const value = e.target.value;
+  value={editStatus}
+  onChange={(e) => {
+    const value = e.target.value;
 
-  setEditStatus(value);
+    setEditStatus(value);
 
-  
-}}
+    if (value !== "Completed") {
+      setEditGrade("");
+    }
+  }}
             className="w-full rounded-lg border px-4 py-2"
           >
-            <option value="">All Statuses</option>
+            {/* <option value="">All Statuses</option> */}
 <option value="Active">Active</option>
 <option value="Completed">Completed</option>
 <option value="Withdrawn">Withdrawn</option>
@@ -677,27 +760,33 @@ setEditGrade("");
         </div>
 
         <div>
-          <label className="mb-1 block text-sm font-medium">
-            Grade
-          </label>
+          {editStatus === "Completed" && (
+  <div>
+    <label className="mb-1 block text-sm font-medium">
+      Grade
+    </label>
 
-         <select
-  value={editGrade}
-  onChange={(e) => setEditGrade(e.target.value)}
-  className="w-full rounded-lg border px-4 py-2"
->
-  <option value="">No Grade</option>
-  <option value="A+">A+</option>
-  <option value="A">A</option>
-  <option value="A-">A-</option>
-  <option value="B+">B+</option>
-  <option value="B">B</option>
-  <option value="B-">B-</option>
-  <option value="C+">C+</option>
-  <option value="C">C</option>
-  <option value="D">D</option>
-  <option value="F">F</option>
-</select>
+    <select
+      value={editGrade}
+      onChange={(e) => setEditGrade(e.target.value)}
+      className="w-full rounded-lg border px-4 py-2"
+    >
+      <option value="">Select Grade</option>
+      <option value="A+">A+</option>
+      <option value="A">A</option>
+      <option value="A-">A-</option>
+      <option value="B+">B+</option>
+      <option value="B">B</option>
+      <option value="B-">B-</option>
+      <option value="C+">C+</option>
+      <option value="C">C</option>
+      <option value="D">D</option>
+      <option value="F">F</option>
+    </select>
+  </div>
+)}
+
+         
         </div>
 
       </div>
@@ -724,6 +813,108 @@ setEditGrade("");
     </div>
   </div>
 )}
+
+
+
+{showCreateModal && (
+<div
+className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+onClick={() => setShowCreateModal(false)}
+>
+
+<div
+className="w-full max-w-md rounded-xl bg-white p-6"
+onClick={(e)=>e.stopPropagation()}
+>
+
+<h2 className="text-xl font-bold mb-5">
+New Enrollment
+</h2>
+
+
+<div className="space-y-4">
+
+
+<input
+  type="number"
+  placeholder="Enter Student SSN"
+  value={newStudentSsn}
+  onChange={(e) => {
+    const id = e.target.value === "" ? "" : Number(e.target.value);
+
+    setNewStudentSsn(id);
+
+    const student = enrollments.find(
+      (e) => e.studentSsn === Number(id)
+    );
+
+    setNewStudentName(student?.studentName ?? "");
+  }}
+  className="w-full border rounded-lg px-4 py-2"
+/>
+
+{newStudentName && (
+  <p className="mt-2 text-sm text-green-600">
+    Student: {newStudentName}
+  </p>
+)}
+
+
+
+<input
+  type="number"
+  placeholder="Enter Course ID"
+  value={newCourseId}
+  onChange={(e) => {
+    const id = e.target.value === "" ? "" : Number(e.target.value);
+
+    setNewCourseId(id);
+
+    const course = enrollments.find(
+      (e) => e.courseId === Number(id)
+    );
+
+    setNewCourseName(course?.courseName ?? "");
+  }}
+  className="w-full border rounded-lg px-4 py-2"
+/>
+
+{newCourseName && (
+  <p className="mt-2 text-sm text-green-600">
+    Course: {newCourseName}
+  </p>
+)}
+
+</div>
+
+
+<div className="flex justify-end gap-3 mt-6">
+
+<button
+onClick={()=>setShowCreateModal(false)}
+className="border px-4 py-2 rounded-lg"
+>
+Cancel
+</button>
+
+
+<button
+disabled={creating}
+onClick={handleCreateEnrollment}
+className="bg-secondary text-white px-4 py-2 rounded-lg"
+>
+{creating ? "Creating..." : "Create"}
+</button>
+
+
+</div>
+
+
+</div>
+
+</div>
+)}
+
 
     </>
   );
