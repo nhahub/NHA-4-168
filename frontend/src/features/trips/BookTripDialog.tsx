@@ -31,7 +31,7 @@ export function BookTripDialog({ open, trip, isSubmitting, error, onConfirm, onC
           <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-on-surface-variant">
             Amount to be charged
           </p>
-          <p className="mt-1 text-2xl font-bold text-on-surface">{formatCurrency(trip.price)}</p>
+          <p className="mt-1 text-2xl font-bold text-gray-900 dark:text-black">{formatCurrency(trip.price)}</p>
           <p className="mt-1 text-body-sm text-on-surface-variant">
             This will be deducted from your card on file.
           </p>

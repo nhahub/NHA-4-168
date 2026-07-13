@@ -9,6 +9,10 @@ public class DashboardService : IDashboardService
 {
     private readonly AppDbContext _context;
 
+    // Share of each trip booking that belongs to the admin as revenue.
+    // The remaining (1 - TripAdminRevenueRate) is the driver's earnings.
+    private const decimal TripAdminRevenueRate = 0.10m;
+
     public DashboardService(AppDbContext context)
     {
         _context = context;
@@ -22,9 +26,10 @@ public class DashboardService : IDashboardService
 
         // Trip bookings aren't recorded as Payments (they're not tied to an Enrollment),
         // so we add their revenue here: every row in TripStudents represents one booked
-        // seat, charged at that trip's price.
+        // seat, charged at that trip's price. Only the admin's share (TripAdminRevenueRate)
+        // counts as revenue; the rest is the driver's earnings.
         var tripsRevenue = await _context.TripStudents
-            .SumAsync(tripStudent => (decimal?)tripStudent.Trip.Price) ?? 0m;
+            .SumAsync(tripStudent => (decimal?)tripStudent.Trip.Price * TripAdminRevenueRate) ?? 0m;
 
         return await _context.Students
             .AsNoTracking()

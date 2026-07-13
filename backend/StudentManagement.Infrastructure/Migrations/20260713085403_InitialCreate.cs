@@ -281,7 +281,7 @@ namespace StudentManagement.Infrastructure.Migrations
                 {
                     TripId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DriverSsn = table.Column<long>(type: "bigint", nullable: false),
+                    DriverSsn = table.Column<long>(type: "bigint", nullable: true),
                     EstimatedTimeOfArrival = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Destination = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     PickupArea = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
