@@ -281,7 +281,7 @@ namespace StudentManagement.Infrastructure.Migrations
                 {
                     TripId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DriverSsn = table.Column<long>(type: "bigint", nullable: false),
+                    DriverSsn = table.Column<long>(type: "bigint", nullable: true),
                     EstimatedTimeOfArrival = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Destination = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     PickupArea = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
@@ -352,6 +352,33 @@ namespace StudentManagement.Infrastructure.Migrations
                         principalTable: "Students",
                         principalColumn: "StudentSsn",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InstructorRatings",
+                columns: table => new
+                {
+                    StudentSsn = table.Column<long>(type: "bigint", nullable: false),
+                    InstructorSsn = table.Column<long>(type: "bigint", nullable: false),
+                    Score = table.Column<decimal>(type: "decimal(3,2)", nullable: false),
+                    Comment = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    RatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InstructorRatings", x => new { x.StudentSsn, x.InstructorSsn });
+                    table.ForeignKey(
+                        name: "FK_InstructorRatings_Instructors_InstructorSsn",
+                        column: x => x.InstructorSsn,
+                        principalTable: "Instructors",
+                        principalColumn: "InstructorSsn",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_InstructorRatings_Students_StudentSsn",
+                        column: x => x.StudentSsn,
+                        principalTable: "Students",
+                        principalColumn: "StudentSsn",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -503,6 +530,11 @@ namespace StudentManagement.Infrastructure.Migrations
                 column: "StudentSsn");
 
             migrationBuilder.CreateIndex(
+                name: "IX_InstructorRatings_InstructorSsn",
+                table: "InstructorRatings",
+                column: "InstructorSsn");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Instructors_Email",
                 table: "Instructors",
                 column: "Email",
@@ -571,6 +603,9 @@ namespace StudentManagement.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "CourseInstructors");
+
+            migrationBuilder.DropTable(
+                name: "InstructorRatings");
 
             migrationBuilder.DropTable(
                 name: "Payments");

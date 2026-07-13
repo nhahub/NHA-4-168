@@ -12,8 +12,8 @@ using StudentManagement.Infrastructure.Data;
 namespace StudentManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260713054154_MakeTripDriverOptional")]
-    partial class MakeTripDriverOptional
+    [Migration("20260713095904_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -439,6 +439,31 @@ namespace StudentManagement.Infrastructure.Migrations
                     b.ToTable("Instructors", (string)null);
                 });
 
+            modelBuilder.Entity("StudentManagement.Domain.Entities.InstructorRating", b =>
+                {
+                    b.Property<long>("StudentSsn")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("InstructorSsn")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Comment")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<DateTime>("RatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Score")
+                        .HasColumnType("decimal(3,2)");
+
+                    b.HasKey("StudentSsn", "InstructorSsn");
+
+                    b.HasIndex("InstructorSsn");
+
+                    b.ToTable("InstructorRatings", (string)null);
+                });
+
             modelBuilder.Entity("StudentManagement.Domain.Entities.Payment", b =>
                 {
                     b.Property<int>("PaymentId")
@@ -771,6 +796,25 @@ namespace StudentManagement.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("StudentManagement.Domain.Entities.InstructorRating", b =>
+                {
+                    b.HasOne("StudentManagement.Domain.Entities.Instructor", "Instructor")
+                        .WithMany("Ratings")
+                        .HasForeignKey("InstructorSsn")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StudentManagement.Domain.Entities.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentSsn")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Instructor");
+
+                    b.Navigation("Student");
+                });
+
             modelBuilder.Entity("StudentManagement.Domain.Entities.Payment", b =>
                 {
                     b.HasOne("StudentManagement.Domain.Entities.Enrollment", "Enrollment")
@@ -855,6 +899,8 @@ namespace StudentManagement.Infrastructure.Migrations
             modelBuilder.Entity("StudentManagement.Domain.Entities.Instructor", b =>
                 {
                     b.Navigation("CourseInstructors");
+
+                    b.Navigation("Ratings");
                 });
 
             modelBuilder.Entity("StudentManagement.Domain.Entities.Service", b =>

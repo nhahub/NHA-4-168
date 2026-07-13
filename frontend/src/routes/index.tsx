@@ -38,6 +38,7 @@ import StudentCompletePaymentPage from "../pages/payment/StudentCompletePaymentP
 import DriverTripsPage from "../pages/driver/DriverTripsPage";
 import DriverMyTripsPage from "../pages/driver/DriverMyTripsPage";
 import DriverPaymentsPage from "../pages/driver/DriverPaymentsPage";
+import RateInstructorsPage from "../pages/student/RateInstructorsPage";
 
 function HomeRedirect() {
   const { isAuthenticated, user } = useAuth();
@@ -99,6 +100,7 @@ export const routes: RouteObject[] = [
   { path: '/admin/payments', element: <ProtectedRoute allowedRoles={['admin']}><PaymentManagementPage /></ProtectedRoute> },
   { path: '/student/enrollments', element: <ProtectedRoute allowedRoles={['student', 'admin']}><StudentEnrollmentsPage /></ProtectedRoute> },
   { path: '/student/payments', element: <ProtectedRoute allowedRoles={['student', 'admin']}><StudentPaymentHistoryPage /></ProtectedRoute> },
+  { path: '/student/rate-instructors', element: <ProtectedRoute allowedRoles={['student', 'admin']}><RateInstructorsPage /></ProtectedRoute> },
   { path: '/student/payments/:enrollmentId/complete', element: <ProtectedRoute allowedRoles={['student', 'admin']}><StudentCompletePaymentPage /></ProtectedRoute> },
   { path: '/driver/trips', element: <ProtectedRoute allowedRoles={['admin', 'driver']}><DriverTripsPage /></ProtectedRoute> },
   { path: '/driver/my-trips', element: <ProtectedRoute allowedRoles={['admin', 'driver']}><DriverMyTripsPage /></ProtectedRoute> },

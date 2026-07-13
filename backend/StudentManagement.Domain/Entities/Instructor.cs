@@ -16,5 +16,6 @@ public class Instructor
     public string?   UserId         { get; set; }
 
     public ICollection<CourseInstructor> CourseInstructors { get; set; } = new List<CourseInstructor>();
+    public ICollection<InstructorRating> Ratings { get; set; } = new List<InstructorRating>();
     public IdentityUser? User { get; set; }
 }

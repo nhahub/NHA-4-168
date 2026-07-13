@@ -25,6 +25,7 @@ public static class SeedTestData
         await SeedInstructorsAsync(context, userManager);
         await SeedDriversAsync(context, userManager);
         await SeedCoursesAsync(context);
+        await SeedCourseAssignmentsAndEnrollmentsAsync(context);
         await SeedServicesAsync(context);
         await GetOrCreateUserAsync(userManager, "admin@studentmanagement.example.com", "Admin", "Admin@12345");
     }
@@ -118,7 +119,6 @@ public static class SeedTestData
                 Email = email,
                 Specialization = specialization,
                 HireDate = DateTime.UtcNow.AddYears(-Random.Shared.Next(1, 8)),
-                Rating = Math.Round((decimal)(Random.Shared.NextDouble() * 2 + 3), 2), // 3.00–5.00
                 UserId = user.Id
             });
         }
@@ -190,6 +190,72 @@ public static class SeedTestData
                 Fee = fee,
                 Level = level,
                 IsPaid = isPaid
+            });
+        }
+
+        await context.SaveChangesAsync();
+    }
+
+    private static async Task SeedCourseAssignmentsAndEnrollmentsAsync(AppDbContext context)
+    {
+        if (await context.CourseInstructors.AnyAsync())
+        {
+            return;
+        }
+
+        var instructors = await context.Instructors.ToListAsync();
+        var courses = await context.Courses.ToListAsync();
+        var students = await context.Students.ToListAsync();
+
+        int CourseId(string name) => courses.First(c => c.CourseName == name).CourseId;
+
+        var assignments = new (string InstructorEmail, string[] CourseNames)[]
+        {
+            ("hassan.nabil@instructor.example.com", new[] { "Intro to Programming", "Web Development Bootcamp" }),
+            ("rania.tarek@instructor.example.com", new[] { "Data Structures & Algorithms" }),
+            ("sherif.gamal@instructor.example.com", new[] { "Mobile App Development" }),
+            ("dina.wahid@instructor.example.com", new[] { "UI/UX Design Foundations" }),
+        };
+
+        foreach (var (email, courseNames) in assignments)
+        {
+            var instructor = instructors.First(i => i.Email == email);
+            foreach (var name in courseNames)
+            {
+                context.CourseInstructors.Add(new CourseInstructor
+                {
+                    InstructorSsn = instructor.InstructorSsn,
+                    CourseId = CourseId(name),
+                    Role = "Primary Instructor",
+                    AssignedOn = DateTime.UtcNow.AddMonths(-2)
+                });
+            }
+        }
+
+        await context.SaveChangesAsync();
+
+        var enrollments = new (string StudentEmail, string CourseName)[]
+        {
+            ("amr.khaled@student.example.com", "Intro to Programming"),
+            ("layla.hassan@student.example.com", "Web Development Bootcamp"),
+            ("omar.mostafa@student.example.com", "Data Structures & Algorithms"),
+            ("sara.adel@student.example.com", "Mobile App Development"),
+            ("youssef.ibrahim@student.example.com", "UI/UX Design Foundations"),
+            ("nour.farouk@student.example.com", "Web Development Bootcamp"),
+            ("karim.salem@student.example.com", "Intro to Programming"),
+            ("mona.fathy@student.example.com", "Data Structures & Algorithms"),
+        };
+
+        foreach (var (email, courseName) in enrollments)
+        {
+            var student = students.First(s => s.Email == email);
+            var course = courses.First(c => c.CourseName == courseName);
+            context.Enrollments.Add(new Enrollment
+            {
+                StudentSsn = student.StudentSsn,
+                CourseId = course.CourseId,
+                EnrolledOn = DateTime.UtcNow.AddMonths(-1),
+                Status = "Active"
             });
         }
 

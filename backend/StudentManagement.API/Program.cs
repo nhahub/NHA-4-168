@@ -121,6 +121,8 @@ builder.Services.AddScoped<IInstructorService, InstructorService>();
 builder.Services.AddScoped<IValidator<CreateInstructorRequest>, CreateInstructorRequestValidator>();
 builder.Services.AddScoped<IValidator<UpdateInstructorRequest>, UpdateInstructorRequestValidator>();
 builder.Services.AddScoped<IValidator<InstructorQueryParameters>, InstructorQueryParametersValidator>();
+builder.Services.AddScoped<IInstructorRatingService, InstructorRatingService>();
+builder.Services.AddScoped<IValidator<CreateInstructorRatingDto>, CreateInstructorRatingDtoValidator>();
 
 var app = builder.Build();
 

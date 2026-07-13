@@ -4,6 +4,10 @@ import type { TripDto } from '../../services/api/tripService';
 import { driverService } from '../../services/api/driverService';
 import { getApiErrorMessage } from '../../utils/errorMessage';
 
+// Share of each trip booking that the driver keeps as earnings.
+// The remaining (1 - DRIVER_EARNINGS_RATE) is the admin's revenue.
+const DRIVER_EARNINGS_RATE = 0.9;
+
 export default function DriverPaymentsPage() {
   const [trips, setTrips] = useState<TripDto[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -33,7 +37,7 @@ export default function DriverPaymentsPage() {
   }, []);
 
   const totalEarnings = useMemo(
-    () => trips.reduce((sum, trip) => sum + trip.seatsTaken * trip.price, 0),
+    () => trips.reduce((sum, trip) => sum + trip.seatsTaken * trip.price * DRIVER_EARNINGS_RATE, 0),
     [trips],
   );
 
@@ -76,7 +80,7 @@ export default function DriverPaymentsPage() {
                     <td className="px-6 py-4 text-body-sm text-on-surface-variant">{trip.seatsTaken}</td>
                     <td className="px-6 py-4 text-body-sm text-on-surface-variant">${trip.price.toFixed(2)}</td>
                     <td className="px-6 py-4 text-body-sm font-semibold text-on-surface">
-                      ${(trip.seatsTaken * trip.price).toFixed(2)}
+                      ${(trip.seatsTaken * trip.price * DRIVER_EARNINGS_RATE).toFixed(2)}
                     </td>
                   </tr>
                 ))}

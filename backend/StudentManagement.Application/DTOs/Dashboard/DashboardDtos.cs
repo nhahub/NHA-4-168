@@ -4,7 +4,7 @@ public class StudentDashboardSummaryDto
 {
     public int ActiveCourses { get; set; }
     public int ActiveRides { get; set; }
-    public decimal PendingPayments { get; set; }
+    public decimal PaidPayments { get; set; }
     public string Status { get; set; } = string.Empty;
 }
 
