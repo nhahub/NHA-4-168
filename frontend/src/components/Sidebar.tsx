@@ -70,7 +70,7 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
     navigationItems = [
       { label: 'Dashboard', icon: LayoutDashboard, to: dashboardTo, enabled: true },
       { label: 'My Instructors', icon: Users, to: '/instructors', enabled: true },
-      { label: 'My Courses', icon: BookOpen, to: '/courses', enabled: true },
+      { label: 'Courses', icon: BookOpen, to: '/courses', enabled: true },
       { label: 'My Enrollments', icon: BookOpen, to: '/student/enrollments', enabled: true },
       { label: 'Payment History', icon: Wallet, to: '/student/payments', enabled: true },
       { label: 'Drivers', icon: BusFront, to: '/drivers', enabled: true },
