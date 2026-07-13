@@ -61,14 +61,16 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
   } else if (canAccessDriverViews) {
     navigationItems = [
       { label: 'Dashboard', icon: LayoutDashboard, to: dashboardTo, enabled: true },
-      { label: 'Trips', icon: BusFront, to: '/trips', enabled: true },
+      { label: 'Trips', icon: BusFront, to: '/driver/trips', enabled: true },
+      { label: 'My Trips', icon: BusFront, to: '/driver/my-trips', enabled: true },
+      { label: 'Payment', icon: Wallet, to: '/driver/payments', enabled: true },
     ]
   } else {
     // Student (default)
     navigationItems = [
       { label: 'Dashboard', icon: LayoutDashboard, to: dashboardTo, enabled: true },
-      { label: 'My Instructors', icon: Users, to: '/student/instructors', enabled: true },
-      { label: 'My Courses', icon: BookOpen, to: '/student/courses', enabled: true },
+      { label: 'My Instructors', icon: Users, to: '/instructors', enabled: true },
+      { label: 'My Courses', icon: BookOpen, to: '/courses', enabled: true },
       { label: 'My Enrollments', icon: BookOpen, to: '/student/enrollments', enabled: true },
       { label: 'Payment History', icon: Wallet, to: '/student/payments', enabled: true },
       { label: 'Drivers', icon: BusFront, to: '/drivers', enabled: true },

@@ -34,8 +34,8 @@ export interface TripStudentDto {
 
 export interface TripDto {
   tripId: number;
-  driverSsn: number;
-  driverName: string;
+  driverSsn: number | null;
+  driverName: string | null;
   destination: string;
   pickupArea: string;
   estimatedTimeOfArrival: string;
@@ -51,7 +51,7 @@ export interface TripDto {
 // driverSsn — sending them is harmless if the API ignores extras, but they
 // may not be necessary.
 export interface TripFormPayload {
-  driverSsn: number;
+  driverSsn?: number | null;
   destination: string;
   pickupArea: string;
   estimatedTimeOfArrival: string;
@@ -120,6 +120,11 @@ export const tripService = {
 
   removeStudentFromTrip: async (tripId: number, studentSsn: number): Promise<void> => {
     await axiosInstance.delete(`/trips/${tripId}/students/${studentSsn}`);
+  },
+
+  takeTrip: async (tripId: number): Promise<TripDto> => {
+    const response = await axiosInstance.post<TripDto>(`/trips/${tripId}/take`);
+    return { ...response.data, status: normalizeTripStatus(response.data.status) };
   },
 };
 

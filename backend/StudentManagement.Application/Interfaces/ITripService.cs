@@ -1,4 +1,4 @@
-﻿using StudentManagement.Application.DTOs.Trip;
+using StudentManagement.Application.DTOs.Trip;
 
 namespace StudentManagement.Application.Interfaces;
 
@@ -15,4 +15,6 @@ public interface ITripService
 
     Task<TripDto> AddStudentAsync(int tripId, AddStudentToTripDto dto);
     Task RemoveStudentAsync(int tripId, long studentSsn);
+
+    Task<TripDto> TakeTripAsync(int tripId, long driverSsn);
 }

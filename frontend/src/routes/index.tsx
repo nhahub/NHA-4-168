@@ -35,6 +35,9 @@ import StudentEnrollmentsPage from "../pages/Enrollment/StudentEnrollmentsPage";
 import PaymentManagementPage from "../pages/payment/PaymentManagementPage";
 import StudentPaymentHistoryPage from "../pages/payment/StudentPaymentHistoryPage";
 import StudentCompletePaymentPage from "../pages/payment/StudentCompletePaymentPage";
+import DriverTripsPage from "../pages/driver/DriverTripsPage";
+import DriverMyTripsPage from "../pages/driver/DriverMyTripsPage";
+import DriverPaymentsPage from "../pages/driver/DriverPaymentsPage";
 
 function HomeRedirect() {
   const { isAuthenticated, user } = useAuth();
@@ -67,7 +70,7 @@ export const routes: RouteObject[] = [
   { path: '/driver-dashboard', element: <ProtectedRoute allowedRoles={['admin', 'driver']}><DriverDashboardPage /></ProtectedRoute> },
   { path: '/student/trips', element: <ProtectedRoute allowedRoles={['admin', 'student']}><StudentTripsPage /></ProtectedRoute> },
   { path: '/dashboard', element: <HomeRedirect /> },
-  
+
   { path: '/drivers', element: <ProtectedRoute allowedRoles={['admin', 'student']}><DriversPage /></ProtectedRoute> },
   { path: '/students', element: <ProtectedRoute allowedRoles={['admin']}><StudentsPage /></ProtectedRoute> },
   { path: '/drivers/new', element: <ProtectedRoute allowedRoles={['admin']}><DriverFormPage mode="create" /></ProtectedRoute> },
@@ -96,5 +99,9 @@ export const routes: RouteObject[] = [
   { path: '/admin/payments', element: <ProtectedRoute allowedRoles={['admin']}><PaymentManagementPage /></ProtectedRoute> },
   { path: '/student/enrollments', element: <ProtectedRoute allowedRoles={['student', 'admin']}><StudentEnrollmentsPage /></ProtectedRoute> },
   { path: '/student/payments', element: <ProtectedRoute allowedRoles={['student', 'admin']}><StudentPaymentHistoryPage /></ProtectedRoute> },
+  { path: '/student/payments/:enrollmentId/complete', element: <ProtectedRoute allowedRoles={['student', 'admin']}><StudentCompletePaymentPage /></ProtectedRoute> },
+  { path: '/driver/trips', element: <ProtectedRoute allowedRoles={['admin', 'driver']}><DriverTripsPage /></ProtectedRoute> },
+  { path: '/driver/my-trips', element: <ProtectedRoute allowedRoles={['admin', 'driver']}><DriverMyTripsPage /></ProtectedRoute> },
+  { path: '/driver/payments', element: <ProtectedRoute allowedRoles={['admin', 'driver']}><DriverPaymentsPage /></ProtectedRoute> },
   { path: '*', element: <NotFoundPage /> },
 ];

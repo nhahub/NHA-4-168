@@ -1,4 +1,4 @@
-﻿using FluentValidation;
+using FluentValidation;
 using StudentManagement.Application.DTOs.Trip;
 
 namespace StudentManagement.Application.Validators.Trip;
@@ -8,7 +8,9 @@ public class CreateTripDtoValidator : AbstractValidator<CreateTripDto>
     public CreateTripDtoValidator()
     {
         RuleFor(x => x.DriverSsn)
-            .GreaterThan(0).WithMessage("DriverSsn is required.");
+            .GreaterThan(0)
+            .When(x => x.DriverSsn.HasValue)
+            .WithMessage("DriverSsn must be greater than 0 if provided.");
 
         RuleFor(x => x.Destination)
             .NotEmpty()

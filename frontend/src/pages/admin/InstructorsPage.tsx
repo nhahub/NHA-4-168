@@ -102,10 +102,23 @@ export default function InstructorsPage() {
         // GET /instructors/{ssn} is restricted to admins or the instructor themselves,
         // so we fetch the open list endpoint once and filter to the ones teaching
         // this student's enrolled courses, instead of calling the single-instructor endpoint.
-        const allInstructorsResponse = await instructorService.getInstructors({ page: 1, pageSize: 1000 });
-        const instructorDetails = allInstructorsResponse.data.filter((instructor) =>
-          instructorSsns.includes(instructor.instructorSsn),
-        );
+   // GET /instructors/{ssn} is restricted to admins or the instructor themselves,
+// so we page through the open list endpoint and filter to the ones teaching
+// this student's enrolled courses, instead of calling the single-instructor endpoint.
+let allInstructors: InstructorListItemDto[] = [];
+let currentPage = 1;
+let totalPages = 1;
+
+do {
+  const response = await instructorService.getInstructors({ page: currentPage, pageSize: 100 });
+  allInstructors = [...allInstructors, ...response.data];
+  totalPages = response.totalPages;
+  currentPage++;
+} while (currentPage <= totalPages);
+
+const instructorDetails = allInstructors.filter((instructor) =>
+  instructorSsns.includes(instructor.instructorSsn),
+);
 
         if (active) {
           setMyInstructors(instructorDetails);

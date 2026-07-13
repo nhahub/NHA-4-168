@@ -54,7 +54,7 @@ public class TripService : ITripService
     {
         await ValidateAsync(_createValidator, dto);
 
-        if (!await _tripRepository.DriverExistsAsync(dto.DriverSsn))
+        if (dto.DriverSsn.HasValue && !await _tripRepository.DriverExistsAsync(dto.DriverSsn.Value))
         {
             throw new NotFoundException($"Driver with SSN '{dto.DriverSsn}' was not found.");
         }
@@ -176,6 +176,31 @@ public class TripService : ITripService
         trip.TripStudents.Remove(ts);
         _tripRepository.Update(trip);
         await _tripRepository.SaveChangesAsync();
+    }
+
+    public async Task<TripDto> TakeTripAsync(int tripId, long driverSsn)
+    {
+        var trip = await _tripRepository.GetByIdWithDetailsAsync(tripId)
+            ?? throw new NotFoundException($"Trip with id '{tripId}' was not found.");
+
+        if (trip.DriverSsn.HasValue)
+        {
+            throw new ApiException("Trip already has a driver.", 409, "TRIP_ALREADY_ASSIGNED");
+        }
+
+        if (!await _tripRepository.DriverExistsAsync(driverSsn))
+        {
+            throw new NotFoundException($"Driver with SSN '{driverSsn}' was not found.");
+        }
+
+        trip.DriverSsn = driverSsn;
+        trip.Status = "Available";
+
+        _tripRepository.Update(trip);
+        await _tripRepository.SaveChangesAsync();
+
+        var updated = await _tripRepository.GetByIdWithDetailsAsync(tripId) ?? trip;
+        return MapToDto(updated);
     }
 
     private static TripDto MapToDto(Trip trip)

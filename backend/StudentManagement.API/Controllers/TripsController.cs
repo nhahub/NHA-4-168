@@ -1,5 +1,7 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.JsonWebTokens;
 using StudentManagement.Application.DTOs.Trip;
 using StudentManagement.Application.Interfaces;
 using StudentManagement.Domain.Exceptions;
@@ -12,10 +14,12 @@ namespace StudentManagement.API.Controllers;
 public class TripsController : ControllerBase
 {
     private readonly ITripService _tripService;
+    private readonly IDriverService _driverService;
 
-    public TripsController(ITripService tripService)
+    public TripsController(ITripService tripService, IDriverService driverService)
     {
         _tripService = tripService;
+        _driverService = driverService;
     }
 
     [HttpGet]
@@ -83,5 +87,27 @@ public class TripsController : ControllerBase
     {
         await _tripService.RemoveStudentAsync(id, studentSsn);
         return NoContent();
+    }
+
+    [HttpPost("{id:int}/take")]
+    [Authorize(Roles = "Driver")]
+    public async Task<ActionResult<TripDto>> TakeTrip(int id)
+    {
+        var userId = User.FindFirstValue(JwtRegisteredClaimNames.Sub)
+            ?? User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        if (string.IsNullOrWhiteSpace(userId))
+        {
+            return Unauthorized();
+        }
+
+        var driver = await _driverService.GetCurrentDriverAsync(userId);
+        if (driver == null)
+        {
+            return NotFound(new { message = "Driver profile not found for current user." });
+        }
+
+        var updated = await _tripService.TakeTripAsync(id, driver.DriverSsn);
+        return Ok(updated);
     }
 }

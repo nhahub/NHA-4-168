@@ -131,4 +131,25 @@ public class DriverService : IDriverService
         await _context.SaveChangesAsync();
         return true;
     }
+
+    public async Task<DriverDto?> GetCurrentDriverAsync(string userId)
+    {
+        var d = await _context.Drivers.FirstOrDefaultAsync(x => x.UserId == userId);
+        if (d == null) return null;
+
+        return new DriverDto
+        {
+            DriverSsn = d.DriverSsn,
+            FirstName = d.FirstName,
+            LastName = d.LastName,
+            Phone = d.Phone,
+            LicenseNumber = d.LicenseNumber,
+            CarModel = d.CarModel,
+            CarPlate = d.CarPlate,
+            CarYear = d.CarYear,
+            Rating = d.Rating,
+            UserId = d.UserId,
+            Status = d.Status
+        };
+    }
 }
