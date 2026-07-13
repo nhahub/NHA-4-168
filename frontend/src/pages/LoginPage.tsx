@@ -4,7 +4,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { authService } from '../services/api/authService';
 import { getApiErrorMessage } from '../utils/errorMessage';
-import { isAdmin } from '../utils/auth';
+import { isAdmin, isInstructor, isDriver } from '../utils/auth';
 
 function MailIcon() {
   return (
@@ -73,7 +73,13 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (isAuthenticated && user) {
-      const targetPath = isAdmin(user.roles) ? '/admin' : '/student-dashboard';
+      const targetPath = isAdmin(user.roles)
+        ? '/admin'
+        : isInstructor(user.roles)
+        ? '/instructor-dashboard'
+        : isDriver(user.roles)
+        ? '/driver-dashboard'
+        : '/student-dashboard';
       navigate(targetPath, { replace: true });
     }
   }, [isAuthenticated, navigate, user]);
@@ -98,7 +104,13 @@ export default function LoginPage() {
       }
 
       login(response.data.token, response.data.user);
-      const targetPath = isAdmin(response.data.user.roles) ? '/admin' : '/student-dashboard';
+      const targetPath = isAdmin(response.data.user.roles)
+        ? '/admin'
+        : isInstructor(response.data.user.roles)
+        ? '/instructor-dashboard'
+        : isDriver(response.data.user.roles)
+        ? '/driver-dashboard'
+        : '/student-dashboard';
       navigate(targetPath, { replace: true });
     } catch (err) {
       console.error('Login failed:', err);

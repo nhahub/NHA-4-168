@@ -4,7 +4,7 @@ public class TripDto
 {
     public int TripId { get; set; }
 
-    public int DriverSsn { get; set; }
+    public long DriverSsn { get; set; }
     public string? DriverName { get; set; }
 
     public string Destination { get; set; } = string.Empty;
@@ -21,7 +21,7 @@ public class TripDto
 
 public class TripStudentDto
 {
-    public int StudentSsn { get; set; }
+    public long StudentSsn { get; set; }
     public string? StudentName { get; set; }
     public DateTime JoinedAt { get; set; }
 }

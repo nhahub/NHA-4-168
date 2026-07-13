@@ -73,7 +73,7 @@ public class EnrollmentTrendDto
 
 public class StudentApplicationDto
 {
-    public int StudentId { get; set; }
+     public long StudentId { get; set; }
     public string StudentName { get; set; } = string.Empty;
     public int CourseId { get; set; }
     public string CourseName { get; set; } = string.Empty;
@@ -94,4 +94,59 @@ public class DateRange
     public int Days { get; set; } = 30;
     public DateOnly? From { get; set; }
     public DateOnly? To { get; set; }
+}
+
+public class InstructorDashboardSummaryDto
+{
+    public int ActiveCourses { get; set; }
+    public int TotalStudents { get; set; }
+    public decimal Rating { get; set; }
+}
+
+public class InstructorDashboardCourseDto
+{
+    public int CourseId { get; set; }
+    public string CourseName { get; set; } = string.Empty;
+    public string? Role { get; set; }
+    public int EnrolledStudentsCount { get; set; }
+    public DateTime? StartDate { get; set; }
+    public DateTime? EndDate { get; set; }
+    public bool IsActive { get; set; }
+}
+
+public class DriverDashboardSummaryDto
+{
+    public int TotalTrips { get; set; }
+    public int CompletedTrips { get; set; }
+    public int ActiveTrips { get; set; }
+}
+
+public class InstructorDashboardStudentDto
+{
+    public long StudentSsn { get; set; }
+    public string StudentName { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+    public DateTime? EnrolledOn { get; set; }
+    public string Status { get; set; } = string.Empty;
+    public string? Grade { get; set; }
+}
+
+public class InstructorCoursePaymentDto
+{
+    public int CourseId { get; set; }
+    public string CourseName { get; set; } = string.Empty;
+    public bool IsActive { get; set; }
+    public decimal CourseRevenue { get; set; }
+    public decimal Earnings { get; set; }
+}
+
+public class InstructorPaymentSummaryDto
+{
+    public decimal CommissionRatePercent { get; set; }
+    public int TotalCoursesTaught { get; set; }
+    public int ActiveCoursesTaught { get; set; }
+    public decimal TotalRevenue { get; set; }
+    public decimal TotalEarned { get; set; }
+    public decimal ActiveCoursesEarnings { get; set; }
+    public List<InstructorCoursePaymentDto> Courses { get; set; } = new();
 }

@@ -34,7 +34,7 @@ public class DriverService : IDriverService
             }).ToListAsync();
     }
 
-    public async Task<DriverDto?> GetDriverBySsnAsync(int ssn)
+    public async Task<DriverDto?> GetDriverBySsnAsync(long ssn)
     {
         var d = await _context.Drivers.FirstOrDefaultAsync(x => x.DriverSsn == ssn);
         if (d == null) return null;
@@ -90,7 +90,7 @@ public class DriverService : IDriverService
         };
     }
 
-    public async Task<DriverDto?> UpdateDriverAsync(int ssn, UpdateDriverDto dto)
+    public async Task<DriverDto?> UpdateDriverAsync(long ssn, UpdateDriverDto dto)
     {
         var d = await _context.Drivers.FirstOrDefaultAsync(x => x.DriverSsn == ssn);
         if (d == null) return null;
@@ -122,7 +122,7 @@ public class DriverService : IDriverService
         };
     }
 
-    public async Task<bool> DeleteDriverAsync(int ssn)
+    public async Task<bool> DeleteDriverAsync(long ssn)
     {
         var d = await _context.Drivers.FirstOrDefaultAsync(x => x.DriverSsn == ssn);
         if (d == null) return false;

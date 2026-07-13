@@ -96,12 +96,12 @@ public class CourseRepository : ICourseRepository
         await _context.Courses.AddAsync(course);
     }
 
-    public Task<bool> InstructorExistsAsync(int instructorSsn)
+    public Task<bool> InstructorExistsAsync(long instructorSsn)
     {
         return _context.Instructors.AnyAsync(instructor => instructor.InstructorSsn == instructorSsn);
     }
 
-    public Task<CourseInstructor?> GetAssignmentAsync(int courseId, int instructorSsn)
+    public Task<CourseInstructor?> GetAssignmentAsync(int courseId, long instructorSsn)
     {
         return _context.CourseInstructors
             .FirstOrDefaultAsync(ci => ci.CourseId == courseId && ci.InstructorSsn == instructorSsn);

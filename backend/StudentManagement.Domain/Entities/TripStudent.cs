@@ -8,7 +8,7 @@ public class TripStudent
     public int TripId { get; set; }
 
     [ForeignKey(nameof(Student))]
-    public int StudentSsn { get; set; }
+    public long StudentSsn { get; set; }
 
     public DateTime JoinedAt { get; set; } = DateTime.UtcNow;
 

@@ -2,7 +2,7 @@
 
 public class DriverDto
 {
-    public int DriverSsn { get; set; }
+    public long DriverSsn { get; set; }
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public string Phone { get; set; } = string.Empty;

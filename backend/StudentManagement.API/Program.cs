@@ -94,6 +94,8 @@ builder.Services.AddScoped<StudentManagement.Application.Services.IDashboardServ
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<IStudentDashboardService, StudentDashboardService>();
+builder.Services.AddScoped<IInstructorDashboardService, InstructorDashboardService>();
+builder.Services.AddScoped<IDriverDashboardService, DriverDashboardService>();
 builder.Services.AddScoped<IDriverService, DriverService>();
 builder.Services.AddScoped<ITripRepository, TripRepository>();
 builder.Services.AddScoped<ITripService, TripService>();

@@ -161,7 +161,7 @@ public class CourseService : ICourseService
         };
     }
 
-    public async Task RemoveInstructorAsync(int courseId, int instructorSsn)
+    public async Task RemoveInstructorAsync(int courseId, long instructorSsn)
     {
         await GetExistingCourseAsync(courseId);
 

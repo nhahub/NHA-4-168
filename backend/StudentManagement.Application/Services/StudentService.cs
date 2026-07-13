@@ -45,7 +45,7 @@ public class StudentService : IStudentService
         };
     }
 
-    public async Task<StudentDto> GetStudentAsync(int ssn, string? userId, IEnumerable<string> roles)
+    public async Task<StudentDto> GetStudentAsync(long ssn, string? userId, IEnumerable<string> roles)
     {
         var student = await GetExistingStudentAsync(ssn);
         EnsureCanAccessStudent(student, userId, roles);
@@ -86,7 +86,7 @@ public class StudentService : IStudentService
         return MapToDto(created);
     }
 
-    public async Task<StudentDto> UpdateStudentAsync(int ssn, UpdateStudentRequest request, string? userId, IEnumerable<string> roles)
+    public async Task<StudentDto> UpdateStudentAsync(long ssn, UpdateStudentRequest request, string? userId, IEnumerable<string> roles)
     {
         await ValidateAsync(_updateValidator, request);
 
@@ -148,7 +148,7 @@ public class StudentService : IStudentService
         return MapToDto(student);
     }
 
-    public async Task<StudentStatusResponse> UpdateStudentStatusAsync(int ssn, UpdateStudentStatusRequest request)
+    public async Task<StudentStatusResponse> UpdateStudentStatusAsync(long ssn, UpdateStudentStatusRequest request)
     {
         await ValidateAsync(_statusValidator, request);
 
@@ -164,7 +164,7 @@ public class StudentService : IStudentService
         };
     }
 
-    private async Task<Student> GetExistingStudentAsync(int ssn, bool track = false)
+    private async Task<Student> GetExistingStudentAsync(long ssn, bool track = false)
     {
         return await _studentRepository.GetBySsnAsync(ssn, track)
             ?? throw new NotFoundException($"Student with SSN '{ssn}' was not found.");

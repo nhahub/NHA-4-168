@@ -1,13 +1,19 @@
 import { BusFront, BookOpen, GraduationCap, LayoutDashboard, Users, Wallet, X } from 'lucide-react'
 import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
-import { isAdmin, isStudent } from '../utils/auth'
+import { isAdmin, isStudent, isInstructor, isDriver } from '../utils/auth'
 
 type SidebarProps = {
   isOpen: boolean
   onClose: () => void
 }
 
+type NavItem = {
+  label: string
+  icon: typeof LayoutDashboard
+  to: string
+  enabled: boolean
+}
 
 function Sidebar({ isOpen, onClose }: SidebarProps) {
   const location = useLocation()
@@ -20,74 +26,55 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
   const avatarChar = firstName.charAt(0).toUpperCase()
   const canAccessAdminViews = isAdmin(user?.roles)
   const canAccessStudentViews = isStudent(user?.roles)
+  const canAccessInstructorViews = isInstructor(user?.roles)
+  const canAccessDriverViews = isDriver(user?.roles)
 
-  const navigationItems = [
-  { label: 'Dashboard', icon: LayoutDashboard, to: canAccessAdminViews ? '/admin' : (canAccessStudentViews ? '/student-dashboard' : '/drivers'), enabled: true,  },
-  { label: 'Students', icon: GraduationCap, to: '/students', enabled: true, adminOnly: true },
+  const dashboardTo = canAccessAdminViews
+    ? '/admin'
+    : canAccessStudentViews
+    ? '/student-dashboard'
+    : canAccessInstructorViews
+    ? '/instructor-dashboard'
+    : canAccessDriverViews
+    ? '/driver-dashboard'
+    : '/drivers'
 
-  canAccessAdminViews
-  ? {
-      label: 'Instructors',
-      icon: Users,
-      to: '/instructors',
-      enabled: true,
-    }
-  : {
-      label: 'My Instructors',
-      icon: Users,
-      to: '/instructors',
-      enabled: true,
-    },
+  let navigationItems: NavItem[]
 
-    canAccessAdminViews
-  ? {
-      label: 'Courses',
-      icon: BookOpen,
-      to: '/courses',
-      enabled: true,
-    }
-  : {
-      label: ' Courses',
-      icon: BookOpen,
-      to: '/courses',
-      enabled: true,
-    },
-
-
-  canAccessAdminViews
-  ? {
-      label: 'Enrollments',
-      icon: BookOpen,
-      to: '/admin/enrollments',
-      enabled: true,
-    }
-  : {
-      label: 'My Enrollments',
-      icon: BookOpen,
-      to: '/student/enrollments',
-      enabled: true,
-    },
-
-
-  canAccessAdminViews
-  ? {
-      label: 'Payments',
-      icon: Wallet,
-      to: '/admin/payments',
-      enabled: true,
-    }
-  : {
-      label: 'Payment History',
-      icon: Wallet,
-      to: '/student/payments',
-      enabled: true,
-    },
-
-  { label: 'Drivers', icon: BusFront, to: '/drivers', enabled: true, adminOnly: false },
-  { label: 'Trips', icon: BusFront, to: '/trips', enabled: true, adminOnly: false },
-]
-
-  const visibleNavigationItems = navigationItems.filter((item) => !item.adminOnly || canAccessAdminViews)
+  if (canAccessAdminViews) {
+    navigationItems = [
+      { label: 'Dashboard', icon: LayoutDashboard, to: dashboardTo, enabled: true },
+      { label: 'Students', icon: GraduationCap, to: '/students', enabled: true },
+      { label: 'Instructors', icon: Users, to: '/instructors', enabled: true },
+      { label: 'Courses', icon: BookOpen, to: '/courses', enabled: true },
+      { label: 'Enrollments', icon: BookOpen, to: '/admin/enrollments', enabled: true },
+      { label: 'Payments', icon: Wallet, to: '/admin/payments', enabled: true },
+      { label: 'Drivers', icon: BusFront, to: '/drivers', enabled: true },
+      { label: 'Trips', icon: BusFront, to: '/trips', enabled: true },
+    ]
+  } else if (canAccessInstructorViews) {
+    navigationItems = [
+      { label: 'Dashboard', icon: LayoutDashboard, to: dashboardTo, enabled: true },
+      { label: 'My Courses', icon: BookOpen, to: '/instructor/courses', enabled: true },
+      { label: 'My Payments', icon: Wallet, to: '/instructor/payments', enabled: true },
+    ]
+  } else if (canAccessDriverViews) {
+    navigationItems = [
+      { label: 'Dashboard', icon: LayoutDashboard, to: dashboardTo, enabled: true },
+      { label: 'Trips', icon: BusFront, to: '/trips', enabled: true },
+    ]
+  } else {
+    // Student (default)
+    navigationItems = [
+      { label: 'Dashboard', icon: LayoutDashboard, to: dashboardTo, enabled: true },
+      { label: 'My Instructors', icon: Users, to: '/student/instructors', enabled: false },
+      { label: 'My Courses', icon: BookOpen, to: '/student/courses', enabled: false },
+      { label: 'My Enrollments', icon: BookOpen, to: '/student/enrollments', enabled: true },
+      { label: 'Payment History', icon: Wallet, to: '/student/payments', enabled: true },
+      { label: 'Drivers', icon: BusFront, to: '/drivers', enabled: true },
+      { label: 'Trips', icon: BusFront, to: '/trips', enabled: true },
+    ]
+  }
 
   return (
     <>
@@ -119,7 +106,7 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
 
           <nav className="flex-1 overflow-y-auto px-2 pb-6">
             <ul className="space-y-1">
-              {visibleNavigationItems.map((item) => {
+              {navigationItems.map((item) => {
                 const Icon = item.icon
                 const active = location.pathname === item.to || location.pathname.startsWith(`${item.to}/`)
 

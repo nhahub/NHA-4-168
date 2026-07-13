@@ -63,9 +63,9 @@ public class CoursesController : ControllerBase
         return CreatedAtAction(nameof(GetCourse), new { id }, assignment);
     }
 
-    [HttpDelete("{id:int}/instructors/{ssn:int}")]
+    [HttpDelete("{id:int}/instructors/{ssn:long}")]
     [Authorize(Roles = "Admin")]
-    public async Task<ActionResult> RemoveInstructor(int id, int ssn)
+    public async Task<ActionResult> RemoveInstructor(int id, long ssn)
     {
         await _courseService.RemoveInstructorAsync(id, ssn);
         return NoContent();

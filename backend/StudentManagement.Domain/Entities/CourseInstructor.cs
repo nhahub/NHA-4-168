@@ -3,7 +3,7 @@ namespace StudentManagement.Domain.Entities;
 public class CourseInstructor
 {
     public int       CourseId      { get; set; }
-    public int       InstructorSsn { get; set; }
+    public long       InstructorSsn { get; set; }
     public string?   Role          { get; set; }
     public DateTime? AssignedOn    { get; set; }
 

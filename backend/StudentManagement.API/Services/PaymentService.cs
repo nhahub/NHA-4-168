@@ -131,7 +131,7 @@ public class PaymentService
 
         return true;
     }
-    public async Task<IEnumerable<PaymentDto>> GetStudentPaymentsAsync(int studentSsn)
+    public async Task<IEnumerable<PaymentDto>> GetStudentPaymentsAsync(long studentSsn)
     {
         return await _context.Payments
             .Include(p => p.Enrollment)

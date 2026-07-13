@@ -51,7 +51,7 @@ public class PaymentController : ControllerBase
         return NoContent();
     }
     [HttpGet("student/{studentSsn}")]
-    public async Task<IActionResult> GetStudentPayments(int studentSsn)
+    public async Task<IActionResult> GetStudentPayments(long studentSsn)
     {
         var result = await _service.GetStudentPaymentsAsync(studentSsn);
         return Ok(result);

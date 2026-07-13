@@ -41,7 +41,7 @@ public class InstructorService : IInstructorService
         };
     }
 
-    public async Task<InstructorDto> GetInstructorAsync(int ssn, string? userId, IEnumerable<string> roles)
+    public async Task<InstructorDto> GetInstructorAsync(long ssn, string? userId, IEnumerable<string> roles)
     {
         var instructor = await _instructorRepository.GetBySsnWithCoursesAsync(ssn)
             ?? throw new NotFoundException($"Instructor with SSN '{ssn}' was not found.");
@@ -75,6 +75,7 @@ public class InstructorService : IInstructorService
             Phone = NormalizeOptional(request.Phone),
             Email = request.Email.Trim(),
             Specialization = NormalizeOptional(request.Specialization),
+            CommissionRate = request.CommissionRate,
             HireDate = request.HireDate ?? DateTime.UtcNow
         };
 
@@ -82,7 +83,7 @@ public class InstructorService : IInstructorService
         return MapToDto(created);
     }
 
-    public async Task<InstructorDto> UpdateInstructorAsync(int ssn, UpdateInstructorRequest request)
+    public async Task<InstructorDto> UpdateInstructorAsync(long ssn, UpdateInstructorRequest request)
     {
         await ValidateAsync(_updateValidator, request);
 
@@ -101,6 +102,7 @@ public class InstructorService : IInstructorService
         instructor.Phone = NormalizeOptional(request.Phone);
         instructor.Email = trimmedEmail;
         instructor.Specialization = NormalizeOptional(request.Specialization);
+        instructor.CommissionRate = request.CommissionRate;
         instructor.HireDate = request.HireDate;
 
         await _instructorRepository.SaveChangesAsync();
@@ -141,6 +143,7 @@ public class InstructorService : IInstructorService
             Phone = instructor.Phone,
             Specialization = instructor.Specialization,
             Rating = instructor.Rating,
+            CommissionRate = instructor.CommissionRate,
             HireDate = instructor.HireDate
         };
     }
