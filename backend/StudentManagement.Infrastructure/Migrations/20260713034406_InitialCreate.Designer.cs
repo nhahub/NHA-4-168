@@ -12,13 +12,8 @@ using StudentManagement.Infrastructure.Data;
 namespace StudentManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-<<<<<<<< HEAD:backend/StudentManagement.Infrastructure/Migrations/20260712230623_InitialBaseline.Designer.cs
-    [Migration("20260712230623_InitialBaseline")]
-    partial class InitialBaseline
-========
-    [Migration("20260713010947_InitialCreate")]
+    [Migration("20260713034406_InitialCreate")]
     partial class InitialCreate
->>>>>>>> main:backend/StudentManagement.Infrastructure/Migrations/20260713010947_InitialCreate.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -399,6 +394,9 @@ namespace StudentManagement.Infrastructure.Migrations
                     b.Property<long>("InstructorSsn")
                         .HasColumnType("bigint");
 
+                    b.Property<decimal?>("CommissionRate")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -420,9 +418,6 @@ namespace StudentManagement.Infrastructure.Migrations
                     b.Property<string>("Phone")
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
-
-                    b.Property<decimal?>("RatePerCourse")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal?>("Rating")
                         .HasColumnType("decimal(3,2)");

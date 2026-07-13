@@ -67,8 +67,8 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
     // Student (default)
     navigationItems = [
       { label: 'Dashboard', icon: LayoutDashboard, to: dashboardTo, enabled: true },
-      { label: 'My Instructors', icon: Users, to: '/student/instructors', enabled: false },
-      { label: 'My Courses', icon: BookOpen, to: '/student/courses', enabled: false },
+      { label: 'My Instructors', icon: Users, to: '/student/instructors', enabled: true },
+      { label: 'My Courses', icon: BookOpen, to: '/student/courses', enabled: true },
       { label: 'My Enrollments', icon: BookOpen, to: '/student/enrollments', enabled: true },
       { label: 'Payment History', icon: Wallet, to: '/student/payments', enabled: true },
       { label: 'Drivers', icon: BusFront, to: '/drivers', enabled: true },
