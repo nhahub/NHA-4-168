@@ -41,16 +41,16 @@ public class StudentDashboardService : IStudentDashboardService
             .AsNoTracking()
             .CountAsync(ts => ts.StudentSsn == student.StudentSsn && ts.Trip != null && activeStatuses.Contains(ts.Trip.Status));
 
-        var pendingPayments = await _context.Payments
+        var paidPayments = await _context.Payments
             .AsNoTracking()
-            .Where(p => p.Enrollment != null && p.Enrollment.StudentSsn == student.StudentSsn && p.Status == "Pending")
+            .Where(p => p.Enrollment != null && p.Enrollment.StudentSsn == student.StudentSsn && p.Status == "Paid")
             .SumAsync(p => (decimal?)p.Amount) ?? 0m;
 
         return new StudentDashboardSummaryDto
         {
             ActiveCourses = activeCourses,
             ActiveRides = activeRides,
-            PendingPayments = pendingPayments,
+            PaidPayments = paidPayments,
             Status = student.Status
         };
     }

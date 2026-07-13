@@ -1,4 +1,4 @@
-import { Eye, Pencil, Plus, Search } from 'lucide-react';
+import { Eye, Pencil, Plus, Search, Star } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { formatDate, formatRating, getApiErrorMessage } from '../../features/instructors/instructorUtils';
@@ -246,7 +246,15 @@ const instructorDetails = allInstructors.filter((instructor) =>
                           >
                             <Pencil className="h-4 w-4" />
                           </Link>
-                        ) : null}
+                        ) : (
+                          <Link
+                            to={`/student/rate-instructors?instructor=${instructor.instructorSsn}`}
+                            className="rounded-full p-2 text-on-surface-variant hover:bg-surface-container-low hover:text-secondary"
+                            aria-label={`Rate ${instructor.firstName} ${instructor.lastName}`}
+                          >
+                            <Star className="h-4 w-4" />
+                          </Link>
+                        )}
                       </div>
                     </td>
                   </tr>

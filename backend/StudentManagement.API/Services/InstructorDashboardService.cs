@@ -11,6 +11,10 @@ public class InstructorDashboardService : IInstructorDashboardService
     private readonly AppDbContext _context;
     private readonly ILogger<InstructorDashboardService> _logger;
 
+    // Share of course revenue the instructor keeps as earnings.
+    // The remaining (100 - InstructorEarningsRate) is the admin's revenue.
+    private const decimal InstructorEarningsRate = 90m;
+
     public InstructorDashboardService(AppDbContext context, ILogger<InstructorDashboardService> logger)
     {
         _context = context;
@@ -29,6 +33,12 @@ public class InstructorDashboardService : IInstructorDashboardService
             return new InstructorDashboardSummaryDto { Rating = 0m };
         }
 
+        var averageRating = await _context.InstructorRatings
+            .AsNoTracking()
+            .Where(r => r.InstructorSsn == instructor.InstructorSsn)
+            .Select(r => (decimal?)r.Score)
+            .AverageAsync() ?? 0m;
+
         var activeCourses = await _context.CourseInstructors
             .AsNoTracking()
             .CountAsync(ci => ci.InstructorSsn == instructor.InstructorSsn && ci.Course.IsActive);
@@ -44,7 +54,7 @@ public class InstructorDashboardService : IInstructorDashboardService
         {
             ActiveCourses = activeCourses,
             TotalStudents = totalStudents,
-            Rating = instructor.Rating ?? 0m
+            Rating = averageRating
         };
     }
 
@@ -155,7 +165,7 @@ public class InstructorDashboardService : IInstructorDashboardService
         if (instructor == null)
             return new InstructorPaymentSummaryDto();
 
-        var commissionRate = instructor.CommissionRate ?? 0m;
+        var commissionRate = InstructorEarningsRate;
 
         var courseInstructors = await _context.CourseInstructors
             .AsNoTracking()

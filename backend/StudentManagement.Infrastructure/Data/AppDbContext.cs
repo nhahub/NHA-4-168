@@ -20,6 +20,7 @@ public class AppDbContext : IdentityDbContext<IdentityUser, IdentityRole, string
     public DbSet<Trip> Trips { get; set; }
     public DbSet<TripStudent> TripStudents { get; set; }
     public DbSet<Driver>           Drivers           { get; set; }
+    public DbSet<InstructorRating> InstructorRatings { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
