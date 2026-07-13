@@ -8,5 +8,5 @@ public static class TripValidationConstants
     public const int MaxSeats = 14;
 
     public static readonly string[] AllowedStatuses =
-        { "Pending", "InProgress", "Completed", "Cancelled" };
+        { "Pending", "Available", "Full", "InProgress", "Completed", "Cancelled" };
 }
