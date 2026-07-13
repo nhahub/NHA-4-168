@@ -120,3 +120,33 @@ public class DriverDashboardSummaryDto
     public int CompletedTrips { get; set; }
     public int ActiveTrips { get; set; }
 }
+
+public class InstructorDashboardStudentDto
+{
+    public long StudentSsn { get; set; }
+    public string StudentName { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+    public DateTime? EnrolledOn { get; set; }
+    public string Status { get; set; } = string.Empty;
+    public string? Grade { get; set; }
+}
+
+public class InstructorCoursePaymentDto
+{
+    public int CourseId { get; set; }
+    public string CourseName { get; set; } = string.Empty;
+    public bool IsActive { get; set; }
+    public decimal CourseRevenue { get; set; }
+    public decimal Earnings { get; set; }
+}
+
+public class InstructorPaymentSummaryDto
+{
+    public decimal CommissionRatePercent { get; set; }
+    public int TotalCoursesTaught { get; set; }
+    public int ActiveCoursesTaught { get; set; }
+    public decimal TotalRevenue { get; set; }
+    public decimal TotalEarned { get; set; }
+    public decimal ActiveCoursesEarnings { get; set; }
+    public List<InstructorCoursePaymentDto> Courses { get; set; } = new();
+}

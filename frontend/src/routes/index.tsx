@@ -12,7 +12,7 @@ import StudentTripsPage from '../pages/StudentTripsPage';
 import UnauthorizedPage from '../pages/UnauthorizedPage';
 import NotFoundPage from '../pages/NotFoundPage';
 import ProtectedRoute from './ProtectedRoute';
-import DriversPage from '../pages/admin/DriversPage'; 
+import DriversPage from '../pages/admin/DriversPage';
 import DriverDetailPage from '../pages/admin/DriversDetailPage';
 import DriverFormPage from '../pages/admin/DriverFormPage';
 import TripFinderPage from '../pages/admin/TripFinderPage';
@@ -26,6 +26,8 @@ import InstructorsPage from '../pages/admin/InstructorsPage';
 import InstructorDetailPage from '../pages/admin/InstructorDetailPage';
 import InstructorFormPage from '../pages/admin/InstructorFormPage';
 import InstructorDashboardPage from '../pages/InstructorDashboardPage';
+import InstructorCoursesPage from '../pages/instructor/InstructorCoursesPage';
+import InstructorPaymentsPage from '../pages/instructor/InstructorPaymentsPage';
 import DriverDashboardPage from '../pages/DriverDashboardPage';
 import { isAdmin, isStudent, isInstructor, isDriver } from '../utils/auth';
 import EnrollmentManagementPage from "../pages/Enrollment/EnrollmentManagementPage";
@@ -87,9 +89,11 @@ export const routes: RouteObject[] = [
   { path: '/instructors/new', element: <ProtectedRoute allowedRoles={['admin']}><InstructorFormPage mode="create" /></ProtectedRoute> },
   { path: '/instructors/:ssn', element: <ProtectedRoute allowedRoles={['admin']}><InstructorDetailPage /></ProtectedRoute> },
   { path: '/instructors/:ssn/edit', element: <ProtectedRoute allowedRoles={['admin']}><InstructorFormPage mode="edit" /></ProtectedRoute> },
-    { path: '/admin/enrollments', element: <ProtectedRoute allowedRoles={['admin']}><EnrollmentManagementPage /></ProtectedRoute> },
-    { path: '/admin/payments',   element: <ProtectedRoute allowedRoles={['admin']}><PaymentManagementPage /></ProtectedRoute> },
-    { path: '/student/enrollments', element: <ProtectedRoute allowedRoles={['student', 'admin']}><StudentEnrollmentsPage /></ProtectedRoute> },
-    { path: '/student/payments',    element: <ProtectedRoute allowedRoles={['student', 'admin']}><StudentPaymentHistoryPage /></ProtectedRoute> },
+  { path: '/instructor/courses', element: <ProtectedRoute allowedRoles={['admin', 'instructor']}><InstructorCoursesPage /></ProtectedRoute> },
+  { path: '/instructor/payments', element: <ProtectedRoute allowedRoles={['admin', 'instructor']}><InstructorPaymentsPage /></ProtectedRoute> },
+  { path: '/admin/enrollments', element: <ProtectedRoute allowedRoles={['admin']}><EnrollmentManagementPage /></ProtectedRoute> },
+  { path: '/admin/payments', element: <ProtectedRoute allowedRoles={['admin']}><PaymentManagementPage /></ProtectedRoute> },
+  { path: '/student/enrollments', element: <ProtectedRoute allowedRoles={['student', 'admin']}><StudentEnrollmentsPage /></ProtectedRoute> },
+  { path: '/student/payments', element: <ProtectedRoute allowedRoles={['student', 'admin']}><StudentPaymentHistoryPage /></ProtectedRoute> },
   { path: '*', element: <NotFoundPage /> },
 ];

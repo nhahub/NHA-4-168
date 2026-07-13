@@ -14,6 +14,7 @@ export interface InstructorListItemDto {
   phone?: string | null;
   specialization?: string | null;
   rating?: number | null;
+  commissionRate?: number | null;
   hireDate?: string | null;
 }
 
@@ -43,6 +44,7 @@ export interface InstructorFormPayload {
   phone?: string | null;
   email: string;
   specialization?: string | null;
+  commissionRate?: number | null;
   hireDate?: string | null;
 }
 
