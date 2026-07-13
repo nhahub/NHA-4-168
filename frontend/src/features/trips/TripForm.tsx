@@ -56,16 +56,9 @@ export function TripForm({ mode, initialTrip, initialValues, isSuggestionMode = 
     };
   }, []);
 
-  useEffect(() => {
-    if (!isSuggestionMode || !drivers.length || values.driverSsn) {
-      return;
-    }
-
-    setValues((current) => ({
-      ...current,
-      driverSsn: String(drivers[0].driverSsn),
-    }));
-  }, [drivers, isSuggestionMode, values.driverSsn]);
+  // NOTE: no auto-assignment of a driver anymore — driver is optional
+  // everywhere (regular create and student "Suggest Trip"). Leaving the
+  // field empty sends driverSsn: null to the API.
 
   const updateField = (field: keyof typeof values, value: string) => {
     setValues((current) => ({ ...current, [field]: value }));
@@ -73,7 +66,7 @@ export function TripForm({ mode, initialTrip, initialValues, isSuggestionMode = 
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    const assignedDriverSsn = Number(values.driverSsn || drivers[0]?.driverSsn || 0);
+    const assignedDriverSsn = values.driverSsn ? Number(values.driverSsn) : null;
     const normalizedMaxSeats = reviewMode ? Number(values.maxSeats || MAX_TRIP_SEATS) : Number(values.maxSeats);
     await onSubmit({
       driverSsn: assignedDriverSsn,
@@ -104,13 +97,12 @@ export function TripForm({ mode, initialTrip, initialValues, isSuggestionMode = 
           <label className="block text-[12px] font-semibold uppercase tracking-[0.08em] text-on-surface-variant">
             Driver
             <select
-              required
               value={values.driverSsn}
               onChange={(event) => updateField('driverSsn', event.target.value)}
               disabled={isLoadingDrivers}
               className="mt-2 w-full rounded-lg border border-input-border bg-surface-lowest px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus disabled:opacity-60"
             >
-              <option value="">{isLoadingDrivers ? 'Loading drivers...' : 'Select a driver'}</option>
+              <option value="">{isLoadingDrivers ? 'Loading drivers...' : 'No driver assigned yet'}</option>
               {drivers.map((driver) => (
                 <option key={driver.driverSsn} value={driver.driverSsn}>
                   {driver.firstName} {driver.lastName} — {driver.carModel}

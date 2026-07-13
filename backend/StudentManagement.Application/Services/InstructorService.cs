@@ -63,6 +63,11 @@ public class InstructorService : IInstructorService
     {
         await ValidateAsync(_createValidator, request);
 
+        if (await _instructorRepository.SsnExistsAsync(request.InstructorSsn))
+        {
+            throw new ApiException($"An instructor with SSN '{request.InstructorSsn}' already exists.", 409, "DUPLICATE_SSN");
+        }
+
         if (await _instructorRepository.EmailExistsAsync(request.Email.Trim()))
         {
             throw new ApiException("An instructor with this email already exists.", 409, "DUPLICATE_EMAIL");
@@ -70,6 +75,7 @@ public class InstructorService : IInstructorService
 
         var instructor = new Domain.Entities.Instructor
         {
+            InstructorSsn = request.InstructorSsn,
             FirstName = request.FirstName.Trim(),
             LastName = request.LastName.Trim(),
             Phone = NormalizeOptional(request.Phone),
@@ -79,7 +85,7 @@ public class InstructorService : IInstructorService
             HireDate = request.HireDate ?? DateTime.UtcNow
         };
 
-        var created = await _instructorRepository.CreateWithGeneratedSsnAsync(instructor);
+        var created = await _instructorRepository.CreateAsync(instructor);
         return MapToDto(created);
     }
 

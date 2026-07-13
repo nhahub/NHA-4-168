@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import type { FormEvent } from 'react';
-import type { StudentDto, StudentFormPayload } from '../../services/api/studentService';
+import type { StudentDto, StudentFormPayload, StudentStatus } from '../../services/api/studentService';
 import { emptyToNull, toDateInputValue } from './studentUtils';
 
 interface StudentFormProps {
@@ -12,8 +12,11 @@ interface StudentFormProps {
   onCancel: () => void;
 }
 
+const STUDENT_STATUSES: StudentStatus[] = ['Active', 'Inactive', 'Graduated', 'Suspended'];
+
 export function StudentForm({ mode, initialStudent, isSubmitting, error, onSubmit, onCancel }: StudentFormProps) {
   const initialValues = useMemo(() => ({
+    studentSsn: initialStudent?.studentSsn ? String(initialStudent.studentSsn) : '',
     firstName: initialStudent?.firstName ?? '',
     lastName: initialStudent?.lastName ?? '',
     email: initialStudent?.email ?? '',
@@ -21,6 +24,7 @@ export function StudentForm({ mode, initialStudent, isSubmitting, error, onSubmi
     dateOfBirth: toDateInputValue(initialStudent?.dateOfBirth),
     address: initialStudent?.address ?? '',
     enrollmentDate: toDateInputValue(initialStudent?.enrollmentDate),
+    status: initialStudent?.status ?? 'Active',
   }), [initialStudent]);
 
   const [values, setValues] = useState(initialValues);
@@ -32,6 +36,7 @@ export function StudentForm({ mode, initialStudent, isSubmitting, error, onSubmi
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     await onSubmit({
+      studentSsn: mode === 'create' && values.studentSsn.trim() ? Number(values.studentSsn) : undefined,
       firstName: values.firstName.trim(),
       lastName: values.lastName.trim(),
       email: values.email.trim(),
@@ -39,12 +44,51 @@ export function StudentForm({ mode, initialStudent, isSubmitting, error, onSubmi
       dateOfBirth: emptyToNull(values.dateOfBirth),
       address: emptyToNull(values.address),
       enrollmentDate: emptyToNull(values.enrollmentDate),
+      status: values.status as StudentStatus,
     });
   };
 
   return (
     <form onSubmit={handleSubmit} className="rounded-xl border border-card-border bg-surface-lowest p-6 shadow-card">
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+        {mode === 'create' ? (
+          <label className="block text-[12px] font-semibold uppercase tracking-[0.08em] text-on-surface-variant">
+            SSN (optional — auto-generated if left blank)
+            <input
+              type="text"
+              inputMode="numeric"
+              value={values.studentSsn}
+              onChange={(event) => updateField('studentSsn', event.target.value)}
+              className="mt-2 w-full rounded-lg border border-input-border px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
+            />
+          </label>
+        ) : (
+          <label className="block text-[12px] font-semibold uppercase tracking-[0.08em] text-on-surface-variant">
+            SSN
+            <input
+              type="text"
+              disabled
+              value={values.studentSsn}
+              className="mt-2 w-full rounded-lg border border-input-border px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none disabled:cursor-not-allowed disabled:bg-surface-container-low disabled:opacity-70"
+            />
+          </label>
+        )}
+
+        <label className="block text-[12px] font-semibold uppercase tracking-[0.08em] text-on-surface-variant">
+          Status
+          <select
+            value={values.status}
+            onChange={(event) => updateField('status', event.target.value)}
+            className="mt-2 w-full rounded-lg border border-input-border bg-surface-lowest px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
+          >
+            {STUDENT_STATUSES.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </label>
+
         <label className="block text-[12px] font-semibold uppercase tracking-[0.08em] text-on-surface-variant">
           First Name
           <input

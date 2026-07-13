@@ -5,6 +5,8 @@ namespace StudentManagement.Application.Validators.Student;
 
 public class UpdateStudentRequestValidator : AbstractValidator<UpdateStudentRequest>
 {
+    public static readonly string[] AllowedStatuses = { "Active", "Inactive", "Graduated", "Suspended" };
+
     public UpdateStudentRequestValidator()
     {
         RuleFor(x => x)
@@ -31,6 +33,11 @@ public class UpdateStudentRequestValidator : AbstractValidator<UpdateStudentRequ
         RuleFor(x => x.Address)
             .MaximumLength(255)
             .When(x => x.Address is not null);
+
+        RuleFor(x => x.Status)
+            .Must(status => AllowedStatuses.Contains(status))
+            .When(x => x.Status is not null)
+            .WithMessage($"Status must be one of: {string.Join(", ", AllowedStatuses)}");
     }
 
     private static bool HasAtLeastOneField(UpdateStudentRequest request)
@@ -41,6 +48,7 @@ public class UpdateStudentRequestValidator : AbstractValidator<UpdateStudentRequ
             || request.Phone is not null
             || request.DateOfBirth is not null
             || request.Address is not null
-            || request.EnrollmentDate is not null;
+            || request.EnrollmentDate is not null
+            || request.Status is not null;
     }
 }

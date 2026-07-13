@@ -76,6 +76,28 @@ public class InstructorRepository : IInstructorRepository
                 && (excludingSsn == null || instructor.InstructorSsn != excludingSsn.Value));
     }
 
+    public Task<bool> SsnExistsAsync(long ssn)
+    {
+        return _context.Instructors
+            .AsNoTracking()
+            .AnyAsync(instructor => instructor.InstructorSsn == ssn);
+    }
+
+    public async Task<Instructor> CreateAsync(Instructor instructor)
+    {
+        try
+        {
+            _context.Instructors.Add(instructor);
+            await _context.SaveChangesAsync();
+            return instructor;
+        }
+        catch (DbUpdateException ex) when (IsDuplicateInstructorSsnException(ex))
+        {
+            _context.Entry(instructor).State = EntityState.Detached;
+            throw new ApiException($"An instructor with SSN '{instructor.InstructorSsn}' already exists.", 409, "DUPLICATE_SSN");
+        }
+    }
+
     public async Task<Instructor> CreateWithGeneratedSsnAsync(Instructor instructor)
     {
         for (var attempt = 1; attempt <= MaxCreateRetries; attempt++)

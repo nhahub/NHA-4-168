@@ -7,6 +7,10 @@ public class CreateInstructorRequestValidator : AbstractValidator<CreateInstruct
 {
     public CreateInstructorRequestValidator()
     {
+        RuleFor(x => x.InstructorSsn)
+            .GreaterThan(0)
+            .WithMessage("InstructorSsn is required and must be greater than 0.");
+
         RuleFor(x => x.FirstName)
             .NotEmpty()
             .MaximumLength(50);

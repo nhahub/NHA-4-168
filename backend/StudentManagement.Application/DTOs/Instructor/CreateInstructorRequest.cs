@@ -2,6 +2,7 @@ namespace StudentManagement.Application.DTOs.Instructor;
 
 public class CreateInstructorRequest
 {
+    public long InstructorSsn { get; set; }
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public string? Phone { get; set; }

@@ -79,10 +79,26 @@ public class StudentService : IStudentService
             DateOfBirth = request.DateOfBirth,
             Address = NormalizeOptional(request.Address),
             EnrollmentDate = request.EnrollmentDate ?? DateTime.UtcNow,
-            Status = "Active"
+            Status = string.IsNullOrWhiteSpace(request.Status) ? "Active" : request.Status.Trim()
         };
 
-        var created = await _studentRepository.CreateWithGeneratedSsnAsync(student);
+        Student created;
+
+        if (request.StudentSsn.HasValue)
+        {
+            if (await _studentRepository.SsnExistsAsync(request.StudentSsn.Value))
+            {
+                throw new ApiException($"A student with SSN '{request.StudentSsn}' already exists.", 409, "DUPLICATE_SSN");
+            }
+
+            student.StudentSsn = request.StudentSsn.Value;
+            created = await _studentRepository.CreateAsync(student);
+        }
+        else
+        {
+            created = await _studentRepository.CreateWithGeneratedSsnAsync(student);
+        }
+
         return MapToDto(created);
     }
 
@@ -126,6 +142,11 @@ public class StudentService : IStudentService
             if (request.EnrollmentDate is not null)
             {
                 student.EnrollmentDate = request.EnrollmentDate;
+            }
+
+            if (request.Status is not null)
+            {
+                student.Status = request.Status.Trim();
             }
         }
 
