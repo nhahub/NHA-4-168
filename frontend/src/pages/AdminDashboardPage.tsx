@@ -113,11 +113,38 @@ function AdminDashboardPage() {
     { label: 'Total Revenue', value: summary ? formatCurrency(summary.totalRevenue) : '—', trend: 'Live data', icon: Layers3 },
   ]), [summary]);
 
-  const chartPoints = useMemo(() => trendData.map((item: EnrollmentTrendDto) => ({
-    label: new Date(item.date).toLocaleDateString('en-US', { weekday: 'short' }),
-    value: item.enrollments,
-    completed: item.completedEnrollments,
-  })), [trendData]);
+  // The backend returns a continuous, zero-filled day series. For short ranges we
+  // show one bar per day; for longer ranges (30/90 days) we aggregate into weekly buckets.
+  const chartPoints = useMemo(() => {
+    if (days < 30) {
+      return trendData.map((item: EnrollmentTrendDto) => ({
+        label: new Date(item.date).toLocaleDateString('en-US', { weekday: 'short', timeZone: 'UTC' }),
+        value: item.enrollments,
+        completed: item.completedEnrollments,
+      }));
+    }
+
+    const weeks = new Map<string, { label: string; value: number; completed: number }>();
+    for (const item of trendData) {
+      const source = new Date(item.date);
+      const day = new Date(Date.UTC(source.getUTCFullYear(), source.getUTCMonth(), source.getUTCDate()));
+      const diffToMonday = (day.getUTCDay() + 6) % 7;
+      const monday = new Date(day);
+      monday.setUTCDate(day.getUTCDate() - diffToMonday);
+      const key = monday.toISOString().slice(0, 10);
+
+      const entry = weeks.get(key) ?? {
+        label: monday.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' }),
+        value: 0,
+        completed: 0,
+      };
+      entry.value += item.enrollments;
+      entry.completed += item.completedEnrollments;
+      weeks.set(key, entry);
+    }
+
+    return Array.from(weeks.values());
+  }, [trendData, days]);
 
   const maxValue = Math.max(1, ...chartPoints.map((point) => point.value));
 
@@ -167,7 +194,7 @@ function AdminDashboardPage() {
           <div className="flex items-center justify-between border-b border-outline-variant p-6">
             <div>
               <h4 className="text-title-sm font-semibold text-on-surface">Enrollment Trends</h4>
-              <p className="text-body-sm text-on-surface-variant">Daily student registrations vs course completions</p>
+              <p className="text-body-sm text-on-surface-variant">{days < 30 ? 'Daily student registrations vs course completions' : 'Weekly student registrations vs course completions'}</p>
             </div>
             <select
               className="rounded-lg border-none bg-surface-container-low text-body-sm focus:ring-secondary"

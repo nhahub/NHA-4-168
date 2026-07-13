@@ -52,20 +52,35 @@ public class DashboardService : IDashboardService
     {
         var (startDate, endDate) = ResolveDateRange(range);
 
-        return await _context.Enrollments
+        var dailyCounts = await _context.Enrollments
             .AsNoTracking()
             .Where(enrollment => enrollment.EnrolledOn != null
                 && enrollment.EnrolledOn >= startDate
                 && enrollment.EnrolledOn < endDate.AddDays(1))
             .GroupBy(enrollment => enrollment.EnrolledOn!.Value.Date)
-            .Select(group => new EnrollmentTrendDto
+            .Select(group => new
             {
                 Date = group.Key,
                 Enrollments = group.Count(),
                 CompletedEnrollments = group.Count(enrollment => enrollment.Status == "Completed")
             })
-            .OrderBy(row => row.Date)
-            .ToListAsync();
+            .ToDictionaryAsync(group => group.Date, group => group);
+
+        // Build a continuous, zero-filled series so every day in the range is
+        // represented even when there were no enrollments.
+        var result = new List<EnrollmentTrendDto>();
+        for (var day = startDate.Date; day <= endDate.Date; day = day.AddDays(1))
+        {
+            dailyCounts.TryGetValue(day, out var entry);
+            result.Add(new EnrollmentTrendDto
+            {
+                Date = day,
+                Enrollments = entry?.Enrollments ?? 0,
+                CompletedEnrollments = entry?.CompletedEnrollments ?? 0
+            });
+        }
+
+        return result;
     }
 
     public async Task<IReadOnlyList<StudentApplicationDto>> GetRecentStudentApplicationsAsync(int limit)
