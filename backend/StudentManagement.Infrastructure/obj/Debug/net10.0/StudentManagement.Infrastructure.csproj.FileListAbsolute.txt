@@ -18,6 +18,7 @@
 /Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Infrastructure/obj/Debug/net10.0/StudentManagement.Infrastructure.pdb
 /Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Infrastructure/obj/Debug/net10.0/StudentManagement.Infrastructure.genruntimeconfig.cache
 /Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Infrastructure/obj/Debug/net10.0/ref/StudentManagement.Infrastructure.dll
+<<<<<<< Updated upstream
 D:\Programing\NHA-4-168\backend\StudentManagement.Infrastructure\bin\Debug\net10.0\StudentManagement.Infrastructure.deps.json
 D:\Programing\NHA-4-168\backend\StudentManagement.Infrastructure\bin\Debug\net10.0\StudentManagement.Infrastructure.runtimeconfig.json
 D:\Programing\NHA-4-168\backend\StudentManagement.Infrastructure\bin\Debug\net10.0\StudentManagement.Infrastructure.dll
@@ -97,3 +98,25 @@ D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Infrastructure\obj\Debug\net10.
 D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Infrastructure\obj\Debug\net10.0\StudentManagement.Infrastructure.pdb
 D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Infrastructure\obj\Debug\net10.0\StudentManagement.Infrastructure.genruntimeconfig.cache
 D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Infrastructure\obj\Debug\net10.0\ref\StudentManagement.Infrastructure.dll
+=======
+E:\new new new mark\NHA-4-168\backend\StudentManagement.Infrastructure\bin\Debug\net10.0\StudentManagement.Infrastructure.deps.json
+E:\new new new mark\NHA-4-168\backend\StudentManagement.Infrastructure\bin\Debug\net10.0\StudentManagement.Infrastructure.runtimeconfig.json
+E:\new new new mark\NHA-4-168\backend\StudentManagement.Infrastructure\bin\Debug\net10.0\StudentManagement.Infrastructure.dll
+E:\new new new mark\NHA-4-168\backend\StudentManagement.Infrastructure\bin\Debug\net10.0\StudentManagement.Infrastructure.pdb
+E:\new new new mark\NHA-4-168\backend\StudentManagement.Infrastructure\bin\Debug\net10.0\StudentManagement.Application.dll
+E:\new new new mark\NHA-4-168\backend\StudentManagement.Infrastructure\bin\Debug\net10.0\StudentManagement.Domain.dll
+E:\new new new mark\NHA-4-168\backend\StudentManagement.Infrastructure\bin\Debug\net10.0\StudentManagement.Application.pdb
+E:\new new new mark\NHA-4-168\backend\StudentManagement.Infrastructure\bin\Debug\net10.0\StudentManagement.Domain.pdb
+E:\new new new mark\NHA-4-168\backend\StudentManagement.Infrastructure\obj\Debug\net10.0\StudentManagement.Infrastructure.csproj.AssemblyReference.cache
+E:\new new new mark\NHA-4-168\backend\StudentManagement.Infrastructure\obj\Debug\net10.0\StudentManagement.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+E:\new new new mark\NHA-4-168\backend\StudentManagement.Infrastructure\obj\Debug\net10.0\StudentManagement.Infrastructure.AssemblyInfoInputs.cache
+E:\new new new mark\NHA-4-168\backend\StudentManagement.Infrastructure\obj\Debug\net10.0\StudentManagement.Infrastructure.AssemblyInfo.cs
+E:\new new new mark\NHA-4-168\backend\StudentManagement.Infrastructure\obj\Debug\net10.0\StudentManagement.Infrastructure.csproj.CoreCompileInputs.cache
+E:\new new new mark\NHA-4-168\backend\StudentManagement.Infrastructure\obj\Debug\net10.0\StudentManagement.Infrastructure.sourcelink.json
+E:\new new new mark\NHA-4-168\backend\StudentManagement.Infrastructure\obj\Debug\net10.0\StudentM.54534901.Up2Date
+E:\new new new mark\NHA-4-168\backend\StudentManagement.Infrastructure\obj\Debug\net10.0\StudentManagement.Infrastructure.dll
+E:\new new new mark\NHA-4-168\backend\StudentManagement.Infrastructure\obj\Debug\net10.0\refint\StudentManagement.Infrastructure.dll
+E:\new new new mark\NHA-4-168\backend\StudentManagement.Infrastructure\obj\Debug\net10.0\StudentManagement.Infrastructure.pdb
+E:\new new new mark\NHA-4-168\backend\StudentManagement.Infrastructure\obj\Debug\net10.0\StudentManagement.Infrastructure.genruntimeconfig.cache
+E:\new new new mark\NHA-4-168\backend\StudentManagement.Infrastructure\obj\Debug\net10.0\ref\StudentManagement.Infrastructure.dll
+>>>>>>> Stashed changes
