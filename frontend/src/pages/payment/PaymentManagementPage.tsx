@@ -196,12 +196,12 @@ if (loading) {
   Export CSV
 </button> */}
 
-          <button
+          {/* <button
   onClick={() => alert("Coming Soon")}
   className="px-5 py-3 rounded-xl bg-secondary text-white font-semibold hover:opacity-90 transition"
 >
   + Manual Entry
-</button>
+</button> */}
 
         </div>
 
@@ -399,7 +399,7 @@ setShowUpdateModal(true);
   Edit
 </button>
 
-<button
+{/* <button
   onClick={() => {
     setSelectedPayment(payment);
     setShowRefundModal(true);
@@ -408,7 +408,7 @@ setShowUpdateModal(true);
   className="px-3 py-2 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition"
 >
   Refund
-</button>
+</button> */}
 
               </div>
 

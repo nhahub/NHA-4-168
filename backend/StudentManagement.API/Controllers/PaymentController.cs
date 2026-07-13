@@ -51,9 +51,20 @@ public class PaymentController : ControllerBase
         return NoContent();
     }
     [HttpGet("student/{studentSsn}")]
-    public async Task<IActionResult> GetStudentPayments(long studentSsn)
+    public async Task<ActionResult<IReadOnlyList<PaymentDto>>> GetStudentPayments(long studentSsn)
     {
         var result = await _service.GetStudentPaymentsAsync(studentSsn);
+        return Ok(result);
+    }
+
+    [HttpGet("enrollment/{enrollmentId:int}")]
+    public async Task<ActionResult<PaymentDto>> GetByEnrollment(int enrollmentId)
+    {
+        var result = await _service.GetByEnrollmentAsync(enrollmentId);
+
+        if (result == null)
+            return NotFound();
+
         return Ok(result);
     }
 }

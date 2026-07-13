@@ -157,4 +157,31 @@ public class PaymentService
             })
             .ToListAsync();
     }
+
+    public async Task<PaymentDto?> GetByEnrollmentAsync(int enrollmentId)
+    {
+        return await _context.Payments
+            .Include(p => p.Enrollment)
+                .ThenInclude(e => e.Student)
+            .Include(p => p.Enrollment)
+                .ThenInclude(e => e.Course)
+            .Where(p => p.EnrollmentId == enrollmentId)
+            .Select(p => new PaymentDto
+            {
+                PaymentId = p.PaymentId,
+                EnrollmentId = p.EnrollmentId,
+
+                Amount = p.Amount,
+                PaymentDate = p.PaymentDate,
+
+                PaymentMethod = p.PaymentMethod,
+                Status = p.Status,
+                TransactionId = p.TransactionId,
+
+                StudentName = p.Enrollment.Student.FirstName + " " + p.Enrollment.Student.LastName,
+                CourseName = p.Enrollment.Course.CourseName,
+                CourseId = p.Enrollment.Course.CourseId
+            })
+            .FirstOrDefaultAsync();
+    }
 }

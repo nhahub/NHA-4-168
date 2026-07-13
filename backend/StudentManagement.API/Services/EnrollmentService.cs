@@ -9,10 +9,12 @@ namespace StudentManagement.API.Services;
 public class EnrollmentService : IEnrollmentService
 {
     private readonly AppDbContext _context;
+    private readonly PaymentService _paymentService;
 
-    public EnrollmentService(AppDbContext context)
+    public EnrollmentService(AppDbContext context, PaymentService paymentService)
     {
         _context = context;
+        _paymentService = paymentService;
     }
 
     public async Task<IEnumerable<EnrollmentDto>> GetAllAsync()
@@ -110,6 +112,21 @@ public class EnrollmentService : IEnrollmentService
 
         _context.Enrollments.Add(enrollment);
         await _context.SaveChangesAsync();
+
+        if (course.Fee.HasValue && course.Fee.Value > 0)
+        {
+            var payment = new Payment
+            {
+                EnrollmentId = enrollment.EnrollmentId,
+                Amount = course.Fee.Value,
+                PaymentDate = DateTime.UtcNow,
+                Status = "Pending",
+                PaymentMethod = null
+            };
+
+            _context.Payments.Add(payment);
+            await _context.SaveChangesAsync();
+        }
 
         return new EnrollmentDto
         {

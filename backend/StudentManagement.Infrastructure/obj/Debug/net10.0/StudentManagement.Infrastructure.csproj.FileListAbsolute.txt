@@ -66,3 +66,23 @@ D:\Programing\NHA-4-168\backend\StudentManagement.Infrastructure\obj\Debug\net10
 D:\Programing\NHA-4-168\backend\StudentManagement.Infrastructure\obj\Debug\net10.0\StudentManagement.Infrastructure.pdb
 D:\Programing\NHA-4-168\backend\StudentManagement.Infrastructure\obj\Debug\net10.0\StudentManagement.Infrastructure.genruntimeconfig.cache
 D:\Programing\NHA-4-168\backend\StudentManagement.Infrastructure\obj\Debug\net10.0\ref\StudentManagement.Infrastructure.dll
+E:\I'm done with this\NHA-4-168\backend\StudentManagement.Infrastructure\bin\Debug\net10.0\StudentManagement.Infrastructure.deps.json
+E:\I'm done with this\NHA-4-168\backend\StudentManagement.Infrastructure\bin\Debug\net10.0\StudentManagement.Infrastructure.runtimeconfig.json
+E:\I'm done with this\NHA-4-168\backend\StudentManagement.Infrastructure\bin\Debug\net10.0\StudentManagement.Infrastructure.dll
+E:\I'm done with this\NHA-4-168\backend\StudentManagement.Infrastructure\bin\Debug\net10.0\StudentManagement.Infrastructure.pdb
+E:\I'm done with this\NHA-4-168\backend\StudentManagement.Infrastructure\bin\Debug\net10.0\StudentManagement.Application.dll
+E:\I'm done with this\NHA-4-168\backend\StudentManagement.Infrastructure\bin\Debug\net10.0\StudentManagement.Domain.dll
+E:\I'm done with this\NHA-4-168\backend\StudentManagement.Infrastructure\bin\Debug\net10.0\StudentManagement.Application.pdb
+E:\I'm done with this\NHA-4-168\backend\StudentManagement.Infrastructure\bin\Debug\net10.0\StudentManagement.Domain.pdb
+E:\I'm done with this\NHA-4-168\backend\StudentManagement.Infrastructure\obj\Debug\net10.0\StudentManagement.Infrastructure.csproj.AssemblyReference.cache
+E:\I'm done with this\NHA-4-168\backend\StudentManagement.Infrastructure\obj\Debug\net10.0\StudentManagement.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+E:\I'm done with this\NHA-4-168\backend\StudentManagement.Infrastructure\obj\Debug\net10.0\StudentManagement.Infrastructure.AssemblyInfoInputs.cache
+E:\I'm done with this\NHA-4-168\backend\StudentManagement.Infrastructure\obj\Debug\net10.0\StudentManagement.Infrastructure.AssemblyInfo.cs
+E:\I'm done with this\NHA-4-168\backend\StudentManagement.Infrastructure\obj\Debug\net10.0\StudentManagement.Infrastructure.csproj.CoreCompileInputs.cache
+E:\I'm done with this\NHA-4-168\backend\StudentManagement.Infrastructure\obj\Debug\net10.0\StudentManagement.Infrastructure.sourcelink.json
+E:\I'm done with this\NHA-4-168\backend\StudentManagement.Infrastructure\obj\Debug\net10.0\StudentM.54534901.Up2Date
+E:\I'm done with this\NHA-4-168\backend\StudentManagement.Infrastructure\obj\Debug\net10.0\StudentManagement.Infrastructure.dll
+E:\I'm done with this\NHA-4-168\backend\StudentManagement.Infrastructure\obj\Debug\net10.0\refint\StudentManagement.Infrastructure.dll
+E:\I'm done with this\NHA-4-168\backend\StudentManagement.Infrastructure\obj\Debug\net10.0\StudentManagement.Infrastructure.pdb
+E:\I'm done with this\NHA-4-168\backend\StudentManagement.Infrastructure\obj\Debug\net10.0\StudentManagement.Infrastructure.genruntimeconfig.cache
+E:\I'm done with this\NHA-4-168\backend\StudentManagement.Infrastructure\obj\Debug\net10.0\ref\StudentManagement.Infrastructure.dll
