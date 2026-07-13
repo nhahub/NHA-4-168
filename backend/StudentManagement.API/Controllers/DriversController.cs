@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.JsonWebTokens;
 using StudentManagement.Application.DTOs.Driver;
 using StudentManagement.Application.Interfaces; // من الخريطة بتاعتك
 
@@ -69,5 +72,27 @@ public class DriversController : ControllerBase
             return NotFound(new { message = $"Driver with SSN {ssn} was not found." });
         }
         return NoContent();
+    }
+
+    // 6️⃣ GET: api/drivers/me
+    [HttpGet("me")]
+    [Authorize(Roles = "Driver")]
+    public async Task<IActionResult> GetCurrentDriver()
+    {
+        var userId = User.FindFirstValue(JwtRegisteredClaimNames.Sub)
+            ?? User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        if (string.IsNullOrWhiteSpace(userId))
+        {
+            return Unauthorized();
+        }
+
+        var driver = await _driverService.GetCurrentDriverAsync(userId);
+        if (driver == null)
+        {
+            return NotFound(new { message = "Driver profile not found for current user." });
+        }
+
+        return Ok(driver);
     }
 }

@@ -20,7 +20,7 @@ public class InstructorsController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Student")]
     public async Task<ActionResult> GetInstructors([FromQuery] InstructorQueryParameters query)
     {
         var instructors = await _instructorService.GetInstructorsAsync(query);

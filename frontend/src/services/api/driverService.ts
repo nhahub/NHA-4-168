@@ -168,4 +168,14 @@ export const driverService = {
   deleteDriver: async (ssn: number): Promise<void> => {
     await axiosInstance.delete(`/Drivers/${ssn}`);
   },
+
+  // 6️⃣ GET /api/Drivers/me (بيانات السواق الحالي، بناءً على التوكن)
+  getCurrentDriver: async (): Promise<DriverDto> => {
+    const response = await axiosInstance.get<unknown>('/Drivers/me');
+    const normalizedDriver = normalizeDriver(response.data);
+    if (!normalizedDriver) {
+      throw new Error('Driver profile not found.');
+    }
+    return normalizedDriver;
+  },
 };

@@ -1,13 +1,21 @@
 import { Eye, Pencil, Plus, Search } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { formatDate, formatRating, getApiErrorMessage } from '../../features/instructors/instructorUtils';
 import { instructorService } from '../../services/api/instructorService';
 import type { InstructorListItemDto } from '../../services/api/instructorService';
+import { courseService } from '../../services/api/courseService';
+import enrollmentService from '../../services/api/enrollmentService';
+import { useAuth } from '../../contexts/AuthContext';
+import { isAdmin } from '../../utils/auth';
 
 const pageSize = 10;
 
 export default function InstructorsPage() {
+  const { user } = useAuth();
+  const admin = isAdmin(user?.roles);
+
+  // --- Admin: full paginated, searchable list (unchanged behavior) ---
   const [instructors, setInstructors] = useState<InstructorListItemDto[]>([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -17,6 +25,10 @@ export default function InstructorsPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!admin) {
+      return;
+    }
+
     let active = true;
 
     const loadInstructors = async () => {
@@ -53,27 +65,121 @@ export default function InstructorsPage() {
     return () => {
       active = false;
     };
-  }, [page, search]);
+  }, [admin, page, search]);
+
+  // --- Student: only instructors teaching a course they're enrolled in ---
+  const [myInstructors, setMyInstructors] = useState<InstructorListItemDto[]>([]);
+  const [myInstructorsLoading, setMyInstructorsLoading] = useState(true);
+  const [myInstructorsError, setMyInstructorsError] = useState<string | null>(null);
+  const [studentSearch, setStudentSearch] = useState('');
+
+  useEffect(() => {
+    if (admin || !user) {
+      return;
+    }
+
+    let active = true;
+
+    const loadMyInstructors = async () => {
+      setMyInstructorsLoading(true);
+      setMyInstructorsError(null);
+
+      try {
+        if (!user.studentSsn) {
+          return;
+        }
+        const studentSsn = user.studentSsn;
+        const allEnrollments = await enrollmentService.getAll();
+        const myCourseIds = Array.from(
+          new Set(allEnrollments.filter((enrollment) => enrollment.studentSsn === studentSsn).map((enrollment) => enrollment.courseId)),
+        );
+
+        const courseDetails = await Promise.all(myCourseIds.map((courseId) => courseService.getCourse(courseId)));
+        const instructorSsns = Array.from(
+          new Set(courseDetails.flatMap((course) => course.instructors.map((instructor) => instructor.instructorSsn))),
+        );
+
+        // GET /instructors/{ssn} is restricted to admins or the instructor themselves,
+        // so we fetch the open list endpoint once and filter to the ones teaching
+        // this student's enrolled courses, instead of calling the single-instructor endpoint.
+   // GET /instructors/{ssn} is restricted to admins or the instructor themselves,
+// so we page through the open list endpoint and filter to the ones teaching
+// this student's enrolled courses, instead of calling the single-instructor endpoint.
+let allInstructors: InstructorListItemDto[] = [];
+let currentPage = 1;
+let totalPages = 1;
+
+do {
+  const response = await instructorService.getInstructors({ page: currentPage, pageSize: 100 });
+  allInstructors = [...allInstructors, ...response.data];
+  totalPages = response.totalPages;
+  currentPage++;
+} while (currentPage <= totalPages);
+
+const instructorDetails = allInstructors.filter((instructor) =>
+  instructorSsns.includes(instructor.instructorSsn),
+);
+
+        if (active) {
+          setMyInstructors(instructorDetails);
+        }
+      } catch (requestError) {
+        if (active) {
+          setMyInstructorsError(getApiErrorMessage(requestError));
+        }
+      } finally {
+        if (active) {
+          setMyInstructorsLoading(false);
+        }
+      }
+    };
+
+    loadMyInstructors();
+
+    return () => {
+      active = false;
+    };
+  }, [admin, user]);
+
+  const filteredMyInstructors = useMemo(() => {
+    const query = studentSearch.trim().toLowerCase();
+    if (!query) {
+      return myInstructors;
+    }
+    return myInstructors.filter(
+      (instructor) =>
+        `${instructor.firstName} ${instructor.lastName}`.toLowerCase().includes(query) ||
+        (instructor.specialization ?? '').toLowerCase().includes(query),
+    );
+  }, [myInstructors, studentSearch]);
 
   const handleSearchChange = (value: string) => {
     setSearch(value);
     setPage(1);
   };
 
+  const rows = admin ? instructors : filteredMyInstructors;
+  const listIsLoading = admin ? isLoading : myInstructorsLoading;
+  const listError = admin ? error : myInstructorsError;
+
   return (
     <div className="space-y-6">
       <section className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
         <div>
           <h1 className="text-3xl font-bold text-on-background mb-8">Instructors</h1>
-          <p className="mt-1 text-body-md text-on-surface-variant">{totalCount} records</p>
+          <p className="mt-1 text-body-md text-on-surface-variant">
+            {admin ? `${totalCount} records` : `${filteredMyInstructors.length} records`}
+          </p>
         </div>
-        <Link
-          to="/instructors/new"
-          className="inline-flex items-center justify-center gap-2 rounded-lg bg-secondary px-4 py-2 text-body-sm font-semibold text-on-secondary hover:opacity-90"
-        >
-          <Plus className="h-4 w-4" />
-          Add Instructor
-        </Link>
+        {admin ? (
+          <Link
+            to="/instructors/new"
+            className="inline-flex items-center justify-center gap-2 rounded-lg bg-secondary px-4 py-2 text-body-sm font-semibold text-on-secondary hover:opacity-90"
+          >
+            <Plus className="h-4 w-4" />
+            Add Instructor
+          </Link>
+        ) : null}
       </section>
 
       <section className="rounded-xl border border-card-border bg-surface-lowest shadow-card">
@@ -81,8 +187,8 @@ export default function InstructorsPage() {
           <div className="relative w-full md:max-w-md">
             <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-on-surface-variant" />
             <input
-              value={search}
-              onChange={(event) => handleSearchChange(event.target.value)}
+              value={admin ? search : studentSearch}
+              onChange={(event) => (admin ? handleSearchChange(event.target.value) : setStudentSearch(event.target.value))}
               placeholder="Search name or specialization"
               className="w-full rounded-lg border border-input-border py-2 pl-10 pr-3 text-body-sm text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
               type="search"
@@ -90,12 +196,14 @@ export default function InstructorsPage() {
           </div>
         </div>
 
-        {error ? (
-          <div className="p-6 text-body-sm text-error">{error}</div>
-        ) : isLoading ? (
+        {listError ? (
+          <div className="p-6 text-body-sm text-error">{listError}</div>
+        ) : listIsLoading ? (
           <div className="p-6 text-body-sm text-on-surface-variant">Loading instructors...</div>
-        ) : instructors.length === 0 ? (
-          <div className="p-6 text-body-sm text-on-surface-variant">No instructors found.</div>
+        ) : rows.length === 0 ? (
+          <div className="p-6 text-body-sm text-on-surface-variant">
+            {admin ? 'No instructors found.' : "No instructors yet — enroll in a course to see its instructor here."}
+          </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left">
@@ -111,7 +219,7 @@ export default function InstructorsPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-outline-variant/60">
-                {instructors.map((instructor) => (
+                {rows.map((instructor) => (
                   <tr key={instructor.instructorSsn} className="hover:bg-table-row-hover">
                     <td className="px-6 py-4 text-body-sm font-semibold text-on-surface">{instructor.instructorSsn}</td>
                     <td className="px-6 py-4 text-body-sm font-semibold text-on-surface">
@@ -130,13 +238,15 @@ export default function InstructorsPage() {
                         >
                           <Eye className="h-4 w-4" />
                         </Link>
-                        <Link
-                          to={`/instructors/${instructor.instructorSsn}/edit`}
-                          className="rounded-full p-2 text-on-surface-variant hover:bg-surface-container-low hover:text-secondary"
-                          aria-label={`Edit ${instructor.firstName} ${instructor.lastName}`}
-                        >
-                          <Pencil className="h-4 w-4" />
-                        </Link>
+                        {admin ? (
+                          <Link
+                            to={`/instructors/${instructor.instructorSsn}/edit`}
+                            className="rounded-full p-2 text-on-surface-variant hover:bg-surface-container-low hover:text-secondary"
+                            aria-label={`Edit ${instructor.firstName} ${instructor.lastName}`}
+                          >
+                            <Pencil className="h-4 w-4" />
+                          </Link>
+                        ) : null}
                       </div>
                     </td>
                   </tr>
@@ -146,29 +256,31 @@ export default function InstructorsPage() {
           </div>
         )}
 
-        <div className="flex items-center justify-between border-t border-outline-variant px-4 py-3">
-          <p className="text-body-sm text-on-surface-variant">
-            Page {page} of {totalPages}
-          </p>
-          <div className="flex gap-2">
-            <button
-              type="button"
-              onClick={() => setPage((current) => Math.max(current - 1, 1))}
-              disabled={page <= 1}
-              className="rounded-lg border border-card-border px-3 py-2 text-body-sm font-semibold text-on-surface-variant hover:bg-surface-container-low disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              Previous
-            </button>
-            <button
-              type="button"
-              onClick={() => setPage((current) => Math.min(current + 1, totalPages))}
-              disabled={page >= totalPages}
-              className="rounded-lg border border-card-border px-3 py-2 text-body-sm font-semibold text-on-surface-variant hover:bg-surface-container-low disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              Next
-            </button>
+        {admin ? (
+          <div className="flex items-center justify-between border-t border-outline-variant px-4 py-3">
+            <p className="text-body-sm text-on-surface-variant">
+              Page {page} of {totalPages}
+            </p>
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={() => setPage((current) => Math.max(current - 1, 1))}
+                disabled={page <= 1}
+                className="rounded-lg border border-card-border px-3 py-2 text-body-sm font-semibold text-on-surface-variant hover:bg-surface-container-low disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                Previous
+              </button>
+              <button
+                type="button"
+                onClick={() => setPage((current) => Math.min(current + 1, totalPages))}
+                disabled={page >= totalPages}
+                className="rounded-lg border border-card-border px-3 py-2 text-body-sm font-semibold text-on-surface-variant hover:bg-surface-container-low disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                Next
+              </button>
+            </div>
           </div>
-        </div>
+        ) : null}
       </section>
     </div>
   );

@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudentManagement.Domain.Entities;
@@ -9,7 +9,7 @@ public class Trip
     public int TripId { get; set; }
 
     [ForeignKey(nameof(Driver))]
-    public long DriverSsn { get; set; }
+    public long? DriverSsn { get; set; }
 
     public DateTime? EstimatedTimeOfArrival { get; set; }
 
@@ -25,7 +25,7 @@ public class Trip
     [Column(TypeName = "decimal(10,2)")]
     public decimal? Price { get; set; }
 
-    public Driver Driver { get; set; } = null!;
+    public Driver? Driver { get; set; }
 
     public ICollection<TripStudent> TripStudents { get; set; } = new List<TripStudent>();
 

@@ -1,11 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace StudentManagement.Application.DTOs.Trip;
 
 public class CreateTripDto
 {
-    [Required]
-    public long DriverSsn { get; set; }
+    public long? DriverSsn { get; set; }
 
     [Required, MaxLength(255)]
     public string Destination { get; set; } = string.Empty;

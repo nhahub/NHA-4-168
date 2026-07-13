@@ -11,15 +11,15 @@ public class TripConfiguration : IEntityTypeConfiguration<Trip>
         builder.HasKey(t => t.TripId);
 
         builder.Property(t => t.Destination)
-            .IsRequired()
+            
             .HasMaxLength(255);
 
         builder.Property(t => t.PickupArea)
-            .IsRequired()
+            
             .HasMaxLength(255);
 
         builder.Property(t => t.Status)
-            .IsRequired()
+            
             .HasMaxLength(20)
             .HasDefaultValue("Pending");
 

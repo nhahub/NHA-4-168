@@ -1,10 +1,10 @@
-﻿namespace StudentManagement.Application.DTOs.Trip;
+namespace StudentManagement.Application.DTOs.Trip;
 
 public class TripDto
 {
     public int TripId { get; set; }
 
-    public long DriverSsn { get; set; }
+    public long? DriverSsn { get; set; }
     public string? DriverName { get; set; }
 
     public string Destination { get; set; } = string.Empty;

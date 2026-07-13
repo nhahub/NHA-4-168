@@ -613,7 +613,7 @@ namespace StudentManagement.Infrastructure.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<long>("DriverSsn")
+                    b.Property<long?>("DriverSsn")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime?>("EstimatedTimeOfArrival")
@@ -813,8 +813,7 @@ namespace StudentManagement.Infrastructure.Migrations
                     b.HasOne("StudentManagement.Domain.Entities.Driver", "Driver")
                         .WithMany()
                         .HasForeignKey("DriverSsn")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Driver");
                 });

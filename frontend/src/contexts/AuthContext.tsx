@@ -8,6 +8,7 @@ interface AuthUser {
   roles: string[];
   firstName?: string | null;
   lastName?: string | null;
+  studentSsn?: number | null;
 }
 
 interface AuthContextType {

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using StudentManagement.Application.DTOs.Driver;
@@ -13,4 +13,5 @@ public interface IDriverService
     Task<DriverDto> CreateDriverAsync(CreateDriverDto createDriverDto);
     Task<DriverDto?> UpdateDriverAsync(long ssn, UpdateDriverDto updateDriverDto); // هنا استخدمنا الـ Update DTO
     Task<bool> DeleteDriverAsync(long ssn);
+    Task<DriverDto?> GetCurrentDriverAsync(string userId);
 }

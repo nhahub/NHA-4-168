@@ -12,8 +12,8 @@ using StudentManagement.Infrastructure.Data;
 namespace StudentManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260713010947_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20260713054154_MakeTripDriverOptional")]
+    partial class MakeTripDriverOptional
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -394,6 +394,9 @@ namespace StudentManagement.Infrastructure.Migrations
                     b.Property<long>("InstructorSsn")
                         .HasColumnType("bigint");
 
+                    b.Property<decimal?>("CommissionRate")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -415,9 +418,6 @@ namespace StudentManagement.Infrastructure.Migrations
                     b.Property<string>("Phone")
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
-
-                    b.Property<decimal?>("RatePerCourse")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal?>("Rating")
                         .HasColumnType("decimal(3,2)");
@@ -616,7 +616,7 @@ namespace StudentManagement.Infrastructure.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<long>("DriverSsn")
+                    b.Property<long?>("DriverSsn")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime?>("EstimatedTimeOfArrival")
@@ -816,8 +816,7 @@ namespace StudentManagement.Infrastructure.Migrations
                     b.HasOne("StudentManagement.Domain.Entities.Driver", "Driver")
                         .WithMany()
                         .HasForeignKey("DriverSsn")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Driver");
                 });
