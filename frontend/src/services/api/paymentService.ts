@@ -50,14 +50,24 @@ const paymentService = {
     await axiosInstance.patch(`/payments/${id}/status`, data);
   },
   getStudentPayments: async (
-  studentSsn: number
-): Promise<PaymentDto[]> => {
-  const response = await axiosInstance.get(
-    `/payments/student/${studentSsn}`
-  );
+    studentSsn: number
+  ): Promise<PaymentDto[]> => {
+    const response = await axiosInstance.get(
+      `/payments/student/${studentSsn}`
+    );
 
-  return response.data;
-},
+    return response.data;
+  },
+
+  getByEnrollment: async (
+    enrollmentId: number
+  ): Promise<PaymentDto> => {
+    const response = await axiosInstance.get(
+      `/payments/enrollment/${enrollmentId}`
+    );
+
+    return response.data;
+  },
 };
 
 export interface CreatePaymentDto {
