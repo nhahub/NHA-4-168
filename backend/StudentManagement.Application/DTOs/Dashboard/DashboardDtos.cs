@@ -136,6 +136,7 @@ public class InstructorCoursePaymentDto
     public int CourseId { get; set; }
     public string CourseName { get; set; } = string.Empty;
     public bool IsActive { get; set; }
+    public int EnrolledStudentsCount { get; set; }
     public decimal CourseRevenue { get; set; }
     public decimal Earnings { get; set; }
 }

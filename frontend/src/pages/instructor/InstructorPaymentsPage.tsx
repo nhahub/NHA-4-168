@@ -18,26 +18,29 @@ export default function InstructorPaymentsPage() {
     {
       title: 'Total Earnings',
       value: formatCurrency(data?.totalEarned ?? 0),
-      subtitle: 'Across all assigned courses',
       icon: DollarSign,
-      color: 'text-green-600',
-      bg: 'bg-green-100',
+      color: 'text-white',
+      bg: 'bg-green-500',
+      cardBg: 'bg-green-600',
+      titleColor: 'text-green-100',
+    },
+    {
+      title: 'Total Courses Taught',
+      value: `${data?.totalCoursesTaught ?? 0}`,
+      icon: BookOpenCheck,
+      color: 'text-white',
+      bg: 'bg-teal-500',
+      cardBg: 'bg-teal-700',
+      titleColor: 'text-teal-100',
     },
     {
       title: 'Active Course Earnings',
       value: formatCurrency(data?.activeCoursesEarnings ?? 0),
-      subtitle: `${data?.activeCoursesTaught ?? 0} active course${data?.activeCoursesTaught === 1 ? '' : 's'}`,
       icon: TrendingUp,
-      color: 'text-secondary',
-      bg: 'bg-secondary-fixed',
-    },
-    {
-      title: 'Commission Rate',
-      value: `${data?.commissionRatePercent ?? 0}%`,
-      subtitle: `${data?.totalCoursesTaught ?? 0} course${data?.totalCoursesTaught === 1 ? '' : 's'} taught total`,
-      icon: BookOpenCheck,
-      color: 'text-yellow-600',
-      bg: 'bg-yellow-100',
+      color: 'text-white',
+      bg: 'bg-yellow-600',
+      cardBg: 'bg-yellow-500',
+      titleColor: 'text-yellow-100',
     },
   ];
 
@@ -54,14 +57,13 @@ export default function InstructorPaymentsPage() {
 
       <section className="grid grid-cols-1 gap-6 md:grid-cols-3">
         {stats.map((item) => (
-          <div key={item.title} className="rounded-2xl border border-card-border bg-surface-lowest p-6 shadow-sm">
+          <div key={item.title} className={`rounded-2xl border border-card-border ${item.cardBg} p-6 shadow-sm`}>
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-on-surface-variant">
+                <p className={`text-[12px] font-semibold uppercase tracking-[0.08em] ${item.titleColor}`}>
                   {item.title}
                 </p>
-                <h2 className="mt-3 text-[28px] font-bold text-on-surface">{item.value}</h2>
-                <p className={`mt-3 text-body-sm ${item.color}`}>{item.subtitle}</p>
+                <h2 className={`mt-3 text-[28px] font-bold ${item.color}`}>{item.value}</h2>
               </div>
               <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${item.bg}`}>
                 <item.icon className={item.color} size={22} />
@@ -84,14 +86,17 @@ export default function InstructorPaymentsPage() {
             <table className="w-full text-left">
               <thead className="border-b border-outline-variant bg-surface-container-low">
                 <tr>
+                  <th className="px-6 py-4 text-table-header font-semibold text-outline">Course ID</th>
                   <th className="px-6 py-4 text-table-header font-semibold text-outline">Course Name</th>
                   <th className="px-6 py-4 text-table-header font-semibold text-outline">Status</th>
+                  <th className="px-6 py-4 text-table-header font-semibold text-outline">Enrolled Students</th>
                   <th className="px-6 py-4 text-table-header font-semibold text-outline">Rate</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-outline-variant/60">
                 {courses.map((course) => (
                   <tr key={course.courseId} className="hover:bg-table-row-hover">
+                    <td className="px-6 py-4 text-body-sm font-semibold text-on-surface">{course.courseId}</td>
                     <td className="px-6 py-4 text-body-sm font-semibold text-on-surface">{course.courseName}</td>
                     <td className="px-6 py-4">
                       <span
@@ -102,6 +107,7 @@ export default function InstructorPaymentsPage() {
                         {course.isActive ? 'Active' : 'Inactive'}
                       </span>
                     </td>
+                    <td className="px-6 py-4 text-body-sm text-on-surface-variant">{course.enrolledStudentsCount}</td>
                     <td className="px-6 py-4 text-body-sm font-semibold text-on-surface">
                       {formatCurrency(course.earnings)}
                     </td>

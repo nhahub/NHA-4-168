@@ -196,3 +196,38 @@ textarea[readonly] {
   color: var(--color-on-surface-variant) !important;
   cursor: default !important;
 }
+
+/* ── Consistent page-title typography + spacing (matches the dashboard) ──
+   Every page title uses the same size/weight/leading/tracking as the
+   admin dashboard title, and every subtitle sits a small, fixed gap below
+   it at the same size. Titles followed by a section/card (not a subtitle)
+   keep their spacing. */
+h1.text-3xl,
+h1.text-display-lg {
+  font-size: 36px !important;
+  font-weight: 700 !important;
+  line-height: 44px !important;
+  letter-spacing: -0.02em !important;
+}
+
+h1.mb-8:has(+ p) {
+  margin-bottom: 0 !important;
+}
+
+h1.text-3xl + p,
+h1.text-display-lg + p {
+  margin-top: 0.25rem !important;
+  font-size: 16px !important;
+  line-height: 24px !important;
+  font-weight: 400 !important;
+}
+
+/* ── Consistent page padding (matches the Trips page) ──
+   MainLayout already wraps every routed page in
+   <main><div className="p-6">…</div></main>, so that single p-6 is the
+   page padding. Some pages (e.g. the dashboards) also add their own root
+   padding, producing a double left/top gap. Strip any padding from the page
+   root so all pages share exactly MainLayout's p-6, like the Trips page. */
+main > div > div {
+  padding: 0 !important;
+}

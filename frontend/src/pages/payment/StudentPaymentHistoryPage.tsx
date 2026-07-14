@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Wallet, Clock, RotateCcw, AlertCircle } from "lucide-react";
 // import MainLayout from "../../components/layout/MainLayout";
 import paymentService, {
   type PaymentDto,
@@ -93,62 +94,62 @@ export default function StudentPaymentHistoryPage() {
       <div className="space-y-8">
 
         {/* Summary */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
 
-          <div className="bg-surface-lowest rounded-xl border border-card-border p-6 shadow-sm">
-            <p className="text-xs uppercase text-on-surface-variant font-semibold">
-              Total Paid
-            </p>
-
-            <h2 className="text-3xl font-bold mt-2 text-on-surface">
-              ${totalPaid.toFixed(2)}
-            </h2>
-
-            <p className="text-green-600 text-sm mt-4">
-              {/* 12% from last term */}
-            </p>
+          <div className="rounded-2xl border border-card-border bg-green-600 p-6 shadow-sm">
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-green-100">
+                  Total Paid
+                </p>
+                <h2 className="mt-3 text-[28px] font-bold text-white">${totalPaid.toFixed(2)}</h2>
+              </div>
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-green-500">
+                <Wallet className="text-white" size={20} />
+              </div>
+            </div>
           </div>
 
-          <div className="bg-surface-lowest rounded-xl border border-card-border p-6 shadow-sm">
-            <p className="text-xs uppercase text-on-surface-variant font-semibold">
-              Outstanding
-            </p>
-
-            <h2 className="text-3xl font-bold mt-2 text-blue-600">
-              ${outstanding.toFixed(2)}
-            </h2>
-
-            <p className="text-blue-500 text-sm mt-4">
-              {/* Due in 14 days */}
-            </p>
+          <div className="rounded-2xl border border-card-border bg-yellow-500 p-6 shadow-sm">
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-yellow-100">
+                  Outstanding
+                </p>
+                <h2 className="mt-3 text-[28px] font-bold text-white">${outstanding.toFixed(2)}</h2>
+              </div>
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-yellow-600">
+                <Clock className="text-white" size={20} />
+              </div>
+            </div>
           </div>
 
-          <div className="bg-surface-lowest rounded-xl border border-card-border p-6 shadow-sm">
-            <p className="text-xs uppercase text-on-surface-variant font-semibold">
-              Refunds
-            </p>
-
-            <h2 className="text-3xl font-bold mt-2 text-on-surface">
-              ${refunds.toFixed(2)}
-            </h2>
-
-            <p className="text-on-surface-variant text-sm mt-4">
-              {/* Last: July 12, 2023 */}
-            </p>
+          <div className="rounded-2xl border border-card-border bg-sky-600 p-6 shadow-sm">
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-sky-100">
+                  Refunds
+                </p>
+                <h2 className="mt-3 text-[28px] font-bold text-white">${refunds.toFixed(2)}</h2>
+              </div>
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sky-500">
+                <RotateCcw className="text-white" size={20} />
+              </div>
+            </div>
           </div>
 
-          <div className="bg-surface-lowest rounded-xl border border-card-border p-6 shadow-sm">
-            <p className="text-xs uppercase text-on-surface-variant font-semibold">
-              Pending Amount
-            </p>
-
-            <h2 className="text-3xl font-bold mt-2 text-red-500">
-              ${nextInstallment.toFixed(2)}
-            </h2>
-
-            <p className="text-red-500 text-sm mt-4">
-              {/* Aug 24, 2023 */}
-            </p>
+          <div className="rounded-2xl border border-card-border bg-rose-600 p-6 shadow-sm">
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-rose-100">
+                  Pending Amount
+                </p>
+                <h2 className="mt-3 text-[28px] font-bold text-white">${nextInstallment.toFixed(2)}</h2>
+              </div>
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-rose-700">
+                <AlertCircle className="text-white" size={20} />
+              </div>
+            </div>
           </div>
 
         </div> {/* نهاية الـ grid */}
@@ -182,14 +183,14 @@ export default function StudentPaymentHistoryPage() {
 
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead>
-                <tr className="bg-surface-container-low">
-                  <th className="px-6 py-3 text-xs font-semibold tracking-wide uppercase text-on-surface-variant">Course</th>
-                  <th className="px-6 py-3 text-xs font-semibold tracking-wide uppercase text-on-surface-variant">Amount</th>
-                  <th className="px-6 py-3 text-xs font-semibold tracking-wide uppercase text-on-surface-variant">Date</th>
-                  <th className="px-6 py-3 text-xs font-semibold tracking-wide uppercase text-on-surface-variant">Method</th>
-                  <th className="px-6 py-3 text-xs font-semibold tracking-wide uppercase text-on-surface-variant">Status</th>
-                  {/* <th className="px-6 py-3 text-xs font-semibold tracking-wide uppercase text-gray-600">Action</th> */}
+              <thead className="bg-surface-container-low border-b border-outline">
+                <tr>
+                  <th className="px-6 py-4 text-left">Course ID</th>
+                  <th className="px-6 py-4 text-left">Course</th>
+                  <th className="px-6 py-4 text-left">Amount</th>
+                  <th className="px-6 py-4 text-left">Date</th>
+                  <th className="px-6 py-4 text-left">Method</th>
+                  <th className="px-6 py-4 text-left">Status</th>
                 </tr>
               </thead>
 
@@ -206,24 +207,13 @@ export default function StudentPaymentHistoryPage() {
                       key={payment.paymentId}
                       className="border-t border-outline-variant hover:bg-surface-container-low"
                     >
-                      <td className="px-6 py-6 ">
-                        <div className="flex items-center gap-3">
-
-                          <div className="w-8 h-8 rounded bg-primary text-white flex items-center justify-center text-xs font-bold ">
-                            {payment.courseName.substring(0, 2).toUpperCase()}
-                          </div>
-
-                          <div>
-                            <p className="font-semibold text-on-surface">
-                              {payment.courseName}
-                            </p>
-
-                            <p className="text-xs text-on-surface-variant">
-                              Course ID: {payment.courseId}
-                            </p>
-                          </div>
-
-                        </div>
+                      <td className="px-6 py-6 font-semibold text-on-surface">
+                        {payment.courseId}
+                      </td>
+                      <td className="px-6 py-6">
+                        <p className="font-semibold text-on-surface">
+                          {payment.courseName}
+                        </p>
                       </td>
 
                       <td className="p-4 font-semibold text-center text-on-surface">
@@ -320,49 +310,28 @@ export default function StudentPaymentHistoryPage() {
 
 
 
-        {/* Discount */}
-        <div className="grid lg:grid-cols-2 gap-6">
-          <div className="bg-blue-900 text-white rounded-2xl p-8">
+        {/* Support */}
 
-            <h2 className="text-3xl font-bold mb-3">
-              Early Bird Discount
-            </h2>
+        <div className="bg-surface-lowest border border-card-border rounded-2xl p-8 shadow-sm">
 
-            <p className="text-blue-100 leading-7 mb-6">
-              Pay your next semester before August 30 and get a 15% discount
-              on premium courses.
-            </p>
+          <h2 className="text-2xl font-bold mb-3 text-on-surface">
+            Payment Support
+          </h2>
 
-            <button className="bg-surface-lowest text-blue-900 font-semibold px-6 py-3 rounded-xl">
-              Apply Now
+          <p className="text-on-surface-variant mb-6">
+            Need help with one of your payments? Contact the finance team
+            through live chat or check the FAQ.
+          </p>
+
+          <div className="flex gap-3">
+
+            <button className="px-5 py-3 rounded-xl bg-surface-container text-on-surface hover:bg-surface-container-high">
+              Live Chat
             </button>
 
-          </div>
-
-          {/* Support */}
-
-          <div className="bg-surface-lowest border border-card-border rounded-2xl p-8 shadow-sm">
-
-            <h2 className="text-2xl font-bold mb-3 text-on-surface">
-              Payment Support
-            </h2>
-
-            <p className="text-on-surface-variant mb-6">
-              Need help with one of your payments? Contact the finance team
-              through live chat or check the FAQ.
-            </p>
-
-            <div className="flex gap-3">
-
-              <button className="px-5 py-3 rounded-xl bg-surface-container text-on-surface hover:bg-surface-container-high">
-                Live Chat
-              </button>
-
-              <button className="px-5 py-3 rounded-xl border border-card-border text-on-surface">
-                FAQ
-              </button>
-
-            </div>
+            <button className="px-5 py-3 rounded-xl border border-card-border text-on-surface">
+              FAQ
+            </button>
 
           </div>
 

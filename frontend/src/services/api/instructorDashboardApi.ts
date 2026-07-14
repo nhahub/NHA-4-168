@@ -53,6 +53,7 @@ export interface InstructorCoursePaymentDto {
   courseId: number;
   courseName: string;
   isActive: boolean;
+  enrolledStudentsCount: number;
   courseRevenue: number;
   earnings: number;
 }

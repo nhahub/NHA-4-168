@@ -51,9 +51,9 @@ export default function InstructorDashboardPage() {
   const activities = activitiesQuery.data ?? [];
 
   const statCards = useMemo(() => ([
-    { label: 'Active Courses', value: summary?.activeCourses ?? 0, icon: BookOpen },
-    { label: 'Enrolled Students', value: summary?.totalStudents ?? 0, icon: Users },
-    { label: 'Instructor Rating', value: summary?.rating != null ? `${summary.rating} / 5` : '—', icon: Star },
+    { label: 'Active Courses', value: summary?.activeCourses ?? 0, icon: BookOpen, iconColor: 'text-emerald-600', iconBg: 'bg-emerald-100' },
+    { label: 'Enrolled Students', value: summary?.totalStudents ?? 0, icon: Users, iconColor: 'text-teal-600', iconBg: 'bg-teal-100' },
+    { label: 'Instructor Rating', value: summary?.rating != null ? `${summary.rating} / 5` : '—', icon: Star, iconColor: 'text-yellow-600', iconBg: 'bg-yellow-100' },
   ]), [summary]);
 
   const isLoading = summaryQuery.isLoading || coursesQuery.isLoading || activitiesQuery.isLoading;
@@ -67,7 +67,7 @@ export default function InstructorDashboardPage() {
   }
 
   return (
-    <main className="px-4 pb-12 pt-6 sm:px-6 lg:px-8 lg:pt-8">
+    <div>
       {/* Header */}
       <section className="mb-8">
         <h2 className="text-[36px] font-bold leading-[44px] tracking-[-0.02em] text-on-background">Instructor Dashboard</h2>
@@ -79,15 +79,14 @@ export default function InstructorDashboardPage() {
         {statCards.map((card) => {
           const Icon = card.icon;
           return (
-            <div key={card.label} className="flex flex-col gap-2 rounded-xl border border-outline-variant bg-surface-lowest p-6 shadow-sm transition-shadow hover:shadow-md">
-              <div className="flex items-start justify-between">
-                <div className="rounded-lg bg-secondary-fixed p-2">
-                  <Icon className="h-6 w-6 text-secondary" />
-                </div>
-                <span className="rounded-full bg-blue-50 px-2 py-0.5 text-xs font-bold text-secondary">Live data</span>
+            <div key={card.label} className="flex items-center gap-3 rounded-xl border border-outline-variant bg-surface-lowest p-5 shadow-sm transition-shadow hover:shadow-md">
+              <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${card.iconBg}`}>
+                <Icon className={`h-5 w-5 ${card.iconColor}`} />
               </div>
-              <p className="mt-2 text-[12px] font-semibold uppercase tracking-[0.08em] text-on-surface-variant">{card.label}</p>
-              <h3 className="text-[24px] font-bold leading-8 text-on-surface">{card.value}</h3>
+              <div className="min-w-0">
+                <p className="text-xs font-semibold uppercase tracking-[0.08em] text-on-surface-variant truncate">{card.label}</p>
+                <h3 className="text-[24px] font-bold leading-8 text-on-surface truncate">{card.value}</h3>
+              </div>
             </div>
           );
         })}
@@ -170,6 +169,6 @@ export default function InstructorDashboardPage() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

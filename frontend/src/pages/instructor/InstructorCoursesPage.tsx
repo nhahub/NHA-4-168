@@ -58,6 +58,7 @@ export default function InstructorCoursesPage() {
             <table className="w-full text-left">
               <thead className="border-b border-outline-variant bg-surface-container-low">
                 <tr>
+                  <th className="px-6 py-4 text-table-header font-semibold text-outline">Course ID</th>
                   <th className="px-6 py-4 text-table-header font-semibold text-outline">Course Name</th>
                   <th className="px-6 py-4 text-table-header font-semibold text-outline">Role</th>
                   <th className="px-6 py-4 text-table-header font-semibold text-outline">Enrolled Students</th>
@@ -72,6 +73,7 @@ export default function InstructorCoursesPage() {
                     onClick={() => setSelectedCourseId(course.courseId)}
                     className="cursor-pointer transition-colors hover:bg-table-row-hover"
                   >
+                    <td className="px-6 py-4 text-body-sm font-semibold text-on-surface">{course.courseId}</td>
                     <td className="px-6 py-4 text-body-sm font-semibold text-on-surface">{course.courseName}</td>
                     <td className="px-6 py-4 text-body-sm text-on-surface-variant">{course.role || 'Primary Instructor'}</td>
                     <td className="px-6 py-4 text-body-sm text-on-surface-variant">

@@ -183,15 +183,24 @@ public class InstructorDashboardService : IInstructorDashboardService
             .Select(g => new { CourseId = g.Key, Total = g.Sum(p => p.Amount) })
             .ToDictionaryAsync(x => x.CourseId, x => x.Total);
 
+        var enrollCountByCourse = await _context.Enrollments
+            .AsNoTracking()
+            .Where(e => courseIds.Contains(e.CourseId))
+            .GroupBy(e => e.CourseId)
+            .Select(g => new { CourseId = g.Key, Count = g.Count() })
+            .ToDictionaryAsync(x => x.CourseId, x => x.Count);
+
         var courses = courseInstructors
             .Select(ci =>
             {
                 var revenue = revenueByCourse.TryGetValue(ci.CourseId, out var rev) ? rev : 0m;
+                var enrolledCount = enrollCountByCourse.TryGetValue(ci.CourseId, out var cnt) ? cnt : 0;
                 return new InstructorCoursePaymentDto
                 {
                     CourseId = ci.CourseId,
                     CourseName = ci.Course.CourseName,
                     IsActive = ci.Course.IsActive,
+                    EnrolledStudentsCount = enrolledCount,
                     CourseRevenue = revenue,
                     Earnings = revenue * commissionRate / 100m
                 };

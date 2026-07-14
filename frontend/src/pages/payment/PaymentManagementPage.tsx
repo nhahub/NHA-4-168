@@ -137,26 +137,29 @@ const stats = [
   {
     title: "Total Revenue",
     value: `$${totalRevenue.toFixed(2)}`,
-    subtitle: "Successful payments",
     icon: TrendingUp,
-    color: "text-green-600",
-    bg: "bg-green-100",
+    color: "text-white",
+    bg: "bg-green-500",
+    cardBg: "bg-green-600",
+    titleColor: "text-green-100",
   },
   {
     title: "Pending Receipts",
     value: `$${pendingRevenue.toFixed(2)}`,
-    subtitle: "Awaiting payment",
     icon: Clock3,
-    color: "text-yellow-600",
-    bg: "bg-yellow-100",
+    color: "text-white",
+    bg: "bg-yellow-600",
+    cardBg: "bg-yellow-500",
+    titleColor: "text-yellow-100",
   },
   {
     title: "Failed Transactions",
     value: failedTransactions,
-    subtitle: "Require attention",
     icon: CircleX,
-    color: "text-red-600",
-    bg: "bg-red-100",
+    color: "text-white",
+    bg: "bg-red-700",
+    cardBg: "bg-red-600",
+    titleColor: "text-red-100",
   },
 ];
 
@@ -215,30 +218,26 @@ if (loading) {
 
           <div
             key={item.title}
-            className="bg-surface-lowest border border-card-border rounded-2xl shadow-sm p-6"
+            className={`${item.cardBg} border border-card-border rounded-2xl shadow-sm p-6`}
           >
 
             <div className="flex items-start justify-between">
 
               <div>
 
-                <p className="text-sm uppercase tracking-wider text-on-surface-variant">
+                <p className={`text-sm uppercase tracking-wider ${item.titleColor}`}>
                   {item.title}
                 </p>
 
-                <h2 className="text-3xl font-bold mt-3 text-on-surface">
+                <h2 className={`text-3xl font-bold mt-3 ${item.color}`}>
                   {item.value}
                 </h2>
-
-                <p className={`mt-3 text-sm ${item.color}`}>
-                  {item.subtitle}
-                </p>
 
               </div>
 
               <div
-  className={`flex h-12 w-12 items-center justify-center rounded-xl ${item.bg}`}
->
+                className={`flex h-12 w-12 items-center justify-center rounded-xl ${item.bg}`}
+              >
   <item.icon className={item.color} size={24} />
 </div>
 

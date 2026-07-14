@@ -106,11 +106,11 @@ function AdminDashboardPage() {
   }
 
   const statCards = useMemo(() => ([
-    { label: 'Total Students', value: summary ? summary.totalStudents.toLocaleString() : '—', trend: 'Live data', icon: Users },
-    { label: 'Active Enrollments', value: summary ? summary.activeEnrollments.toLocaleString() : '—', trend: 'Live data', icon: BookOpenCheck },
-    { label: 'Pending Payments', value: summary ? summary.pendingPayments.toLocaleString() : '—', trend: 'Live data', icon: BadgeDollarSign },
-    { label: 'Active Rides', value: summary ? summary.activeRides.toLocaleString() : '—', trend: 'Live data', icon: BusFront },
-    { label: 'Total Revenue', value: summary ? formatCurrency(summary.totalRevenue) : '—', trend: 'Live data', icon: Layers3 },
+    { label: 'Total Students', value: summary ? summary.totalStudents.toLocaleString() : '—', icon: Users, iconColor: 'text-emerald-600', iconBg: 'bg-emerald-100' },
+    { label: 'Active Enrollments', value: summary ? summary.activeEnrollments.toLocaleString() : '—', icon: BookOpenCheck, iconColor: 'text-teal-600', iconBg: 'bg-teal-100' },
+    { label: 'Pending Payments', value: summary ? summary.pendingPayments.toLocaleString() : '—', icon: BadgeDollarSign, iconColor: 'text-yellow-600', iconBg: 'bg-yellow-100' },
+    { label: 'Active Rides', value: summary ? summary.activeRides.toLocaleString() : '—', icon: BusFront, iconColor: 'text-sky-600', iconBg: 'bg-sky-100' },
+    { label: 'Total Revenue', value: summary ? formatCurrency(summary.totalRevenue) : '—', icon: Layers3, iconColor: 'text-green-600', iconBg: 'bg-green-100' },
   ]), [summary]);
 
   // The backend returns a continuous, zero-filled day series. For short ranges we
@@ -154,7 +154,7 @@ function AdminDashboardPage() {
   }));
 
   return (
-    <main className="px-4 pb-12 pt-6 sm:px-6 lg:px-8 lg:pt-8">
+    <div>
       <section className="mb-8 flex items-end justify-between gap-4">
         <div>
           <h2 className="text-[36px] font-bold leading-[44px] tracking-[-0.02em] text-on-background">Admin Dashboard</h2>
@@ -170,20 +170,19 @@ function AdminDashboardPage() {
         </button>
       </section>
 
-      <section className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+      <section className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
         {statCards.map((card) => {
           const Icon = card.icon;
 
           return (
-            <div key={card.label} className="flex flex-col gap-2 rounded-xl border border-outline-variant bg-surface-lowest p-6 shadow-sm transition-shadow hover:shadow-md">
-              <div className="flex items-start justify-between">
-                <div className="rounded-lg bg-secondary-fixed p-2">
-                  <Icon className="h-5 w-5 text-secondary" />
-                </div>
-                <span className="rounded-full bg-blue-50 px-2 py-0.5 text-xs font-bold text-secondary">{card.trend}</span>
+            <div key={card.label} className="flex items-center gap-3 rounded-xl border border-outline-variant bg-surface-lowest p-5 shadow-sm transition-shadow hover:shadow-md">
+              <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${card.iconBg}`}>
+                <Icon className={`h-5 w-5 ${card.iconColor}`} />
               </div>
-              <p className="mt-2 text-[12px] font-semibold uppercase tracking-[0.08em] text-on-surface-variant">{card.label}</p>
-              <h3 className="text-[24px] font-bold leading-8 text-on-surface">{card.value}</h3>
+              <div className="min-w-0">
+                <p className="text-xs font-semibold uppercase tracking-[0.08em] text-on-surface-variant truncate">{card.label}</p>
+                <h3 className="text-[24px] font-bold leading-8 text-on-surface truncate">{card.value}</h3>
+              </div>
             </div>
           );
         })}
@@ -420,7 +419,7 @@ function AdminDashboardPage() {
           </div>
         </div>
       )}
-    </main>
+    </div>
   );
 }
 

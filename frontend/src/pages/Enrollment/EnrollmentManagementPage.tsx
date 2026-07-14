@@ -362,9 +362,9 @@ const handleCreateEnrollment = async () => {
   <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
 
     <div>
-      <h1 className="text-3xl font-bold text-on-background mb-8">
-        Enrollment Management
-      </h1>
+        <h1 className="text-3xl font-bold text-on-background">
+          Enrollment Management
+        </h1>
 
       <p className="mt-2 text-on-surface-variant">
         Manage student placements, track progress, and finalize grading cycles.
@@ -393,37 +393,30 @@ const handleCreateEnrollment = async () => {
 
     <div
       key={item.title}
-      className="rounded-xl border border-outline bg-surface p-6 shadow-sm"
+      className="flex items-center gap-3 rounded-xl border border-outline bg-surface-lowest p-5 shadow-sm"
     >
 
-      <div className="flex items-center justify-between">
-
-        <div
-  className={`flex h-12 w-12 items-center justify-center rounded-xl ${item.bg}`}
+      <div
+  className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${item.bg}`}
 >
-  <item.icon className={item.color} size={24} />
+  <item.icon className={`h-5 w-5 ${item.color}`} />
 </div>
 
-        <span className="text-xs text-gray-500">
-  Live
-</span>
-
+      <div className="min-w-0">
+        <p className="text-xs font-semibold uppercase tracking-[0.08em] text-on-surface-variant truncate">
+          {item.title}
+        </p>
+        <h2 className="text-[24px] font-bold leading-8 text-on-surface truncate">
+          {item.value}
+        </h2>
       </div>
-
-      <p className="mt-5 text-sm text-on-surface-variant">
-        {item.title}
-      </p>
-
-      <h2 className="mt-1 text-3xl font-bold">
-        {item.value}
-      </h2>
 
     </div>
 
   ))}
 
 </div>
-<div className="rounded-xl border border-outline bg-surface p-6 shadow-sm">
+<div className="rounded-xl border border-outline bg-surface-lowest p-6 shadow-sm">
 
   <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
 
@@ -499,7 +492,7 @@ const handleCreateEnrollment = async () => {
   </div>
 
 </div>
-<div className="overflow-hidden rounded-xl border border-outline bg-surface shadow-sm">
+<div className="overflow-hidden rounded-xl border border-outline bg-surface-lowest shadow-sm">
 
   <div className="border-b p-6">
 
@@ -541,32 +534,19 @@ const handleCreateEnrollment = async () => {
       className="border-b border-outline hover:bg-surface-container-low transition-colors duration-200"
     >
       <td className="px-6 py-4">
-        <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white font-bold">
-            {enrollment.studentName
-                .split(" ")
-                .map((x) => x[0])
-                .join("")}
-          </div>
+        <p className="font-semibold">
+          {enrollment.studentName}
+        </p>
 
-          <div>
-            <p className="font-semibold">
-              {enrollment.studentName}
-            </p>
-
-            <p className="text-sm text-on-surface-variant">
-              {enrollment.studentSsn}
-            </p>
-          </div>
-        </div>
+        <p className="text-sm text-on-surface-variant">
+          {enrollment.studentSsn}
+        </p>
       </td>
 
       <td className="px-6 py-4">
         <p>{enrollment.courseName}</p>
-        <p className="text-sm text-on-surface-variant">
-          <p className="text-xs text-on-surface-variant">
-                              Course ID: {enrollment.courseId}
-                            </p>
+        <p className="text-xs text-on-surface-variant">
+          Course ID: {enrollment.courseId}
         </p>
       </td>
 
@@ -698,7 +678,7 @@ const handleCreateEnrollment = async () => {
   onClick={(e) => e.stopPropagation()}
 >
 
-      <h2 className="mb-6 text-2xl font-bold">
+      <h2 className="mb-6 text-2xl font-bold text-on-surface">
         Edit Enrollment
       </h2>
 
@@ -712,7 +692,7 @@ const handleCreateEnrollment = async () => {
           <input
             value={selectedEnrollment.studentName}
             readOnly
-            className="w-full rounded-lg border bg-gray-100 px-4 py-2"
+            className="w-full rounded-lg border border-outline bg-surface px-4 py-2 text-on-surface"
           />
         </div>
 
@@ -724,7 +704,7 @@ const handleCreateEnrollment = async () => {
           <input
             value={selectedEnrollment.courseName}
             readOnly
-            className="w-full rounded-lg border bg-gray-100 px-4 py-2"
+            className="w-full rounded-lg border border-outline bg-surface px-4 py-2 text-on-surface"
           />
         </div>
 
@@ -789,7 +769,7 @@ const handleCreateEnrollment = async () => {
 
         <button
           onClick={() => setShowEditModal(false)}
-          className="rounded-lg border px-5 py-2"
+          className="rounded-lg border border-outline px-5 py-2 text-on-surface"
         >
           Cancel
         </button>
@@ -817,78 +797,76 @@ onClick={() => setShowCreateModal(false)}
 >
 
 <div
-className="w-full max-w-md rounded-xl bg-white p-6"
+className="w-full max-w-md rounded-xl bg-surface-lowest p-6"
 onClick={(e)=>e.stopPropagation()}
 >
 
-<h2 className="text-xl font-bold mb-5">
-New Enrollment
-</h2>
+  <h2 className="text-xl font-bold mb-5 text-on-surface">
+    New Enrollment
+  </h2>
 
+  <div className="space-y-4">
 
-<div className="space-y-4">
+  <input
+    type="number"
+    placeholder="Enter Student SSN"
+    value={newStudentSsn}
+    onChange={(e) => {
+      const id = e.target.value === "" ? "" : Number(e.target.value);
 
+      setNewStudentSsn(id);
 
-<input
-  type="number"
-  placeholder="Enter Student SSN"
-  value={newStudentSsn}
-  onChange={(e) => {
-    const id = e.target.value === "" ? "" : Number(e.target.value);
+      const student = enrollments.find(
+        (e) => e.studentSsn === Number(id)
+      );
 
-    setNewStudentSsn(id);
+      setNewStudentName(student?.studentName ?? "");
+    }}
+    className="w-full border border-outline rounded-lg px-4 py-2 text-on-surface bg-surface"
+  />
 
-    const student = enrollments.find(
-      (e) => e.studentSsn === Number(id)
-    );
-
-    setNewStudentName(student?.studentName ?? "");
-  }}
-  className="w-full border rounded-lg px-4 py-2"
-/>
-
-{newStudentName && (
-  <p className="mt-2 text-sm text-green-600">
-    Student: {newStudentName}
-  </p>
-)}
+  {newStudentName && (
+    <p className="mt-2 text-sm text-green-600">
+      Student: {newStudentName}
+    </p>
+  )}
 
 
 
-<input
-  type="number"
-  placeholder="Enter Course ID"
-  value={newCourseId}
-  onChange={(e) => {
-    const id = e.target.value === "" ? "" : Number(e.target.value);
+  <input
+    type="number"
+    placeholder="Enter Course ID"
+    value={newCourseId}
+    onChange={(e) => {
+      const id = e.target.value === "" ? "" : Number(e.target.value);
 
-    setNewCourseId(id);
+      setNewCourseId(id);
 
-    const course = enrollments.find(
-      (e) => e.courseId === Number(id)
-    );
+      const course = enrollments.find(
+        (e) => e.courseId === Number(id)
+      );
 
-    setNewCourseName(course?.courseName ?? "");
-  }}
-  className="w-full border rounded-lg px-4 py-2"
-/>
+      setNewCourseName(course?.courseName ?? "");
+    }}
+    className="w-full border border-outline rounded-lg px-4 py-2 text-on-surface bg-surface"
+  />
 
-{newCourseName && (
-  <p className="mt-2 text-sm text-green-600">
-    Course: {newCourseName}
-  </p>
-)}
+  {newCourseName && (
+    <p className="mt-2 text-sm text-green-600">
+      Course: {newCourseName}
+    </p>
+  )}
 
-</div>
+  </div>
 
 
 <div className="flex justify-end gap-3 mt-6">
 
 <button
 onClick={()=>setShowCreateModal(false)}
-className="border px-4 py-2 rounded-lg"
+className="border border-outline px-4 py-2 rounded-lg text-on-surface"
 >
-Cancel
+  Cancel
 </button>
 
 

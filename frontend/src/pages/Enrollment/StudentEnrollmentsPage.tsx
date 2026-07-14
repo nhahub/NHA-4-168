@@ -4,7 +4,6 @@ import enrollmentService, {
   type EnrollmentDto,
 } from "../../services/api/enrollmentService";
 import {BookOpen,CheckCircle2,CreditCard,} from "lucide-react";
-import type { ReactNode } from "react";
 import { studentService } from "../../services/api/studentService";
 
 export default function StudentEnrollmentPage() {
@@ -53,17 +52,23 @@ const summaryCards = [
   {
     title: "ACTIVE COURSES",
     value: activeCourses.toString(),
-    icon: <BookOpen size={33} />
+    icon: BookOpen,
+    iconColor: "text-emerald-600",
+    iconBg: "bg-emerald-100",
   },
   {
     title: "COMPLETED",
     value: completedCourses.toString(),
-    icon: <CheckCircle2 size={33} />
+    icon: CheckCircle2,
+    iconColor: "text-teal-600",
+    iconBg: "bg-teal-100",
   },
   {
     title: "PENDING PAYMENTS",
     value: pendingFees.toString(),
-    icon: <CreditCard size={33} />,
+    icon: CreditCard,
+    iconColor: "text-yellow-600",
+    iconBg: "bg-yellow-100",
     error: pendingFees > 0,
   },
 ];
@@ -71,15 +76,14 @@ const summaryCards = [
   if (loading) {
   return (
     <div className="flex items-center justify-center h-96">
-      <p className="text-gray-500">Loading enrollments...</p>
+      <p className="text-on-surface-variant">Loading enrollments...</p>
     </div>
   );
 }
 
   return (
     <>
-        <h1 className="text-3xl font-bold text-on-background mb-8">My Enrollments</h1>
-      <div className="pt-6 pb-12">
+        <h1 className="text-display-lg font-bold text-on-background mb-8">My Enrollments</h1>
 
         {/* Summary Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -90,6 +94,8 @@ const summaryCards = [
     title={card.title}
     value={card.value}
     icon={card.icon}
+    iconColor={card.iconColor}
+    iconBg={card.iconBg}
     error={card.error}
   />
 ))}
@@ -100,14 +106,14 @@ const summaryCards = [
         {enrollments.length > 0 ? (
           <div className="bg-surface-lowest rounded-xl border border-outline-variant shadow-sm overflow-hidden">
 
-            <div className="px-6 py-5 bg-gray-50 border-b border-gray-200 flex justify-between items-center">
+            <div className="px-6 py-5 bg-surface-container-low border-b border-outline-variant flex justify-between items-center">
 
   <div className="flex justify-between items-center w-full">
-  <h2 className="text-xl font-semibold text-gray-900">
+  <h2 className="text-xl font-semibold text-on-surface">
     Current Semester Enrollments
   </h2>
 
-  <span className="text-sm font-medium text-gray-500">
+  <span className="text-sm font-medium text-on-surface-variant">
     {enrollments.length} {enrollments.length === 1 ? "Course" : "Courses"}
   </span>
 </div>
@@ -119,28 +125,17 @@ const summaryCards = [
 
               <table className="w-full text-left">
 
-                <thead>
-                  <tr className="bg-gray-100 ">
-
-                    {[
-                      "Course Name",
-                      "Enrolled On",
-                      "Status",
-                      "Grade",
-                      "Payment Status",
-                      "Action",
-                    ].map((head) => (
-                      <th
-                        key={head}
-                        className="px-6 py-3 text-xs font-semibold tracking-wide uppercase text-gray-600"
-                      >
-                        {head}
-                      </th>
-                    ))}
-
+                <thead className="bg-surface-container-low border-b border-outline">
+                  <tr>
+                    <th className="px-6 py-4 text-left">Course ID</th>
+                    <th className="px-6 py-4 text-left">Course Name</th>
+                    <th className="px-6 py-4 text-left">Enrolled On</th>
+                    <th className="px-6 py-4 text-left">Status</th>
+                    <th className="px-6 py-4 text-left">Grade</th>
+                    <th className="px-6 py-4 text-left">Payment Status</th>
+                    <th className="px-6 py-4 text-left">Action</th>
                   </tr>
                 </thead>
-
 
                 <tbody className="divide-y divide-outline-variant">
 
@@ -148,30 +143,15 @@ const summaryCards = [
 
                     <tr
                       key={course.enrollmentId}
-                      className="border-b last:border-0 hover:bg-gray-50 transition-colors"
+                      className="border-b last:border-0 hover:bg-surface-container-low transition-colors"
                     >
-
+                      <td className="px-6 py-6 font-semibold text-on-surface">
+                        {course.courseId}
+                      </td>
                       <td className="px-6 py-6">
-
-                        <div className="flex items-center gap-3">
-
-                          <div className="w-8 h-8 rounded bg-primary text-white flex items-center justify-center text-xs font-bold">
-  {course.courseName.slice(0,2).toUpperCase()}
-</div>
-
-
-                          <div>
-                            <p className="font-semibold">
-                              {course.courseName}
-                            </p>
-
-                            <p className="text-xs text-gray-500">
-  Course ID: {course.courseId}
-</p>
-                          </div>
-
-                        </div>
-
+                        <p className="font-semibold">
+                          {course.courseName}
+                        </p>
                       </td>
 
 
@@ -241,9 +221,8 @@ const summaryCards = [
 
         )}
 
-      </div>
-    </>
-  );
+      </>
+    );
 }
 
 
@@ -251,21 +230,25 @@ const summaryCards = [
 function SummaryCard({
   title,
   value,
-  icon,
+  icon: Icon,
+  iconColor = "text-secondary",
+  iconBg = "bg-secondary-fixed",
   error = false,
 }: {
   title: string;
   value: string;
-  icon: ReactNode;
+  icon: React.ComponentType<{ className?: string }>;
+  iconColor?: string;
+  iconBg?: string;
   error?: boolean;
 }) {
 
   return (
     <div className="bg-surface-lowest p-6 rounded-xl border border-outline-variant shadow-sm flex items-center gap-4">
 
-      <div className="w-12 h-12 rounded-lg bg-primary-fixed flex items-center justify-center">
-  {icon}
-</div>
+      <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${iconBg}`}>
+        <Icon className={`h-8 w-8 ${iconColor}`} />
+      </div>
 
       <div>
 
@@ -288,19 +271,19 @@ function SummaryCard({
 function StatusBadge({status}: {status:string}) {
 
   const styles: Record<string,string> = {
-    Active: "bg-green-100 text-green-800",
-    Paid: "bg-blue-100 text-blue-800",
-    Unpaid: "bg-yellow-100 text-yellow-800",
-    Completed: "bg-gray-100 text-gray-800",
-    Withdrawn: "bg-red-100 text-red-800",
-    "N/A": "bg-gray-100 text-gray-700",
-    Failed: "bg-red-100 text-red-800",
+    Active: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300",
+    Paid: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300",
+    Unpaid: "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-300",
+    Completed: "bg-slate-100 text-slate-700 dark:bg-slate-700/50 dark:text-slate-300",
+    Withdrawn: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300",
+    "N/A": "bg-slate-100 text-slate-700 dark:bg-slate-700/50 dark:text-slate-300",
+    Failed: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300",
   };
 
 
   return (
     <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${styles[status] ??
-"bg-gray-100 text-gray-700"}`}>
+    "bg-slate-100 text-slate-700 dark:bg-slate-700/50 dark:text-slate-300"}`}>
       {status}
     </span>
   );
