@@ -64,7 +64,7 @@ function formatApplicationDate(value: string | null) {
 function statusTone(status: string) {
   const normalized = status.toLowerCase();
 
-  if (normalized.includes('approved') || normalized.includes('active') || normalized.includes('paid')) {
+  if (normalized.includes('approved') || normalized.includes('active') || normalized.includes('paid') || normalized.includes('completed')) {
     return 'success';
   }
 

@@ -514,7 +514,7 @@ setShowUpdateModal(true);
         onChange={(e) =>
   setNewStatus(e.target.value as PaymentStatus)
 }
-        className="w-full border border-card-border text-on-surface rounded-xl px-4 py-3 mb-6"
+        className="w-full rounded-lg border border-input-border bg-surface-lowest px-4 py-3 mb-6 text-body-sm text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
       >
         <option value="Paid">Paid</option>
         <option value="Pending">Pending</option>

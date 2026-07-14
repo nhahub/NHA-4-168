@@ -2,7 +2,7 @@ import type { CourseLevel } from '../../services/api/courseService';
 
 const levelClasses: Record<CourseLevel, string> = {
   Beginner: 'bg-status-success-container text-status-success',
-  Intermediate: 'bg-secondary-fixed text-secondary',
+  Intermediate: 'bg-status-info-container text-status-info',
   Advanced: 'bg-error-container text-error',
 };
 

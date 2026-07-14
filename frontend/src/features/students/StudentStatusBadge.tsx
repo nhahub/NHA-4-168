@@ -3,7 +3,7 @@ import type { StudentStatus } from '../../services/api/studentService';
 const statusClasses: Record<StudentStatus, string> = {
   Active: 'bg-status-success-container text-status-success',
   Inactive: 'bg-status-neutral-container text-status-neutral',
-  Graduated: 'bg-secondary-fixed text-secondary',
+  Graduated: 'bg-status-info-container text-status-info',
   Suspended: 'bg-error-container text-error',
 };
 

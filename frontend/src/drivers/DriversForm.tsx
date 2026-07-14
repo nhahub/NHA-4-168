@@ -67,7 +67,7 @@ export function DriverForm({ mode, initialDriver, isSubmitting, error, onSubmit,
             disabled={mode === 'edit'} // بنقفل التعديل عليه لو بنعمل Edit لأن الـ SSN هو الـ Primary Key
             value={values.driverSsn}
             onChange={(event) => updateField('driverSsn', event.target.value)}
-            className="mt-2 w-full rounded-lg border border-input-border px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus disabled:bg-slate-50 disabled:text-on-surface-variant"
+            className="mt-2 w-full rounded-lg border border-input-border px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus disabled:bg-surface-container-low disabled:text-on-surface-variant"
           />
         </label>
 

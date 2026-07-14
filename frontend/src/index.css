@@ -133,3 +133,66 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* ── Consistent centered tables ──
+   Center every table's column headers and the data beneath them.
+   Flex-based cells (e.g. avatar + name rows) are also centered. */
+table th,
+table td {
+  text-align: center !important;
+}
+
+table td [class*="items-center"] {
+  justify-content: center !important;
+}
+
+/* ── Unified form controls ──
+   Make every text input, select and textarea share one consistent look
+   (reference: the "First Name" field in Edit Student and the "All statuses"
+   dropdown on the Students table). This fixes inconsistent borders/backgrounds
+   — e.g. the grey read-only boxes in dark mode on the Edit Enrollment modal —
+   and unifies every dropdown across the app.
+   Search inputs keep their own left padding (for the icon), so padding is not
+   forced here. Checkboxes/radios/file/range/color inputs are intentionally
+   excluded to keep their native appearance. */
+input[type="text"],
+input[type="email"],
+input[type="search"],
+input[type="password"],
+input[type="tel"],
+input[type="number"],
+input[type="date"],
+input:not([type]),
+select,
+textarea {
+  border: 1px solid var(--color-input-border) !important;
+  border-radius: 0.5rem !important;
+  background-color: var(--color-surface-lowest) !important;
+  color: var(--color-on-surface) !important;
+  outline: none !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="search"]:focus,
+input[type="password"]:focus,
+input[type="tel"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+input:not([type]):focus,
+select:focus,
+textarea:focus {
+  border-color: var(--color-input-border-focus) !important;
+  box-shadow: var(--shadow-focus) !important;
+}
+
+input:disabled,
+input[readonly],
+select:disabled,
+textarea:disabled,
+textarea[readonly] {
+  background-color: var(--color-surface-container) !important;
+  color: var(--color-on-surface-variant) !important;
+  cursor: default !important;
+}

@@ -584,14 +584,8 @@ const handleCreateEnrollment = async () => {
   </span>
 </td>
 
-      <td className="px-6 py-4">
-        <input
-  type="text"
-  value={enrollment.grade ?? ""}
-  readOnly
-  placeholder="--"
-  className="w-20 rounded-lg border border-outline bg-gray-100 px-2 py-1 text-center cursor-default outline-none"
-/>
+      <td className="px-6 py-4 text-body-sm font-semibold text-on-surface">
+        {enrollment.grade ?? '—'}
       </td>
 
       <td className="px-6 py-4 ">
