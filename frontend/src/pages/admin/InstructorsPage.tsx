@@ -8,6 +8,7 @@ import { courseService } from '../../services/api/courseService';
 import enrollmentService from '../../services/api/enrollmentService';
 import { useAuth } from '../../contexts/AuthContext';
 import { isAdmin } from '../../utils/auth';
+import { RateInstructorDialog } from '../../features/instructors/RateInstructorDialog';
 
 const pageSize = 10;
 
@@ -23,6 +24,7 @@ export default function InstructorsPage() {
   const [search, setSearch] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [ratingInstructorSsn, setRatingInstructorSsn] = useState<number | null>(null);
 
   useEffect(() => {
     if (!admin) {
@@ -247,13 +249,14 @@ const instructorDetails = allInstructors.filter((instructor) =>
                             <Pencil className="h-4 w-4" />
                           </Link>
                         ) : (
-                          <Link
-                            to={`/student/rate-instructors?instructor=${instructor.instructorSsn}`}
+                          <button
+                            type="button"
+                            onClick={() => setRatingInstructorSsn(instructor.instructorSsn)}
                             className="rounded-full p-2 text-on-surface-variant hover:bg-surface-container-low hover:text-secondary"
                             aria-label={`Rate ${instructor.firstName} ${instructor.lastName}`}
                           >
                             <Star className="h-4 w-4" />
-                          </Link>
+                          </button>
                         )}
                       </div>
                     </td>
@@ -290,6 +293,13 @@ const instructorDetails = allInstructors.filter((instructor) =>
           </div>
         ) : null}
       </section>
+      {ratingInstructorSsn !== null && (
+        <RateInstructorDialog
+          open={ratingInstructorSsn !== null}
+          instructorSsn={ratingInstructorSsn}
+          onClose={() => setRatingInstructorSsn(null)}
+        />
+      )}
     </div>
   );
 }
