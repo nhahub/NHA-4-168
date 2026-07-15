@@ -111,11 +111,6 @@ export default function DriverDetailPage() {
           </Link>
           <h1 className="text-display-lg font-bold text-on-background">{driverName}</h1>
           <p className="mt-1 text-body-md text-on-surface-variant">SSN {driver.driverSsn}</p>
-          {!canManageDrivers ? (
-            <p className="mt-3 rounded-lg border border-outline-variant bg-surface-container-low px-3 py-2 text-body-sm text-on-surface-variant">
-              View-only access. You can inspect driver details, but edits are restricted to administrators.
-            </p>
-          ) : null}
         </div>
         {canManageDrivers ? (
           <div className="flex flex-wrap gap-3">

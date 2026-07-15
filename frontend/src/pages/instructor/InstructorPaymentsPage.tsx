@@ -1,4 +1,5 @@
 import { DollarSign, BookOpenCheck, TrendingUp, LoaderCircle } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useInstructorPayments } from '../../hooks/useInstructorPayments';
 import { formatCurrency } from '../../utils/formatters';
 
@@ -97,7 +98,11 @@ export default function InstructorPaymentsPage() {
                 {courses.map((course) => (
                   <tr key={course.courseId} className="hover:bg-table-row-hover">
                     <td className="px-6 py-4 text-body-sm font-semibold text-on-surface">{course.courseId}</td>
-                    <td className="px-6 py-4 text-body-sm font-semibold text-on-surface">{course.courseName}</td>
+                     <td className="px-6 py-4 text-body-sm font-semibold text-on-surface">
+                       <Link to={`/courses/${course.courseId}`} className="hover:text-secondary">
+                         {course.courseName}
+                       </Link>
+                     </td>
                     <td className="px-6 py-4">
                       <span
                         className={`rounded-full px-3 py-1 text-[12px] font-bold ${

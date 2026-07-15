@@ -52,7 +52,7 @@ public class InstructorRatingsController : ControllerBase
     }
 
     [HttpGet("instructor/{ssn:long}")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Student")]
     public async Task<ActionResult<IReadOnlyList<InstructorRatingDto>>> GetByInstructor(long ssn)
     {
         var result = await _ratingService.GetRatingsForInstructorBySsnAsync(ssn);

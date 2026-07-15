@@ -1,5 +1,6 @@
 // import MainLayout from "../../components/layout/MainLayout";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import enrollmentService, {
   type EnrollmentDto,
 } from "../../services/api/enrollmentService";
@@ -133,7 +134,6 @@ const summaryCards = [
                     <th className="px-6 py-4 text-left">Status</th>
                     <th className="px-6 py-4 text-left">Grade</th>
                     <th className="px-6 py-4 text-left">Payment Status</th>
-                    <th className="px-6 py-4 text-left">Action</th>
                   </tr>
                 </thead>
 
@@ -149,41 +149,22 @@ const summaryCards = [
                         {course.courseId}
                       </td>
                       <td className="px-6 py-6">
-                        <p className="font-semibold">
+                        <Link to={`/courses/${course.courseId}`} className="font-semibold hover:text-secondary">
                           {course.courseName}
-                        </p>
+                        </Link>
                       </td>
-
-
                       <td className="px-6 py-6 text-on-surface-variant">
   {new Date(course.enrolledOn).toLocaleDateString("en-GB")}
 </td>
-
-
                       <td className="px-6 py-6">
                         <StatusBadge status={course.status}/>
                       </td>
-
-
-                      <td className="px-6 py-5 font-bold text-secondary">
-  {course.grade ?? "Pending"}
-</td>
-
-
+                      <td className="px-6 py-5">
+                        <GradeBadge grade={course.grade} />
+                      </td>
                       <td className="px-6 py-6">
                         <StatusBadge status={course.paymentStatus ?? "N/A"}/>
                       </td>
-
-
-                      <td className="px-6 py-6">
-
-                        <button className="text-secondary font-semibold leading-4 hover:underline">
-  <span className="block">View</span>
-  <span className="block">Details</span>
-</button>
-
-                      </td>
-
                     </tr>
 
                   ))}
@@ -285,6 +266,26 @@ function StatusBadge({status}: {status:string}) {
     <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${styles[status] ??
     "bg-slate-100 text-slate-700 dark:bg-slate-700/50 dark:text-slate-300"}`}>
       {status}
+    </span>
+  );
+}
+
+function GradeBadge({ grade }: { grade: string | null | undefined }) {
+  const displayGrade = grade ?? "Pending";
+
+  const styles: Record<string, string> = {
+    A: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300",
+    B: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300",
+    C: "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-300",
+    D: "bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300",
+    F: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300",
+    Pending: "bg-slate-100 text-slate-700 dark:bg-slate-700/50 dark:text-slate-300",
+  };
+
+  return (
+    <span className={`px-2.5 py-0.5 rounded-full text-xs font-bold ${styles[displayGrade] ??
+      "bg-slate-100 text-slate-700 dark:bg-slate-700/50 dark:text-slate-300"}`}>
+      {displayGrade}
     </span>
   );
 }

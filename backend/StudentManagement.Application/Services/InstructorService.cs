@@ -51,7 +51,9 @@ public class InstructorService : IInstructorService
             && !string.IsNullOrWhiteSpace(instructor.UserId)
             && string.Equals(instructor.UserId, userId, StringComparison.Ordinal);
 
-        if (!isAdmin && !isOwner)
+        var isStudent = roles.Any(role => string.Equals(role, "Student", StringComparison.OrdinalIgnoreCase));
+
+        if (!isAdmin && !isOwner && !isStudent)
         {
             throw new ApiException("You are not allowed to access this instructor.", 403, "FORBIDDEN");
         }

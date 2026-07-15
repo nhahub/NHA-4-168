@@ -6,11 +6,16 @@ import { CourseLevelBadge } from '../../features/courses/CourseLevelBadge';
 import { formatDate, formatFee, getApiErrorMessage } from '../../features/courses/courseUtils';
 import { courseService } from '../../services/api/courseService';
 import type { CourseDto, InstructorAssignmentRole } from '../../services/api/courseService';
+import { useAuth } from '../../contexts/AuthContext';
+import { isAdmin, isInstructor } from '../../utils/auth';
 
 export default function CourseDetailPage() {
   const { courseId } = useParams();
   const navigate = useNavigate();
   const parsedCourseId = Number(courseId);
+  const { user } = useAuth();
+  const admin = isAdmin(user?.roles);
+  const instructor = isInstructor(user?.roles);
   const [course, setCourse] = useState<CourseDto | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -84,32 +89,36 @@ export default function CourseDetailPage() {
     <div className="space-y-6">
       <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
         <div>
-          <Link to="/courses" className="mb-3 inline-flex items-center gap-2 text-body-sm font-semibold text-secondary">
+          <Link to={instructor ? '/instructor/courses' : '/courses'} className="mb-3 inline-flex items-center gap-2 text-body-sm font-semibold text-secondary">
             <ArrowLeft className="h-4 w-4" />
-            Courses
+            {instructor ? 'My Courses' : 'Courses'}
           </Link>
           <h1 className="text-display-lg font-bold text-on-background">{course.courseName}</h1>
           <p className="mt-1 text-body-md text-on-surface-variant">Course ID {course.courseId}</p>
         </div>
         <div className="flex flex-wrap gap-3">
-          <Link
-            to={`/courses/${course.courseId}/edit`}
-            className="inline-flex items-center justify-center gap-2 rounded-lg border border-card-border px-4 py-2 text-body-sm font-semibold text-on-surface-variant hover:bg-surface-container-low"
-          >
-            <Pencil className="h-4 w-4" />
-            Edit
-          </Link>
-          <button
-            type="button"
-            onClick={() => {
-              setAssignError(null);
-              setDialogOpen(true);
-            }}
-            className="inline-flex items-center justify-center gap-2 rounded-lg bg-secondary px-4 py-2 text-body-sm font-semibold text-on-secondary hover:opacity-90"
-          >
-            <UserPlus className="h-4 w-4" />
-            Assign Instructor
-          </button>
+          {admin ? (
+            <Link
+              to={`/courses/${course.courseId}/edit`}
+              className="inline-flex items-center justify-center gap-2 rounded-lg border border-card-border px-4 py-2 text-body-sm font-semibold text-on-surface-variant hover:bg-surface-container-low"
+            >
+              <Pencil className="h-4 w-4" />
+              Edit
+            </Link>
+          ) : null}
+          {admin ? (
+            <button
+              type="button"
+              onClick={() => {
+                setAssignError(null);
+                setDialogOpen(true);
+              }}
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-secondary px-4 py-2 text-body-sm font-semibold text-on-secondary hover:opacity-90"
+            >
+              <UserPlus className="h-4 w-4" />
+              Assign Instructor
+            </button>
+          ) : null}
         </div>
       </div>
 
@@ -145,7 +154,7 @@ export default function CourseDetailPage() {
                   <th className="px-6 py-4 text-table-header font-semibold text-outline">Name</th>
                   <th className="px-6 py-4 text-table-header font-semibold text-outline">Role</th>
                   <th className="px-6 py-4 text-table-header font-semibold text-outline">Assigned On</th>
-                  <th className="px-6 py-4 text-table-header font-semibold text-outline">Actions</th>
+                  {admin ? <th className="px-6 py-4 text-table-header font-semibold text-outline">Actions</th> : null}
                 </tr>
               </thead>
               <tbody className="divide-y divide-outline-variant/60">
@@ -159,17 +168,19 @@ export default function CourseDetailPage() {
                     </td>
                     <td className="px-6 py-4 text-body-sm text-on-surface-variant">{instructor.role || '—'}</td>
                     <td className="px-6 py-4 text-body-sm text-on-surface-variant">{formatDate(instructor.assignedOn)}</td>
-                    <td className="px-6 py-4">
-                      <button
-                        type="button"
-                        onClick={() => handleRemoveInstructor(instructor.instructorSsn)}
-                        disabled={removingSsn === instructor.instructorSsn}
-                        className="rounded-full p-2 text-on-surface-variant hover:bg-error-container hover:text-error disabled:cursor-not-allowed disabled:opacity-50"
-                        aria-label={`Remove ${instructor.fullName}`}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </button>
-                    </td>
+                    {admin ? (
+                      <td className="px-6 py-4">
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveInstructor(instructor.instructorSsn)}
+                          disabled={removingSsn === instructor.instructorSsn}
+                          className="rounded-full p-2 text-on-surface-variant hover:bg-error-container hover:text-error disabled:cursor-not-allowed disabled:opacity-50"
+                          aria-label={`Remove ${instructor.fullName}`}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                      </td>
+                    ) : null}
                   </tr>
                 ))}
               </tbody>

@@ -1,4 +1,4 @@
-import { Eye, Pencil, Plus, Search } from 'lucide-react';
+import { Pencil, Plus, Search } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
@@ -289,7 +289,11 @@ export default function CoursesPage() {
                   return (
                     <tr key={course.courseId} className="hover:bg-table-row-hover">
                       <td className="px-6 py-4 text-body-sm font-semibold text-on-surface">{course.courseId}</td>
-                      <td className="px-6 py-4 text-body-sm font-semibold text-on-surface">{course.courseName}</td>
+                      <td className="px-6 py-4 text-body-sm font-semibold text-on-surface">
+                        <Link to={`/courses/${course.courseId}`} className="hover:text-secondary">
+                          {course.courseName}
+                        </Link>
+                      </td>
                       <td className="px-6 py-4">
                         <CourseLevelBadge level={course.level} />
                       </td>
@@ -299,33 +303,24 @@ export default function CoursesPage() {
                         {course.maxCapacity ? `${course.enrolledCount} / ${course.maxCapacity}` : course.enrolledCount}
                       </td>
                       <td className="px-6 py-4">
-                        <div className="flex items-center gap-2">
+                        {admin ? (
                           <Link
-                            to={`/courses/${course.courseId}`}
+                            to={`/courses/${course.courseId}/edit`}
                             className="rounded-full p-2 text-on-surface-variant hover:bg-surface-container-low hover:text-secondary"
-                            aria-label={`View ${course.courseName}`}
+                            aria-label={`Edit ${course.courseName}`}
                           >
-                            <Eye className="h-4 w-4" />
+                            <Pencil className="h-4 w-4" />
                           </Link>
-                          {admin ? (
-                            <Link
-                              to={`/courses/${course.courseId}/edit`}
-                              className="rounded-full p-2 text-on-surface-variant hover:bg-surface-container-low hover:text-secondary"
-                              aria-label={`Edit ${course.courseName}`}
-                            >
-                              <Pencil className="h-4 w-4" />
-                            </Link>
-                          ) : (
-                            <button
-                              type="button"
-                              onClick={() => openEnrollDialog(course)}
-                              disabled={alreadyEnrolled}
-                              className="rounded-lg bg-secondary px-3 py-1.5 text-body-sm font-semibold text-on-secondary hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
-                            >
-                              {alreadyEnrolled ? 'Enrolled' : 'Enroll'}
-                            </button>
-                          )}
-                        </div>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => openEnrollDialog(course)}
+                            disabled={alreadyEnrolled}
+                            className="rounded-lg bg-secondary px-3 py-1.5 text-body-sm font-semibold text-on-secondary hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+                          >
+                            {alreadyEnrolled ? 'Enrolled' : 'Enroll'}
+                          </button>
+                        )}
                       </td>
                     </tr>
                   );

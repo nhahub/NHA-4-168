@@ -95,7 +95,7 @@ export default function TripsPage() {
         term === '' ||
         trip.destination.toLowerCase().includes(term) ||
         trip.pickupArea.toLowerCase().includes(term) ||
-        trip.driverName.toLowerCase().includes(term);
+        (trip.driverName?.toLowerCase().includes(term) ?? false);
       const matchesStatus = status === '' || trip.status === status;
       return matchesSearch && matchesStatus;
     });
@@ -136,11 +136,6 @@ export default function TripsPage() {
         <div>
           <h1 className="text-display-lg font-bold text-on-background">Trips</h1>
           <p className="mt-1 text-body-md text-on-surface-variant">{visibleTrips.length} records</p>
-          {!canManageTrips ? (
-            <p className="mt-2 inline-flex items-center rounded-full border border-outline-variant bg-surface-container-low px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-on-surface-variant">
-              View-only access
-            </p>
-          ) : null}
         </div>
         {canManageTrips ? (
           <Link

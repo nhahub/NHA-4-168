@@ -108,6 +108,7 @@ public class DashboardService : IDashboardService
             {
                 StudentId = enrollment.StudentSsn,
                 StudentName = $"{enrollment.FirstName} {enrollment.LastName}".Trim(),
+                StudentSsn = enrollment.StudentSsn,
                 CourseId = enrollment.CourseId,
                 CourseName = enrollment.CourseName,
                 AppliedOn = enrollment.EnrolledOn,

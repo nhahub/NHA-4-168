@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { BadgeDollarSign, BookOpenCheck, ChevronRight, CircleAlert, ClipboardList, Download, EllipsisVertical, GraduationCap, Layers3, LoaderCircle, Users, BusFront, X } from 'lucide-react';
+import { BadgeDollarSign, BookOpenCheck, ChevronRight, CircleAlert, ClipboardList, Download, GraduationCap, Layers3, LoaderCircle, Users, BusFront, X } from 'lucide-react';
 import { useDashboardSummary } from '../hooks/useDashboardSummary';
 import { useEnrollmentTrends } from '../hooks/useEnrollmentTrends';
 import { useRecentApplications } from '../hooks/useRecentApplications';
@@ -18,7 +18,8 @@ const activityIconMap = {
 
 const toneClasses = {
   info: 'bg-secondary-fixed text-secondary',
-  success: 'bg-emerald-100 text-emerald-700',
+  success: 'bg-blue-100 text-blue-700',
+  active: 'bg-emerald-100 text-emerald-700',
   danger: 'bg-rose-100 text-rose-700',
   neutral: 'bg-slate-100 text-slate-700',
 };
@@ -64,11 +65,15 @@ function formatApplicationDate(value: string | null) {
 function statusTone(status: string) {
   const normalized = status.toLowerCase();
 
-  if (normalized.includes('approved') || normalized.includes('active') || normalized.includes('paid') || normalized.includes('completed')) {
+  if (normalized.includes('active')) {
+    return 'active';
+  }
+
+  if (normalized.includes('approved') || normalized.includes('paid') || normalized.includes('completed')) {
     return 'success';
   }
 
-  if (normalized.includes('reject') || normalized.includes('failed') || normalized.includes('cancel')) {
+  if (normalized.includes('reject') || normalized.includes('failed') || normalized.includes('cancel') || normalized.includes('withdrawn')) {
     return 'danger';
   }
 
@@ -296,11 +301,11 @@ function AdminDashboardPage() {
           <table className="w-full text-left">
             <thead className="border-b border-outline-variant bg-surface-container-low">
               <tr>
+                <th className="px-6 py-4 font-table-header text-table-header text-outline">SSN</th>
                 <th className="px-6 py-4 font-table-header text-table-header text-outline">STUDENT NAME</th>
                 <th className="px-6 py-4 font-table-header text-table-header text-outline">COURSE APPLIED</th>
                 <th className="px-6 py-4 font-table-header text-table-header text-outline">APP DATE</th>
                 <th className="px-6 py-4 font-table-header text-table-header text-outline">STATUS</th>
-                <th className="px-6 py-4 font-table-header text-table-header text-outline">ACTIONS</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-outline-variant/50">
@@ -313,16 +318,12 @@ function AdminDashboardPage() {
               ) : recentApplicationRows.length > 0 ? (
                 recentApplicationRows.map((row: StudentApplicationDto & { dateLabel: string }) => (
                   <tr key={`${row.studentId}-${row.courseId}-${row.appliedOn ?? 'na'}`} className="transition-colors hover:bg-surface-container-low">
+                    <td className="px-6 py-4 font-body-sm text-body-sm text-on-surface-variant">{row.studentSsn}</td>
                     <td className="px-6 py-4 font-body-sm text-body-sm font-semibold text-on-surface">{row.studentName}</td>
                     <td className="px-6 py-4 font-body-sm text-body-sm text-on-surface-variant">{row.courseName}</td>
                     <td className="px-6 py-4 font-body-sm text-body-sm text-on-surface-variant">{row.dateLabel}</td>
                     <td className="px-6 py-4">
                       <span className={`rounded-full px-3 py-1 text-[12px] font-bold ${toneClasses[statusTone(row.status)]}`}>{row.status}</span>
-                    </td>
-                    <td className="px-6 py-4">
-                      <button className="p-1 hover:text-secondary" type="button" aria-label={`More actions for ${row.studentName}`}>
-                        <EllipsisVertical className="h-5 w-5" />
-                      </button>
                     </td>
                   </tr>
                 ))

@@ -6,11 +6,15 @@ import { instructorService } from '../../services/api/instructorService';
 import { instructorRatingApi } from '../../services/api/instructorRatingApi';
 import type { InstructorDto } from '../../services/api/instructorService';
 import type { InstructorRatingDto } from '../../services/api/instructorRatingApi';
+import { useAuth } from '../../contexts/AuthContext';
+import { isAdmin } from '../../utils/auth';
 
 export default function InstructorDetailPage() {
   const { ssn } = useParams();
   const navigate = useNavigate();
   const parsedSsn = Number(ssn);
+  const { user } = useAuth();
+  const admin = isAdmin(user?.roles);
   const [instructor, setInstructor] = useState<InstructorDto | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -96,13 +100,15 @@ export default function InstructorDetailPage() {
           </h1>
           <p className="mt-1 text-body-md text-on-surface-variant">SSN {instructor.instructorSsn}</p>
         </div>
-        <Link
-          to={`/instructors/${instructor.instructorSsn}/edit`}
-          className="inline-flex items-center justify-center gap-2 rounded-lg border border-card-border px-4 py-2 text-body-sm font-semibold text-on-surface-variant hover:bg-surface-container-low"
-        >
-          <Pencil className="h-4 w-4" />
-          Edit
-        </Link>
+        {admin ? (
+          <Link
+            to={`/instructors/${instructor.instructorSsn}/edit`}
+            className="inline-flex items-center justify-center gap-2 rounded-lg border border-card-border px-4 py-2 text-body-sm font-semibold text-on-surface-variant hover:bg-surface-container-low"
+          >
+            <Pencil className="h-4 w-4" />
+            Edit
+          </Link>
+        ) : null}
       </div>
 
       <section className="rounded-xl border border-card-border bg-surface-lowest p-6 shadow-card">

@@ -416,90 +416,65 @@ const handleCreateEnrollment = async () => {
   ))}
 
 </div>
-<div className="rounded-xl border border-outline bg-surface-lowest p-6 shadow-sm">
-
-  <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
-
-    {/* Student Name */}
-    <div>
-      <label className="mb-2 block text-sm font-medium">
-        Student Name
-      </label>
-
-      <input
-  type="text"
-  placeholder="Filter by student..."
-  value={search}
-  onChange={(e) => setSearch(e.target.value)}
-  className="w-full rounded-lg border border-outline px-4 py-2 outline-none focus:border-secondary"
-/>
-    </div>
-
-    {/* Course */}
-    <div>
-      <label className="mb-2 block text-sm font-medium">
-        Course
-      </label>
-
-      <select
-  value={courseFilter}
-  onChange={(e) => setCourseFilter(e.target.value)}
-  className="w-full rounded-lg border border-outline px-4 py-2"
->
-        <option value="">All Courses</option>
-
-{[...new Set(enrollments.map(e => e.courseName))].map(course => (
-  <option key={course} value={course}>
-    {course}
-  </option>
-))}
-      </select>
-    </div>
-
-    {/* Status */}
-    <div>
-      <label className="mb-2 block text-sm font-medium">
-        Status
-      </label>
-
-      <select
-  value={statusFilter}
-  onChange={(e) => setStatusFilter(e.target.value)}
-  className="w-full rounded-lg border border-outline px-4 py-2"
->
-        <option value="">All Statuses</option>
-        <option>Active</option>
-        <option>Completed</option>
-        <option>Withdrawn</option>
-      </select>
-    </div>
-
-    {/* Filter Button */}
-    <div className="flex items-end">
-     <button
-  onClick={() => {
-    setSearch("");
-    setCourseFilter("");
-    setStatusFilter("");
-    setCurrentPage(1);
-  }}
-  className="w-full rounded-lg bg-secondary py-2 font-semibold text-on-secondary hover:opacity-90"
->
-  Reset Filters
-</button>
-    </div>
-
-  </div>
-
-</div>
 <div className="overflow-hidden rounded-xl border border-outline bg-surface-lowest shadow-sm">
 
-  <div className="border-b p-6">
+  <div className="border-b border-outline-variant p-4">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <div>
+        <label className="mb-2 block text-sm font-medium">Student Name</label>
+        <input
+          type="text"
+          placeholder="Filter by student..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-full rounded-lg border border-outline px-4 py-2 outline-none focus:border-secondary"
+        />
+      </div>
 
-    <h2 className="text-xl font-semibold">
-      Enrollment List
-    </h2>
+      <div>
+        <label className="mb-2 block text-sm font-medium">Course</label>
+        <select
+          value={courseFilter}
+          onChange={(e) => setCourseFilter(e.target.value)}
+          className="w-full rounded-lg border border-outline px-4 py-2"
+        >
+          <option value="">All Courses</option>
+          {[...new Set(enrollments.map(e => e.courseName))].map(course => (
+            <option key={course} value={course}>
+              {course}
+            </option>
+          ))}
+        </select>
+      </div>
 
+      <div>
+        <label className="mb-2 block text-sm font-medium">Status</label>
+        <select
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+          className="w-full rounded-lg border border-outline px-4 py-2"
+        >
+          <option value="">All Statuses</option>
+          <option>Active</option>
+          <option>Completed</option>
+          <option>Withdrawn</option>
+        </select>
+      </div>
+
+      <div className="flex items-end">
+        <button
+          onClick={() => {
+            setSearch("");
+            setCourseFilter("");
+            setStatusFilter("");
+            setCurrentPage(1);
+          }}
+          className="w-full rounded-lg bg-secondary py-2 font-semibold text-on-secondary hover:opacity-90"
+        >
+          Reset Filters
+        </button>
+      </div>
+    </div>
   </div>
 
   <div className="overflow-x-auto">

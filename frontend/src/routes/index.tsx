@@ -88,7 +88,7 @@ export const routes: RouteObject[] = [
   { path: 'trips/:tripId/edit', element: <ProtectedRoute allowedRoles={['admin']}><TripFormPage /></ProtectedRoute> },
   { path: '/courses', element: <ProtectedRoute allowedRoles={['admin', 'student']}><CoursesPage /></ProtectedRoute> },
   { path: '/courses/new', element: <ProtectedRoute allowedRoles={['admin']}><CourseFormPage mode="create" /></ProtectedRoute> },
-  { path: '/courses/:courseId', element: <ProtectedRoute allowedRoles={['admin', 'student']}><CourseDetailPage /></ProtectedRoute> },
+  { path: '/courses/:courseId', element: <ProtectedRoute allowedRoles={['admin', 'student', 'instructor']}><CourseDetailPage /></ProtectedRoute> },
   { path: '/courses/:courseId/edit', element: <ProtectedRoute allowedRoles={['admin']}><CourseFormPage mode="edit" /></ProtectedRoute> },
   { path: '/instructors', element: <ProtectedRoute allowedRoles={['admin', 'student']}><InstructorsPage /></ProtectedRoute> },
   { path: '/instructors/new', element: <ProtectedRoute allowedRoles={['admin']}><InstructorFormPage mode="create" /></ProtectedRoute> },

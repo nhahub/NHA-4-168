@@ -16,6 +16,7 @@ export interface EnrollmentTrendDto {
 export interface StudentApplicationDto {
   studentId: number;
   studentName: string;
+  studentSsn: number;
   courseId: number;
   courseName: string;
   appliedOn: string | null;

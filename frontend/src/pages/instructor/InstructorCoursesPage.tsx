@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Search, Users, X, LoaderCircle } from 'lucide-react';
 import { useInstructorCourses } from '../../hooks/useInstructorCourses';
 import { useInstructorCourseStudents } from '../../hooks/useInstructorCourseStudents';
@@ -70,17 +71,24 @@ export default function InstructorCoursesPage() {
                 {filteredCourses.map((course) => (
                   <tr
                     key={course.courseId}
-                    onClick={() => setSelectedCourseId(course.courseId)}
-                    className="cursor-pointer transition-colors hover:bg-table-row-hover"
+                    className="transition-colors hover:bg-table-row-hover"
                   >
                     <td className="px-6 py-4 text-body-sm font-semibold text-on-surface">{course.courseId}</td>
-                    <td className="px-6 py-4 text-body-sm font-semibold text-on-surface">{course.courseName}</td>
+                    <td className="px-6 py-4 text-body-sm font-semibold text-on-surface">
+                      <Link to={`/courses/${course.courseId}`} className="hover:text-secondary">
+                        {course.courseName}
+                      </Link>
+                    </td>
                     <td className="px-6 py-4 text-body-sm text-on-surface-variant">{course.role || 'Primary Instructor'}</td>
-                    <td className="px-6 py-4 text-body-sm text-on-surface-variant">
-                      <span className="inline-flex items-center gap-1.5">
+                    <td className="px-6 py-4 text-body-sm">
+                      <button
+                        type="button"
+                        onClick={() => setSelectedCourseId(course.courseId)}
+                        className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-body-sm font-semibold text-secondary hover:bg-secondary-fixed transition-colors cursor-pointer"
+                      >
                         <Users className="h-3.5 w-3.5" />
                         {course.enrolledStudentsCount}
-                      </span>
+                      </button>
                     </td>
                     <td className="px-6 py-4 text-body-sm text-on-surface-variant">{formatDate(course.startDate)}</td>
                     <td className="px-6 py-4">
@@ -134,14 +142,12 @@ export default function InstructorCoursesPage() {
                         <p className="truncate text-[12px] text-on-surface-variant">{student.email}</p>
                         <p className="mt-1 text-[11px] text-outline">Enrolled {formatDate(student.enrolledOn)}</p>
                       </div>
-                      <div className="flex shrink-0 flex-col items-end gap-1">
-                        <span className="rounded-full bg-secondary-fixed px-2.5 py-0.5 text-[11px] font-bold text-secondary">
-                          {student.status}
-                        </span>
-                        {student.grade ? (
-                          <span className="text-[11px] font-semibold text-on-surface-variant">Grade: {student.grade}</span>
-                        ) : null}
-                      </div>
+                       <div className="flex shrink-0 flex-col items-end gap-1">
+                         <StatusBadge status={student.status} />
+                         {student.grade ? (
+                           <span className="text-[11px] font-semibold text-on-surface-variant">Grade: {student.grade}</span>
+                         ) : null}
+                       </div>
                     </li>
                   ))}
                 </ul>
@@ -151,5 +157,27 @@ export default function InstructorCoursesPage() {
         </div>
       ) : null}
     </div>
+  );
+}
+
+function StatusBadge({ status }: { status: string }) {
+  const styles: Record<string, string> = {
+    Active: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300',
+    Paid: 'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300',
+    Unpaid: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-300',
+    Completed: 'bg-slate-100 text-slate-700 dark:bg-slate-700/50 dark:text-slate-300',
+    Withdrawn: 'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300',
+    'N/A': 'bg-slate-100 text-slate-700 dark:bg-slate-700/50 dark:text-slate-300',
+    Failed: 'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300',
+  };
+
+  return (
+    <span
+      className={`px-2.5 py-0.5 rounded-full text-[11px] font-bold ${
+        styles[status] ?? 'bg-slate-100 text-slate-700 dark:bg-slate-700/50 dark:text-slate-300'
+      }`}
+    >
+      {status}
+    </span>
   );
 }

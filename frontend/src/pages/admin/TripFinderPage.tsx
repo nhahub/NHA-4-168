@@ -14,7 +14,6 @@ export default function TripFinderPage() {
   const canCreateTrips = isAdmin(user?.roles);
 
   const [allTrips, setAllTrips] = useState<TripDto[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const [destination, setDestination] = useState('');
@@ -34,7 +33,7 @@ export default function TripFinderPage() {
         if (active) setError(getApiErrorMessage(requestError));
       })
       .finally(() => {
-        if (active) setIsLoading(false);
+        if (active) {}
       });
 
     return () => {
@@ -84,83 +83,81 @@ export default function TripFinderPage() {
         </Link>
       </section>
 
-      <section className="rounded-xl border border-card-border bg-surface-lowest p-6 shadow-card">
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-          <label className="block text-[12px] font-semibold uppercase tracking-[0.08em] text-on-surface-variant">
-            Destination
-            <select
-              value={destination}
-              onChange={(event) => setDestination(event.target.value)}
-              className="mt-2 w-full rounded-lg border border-input-border bg-surface-lowest px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
-            >
-              <option value="">Any destination</option>
-              {TRIP_DESTINATIONS.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          </label>
+      <section className="rounded-xl border border-card-border bg-surface-lowest shadow-card">
+        <div className="border-b border-outline-variant p-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            <label className="block text-[12px] font-semibold uppercase tracking-[0.08em] text-on-surface-variant">
+              Destination
+              <select
+                value={destination}
+                onChange={(event) => setDestination(event.target.value)}
+                className="mt-2 w-full rounded-lg border border-input-border bg-surface-lowest px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
+              >
+                <option value="">Any destination</option>
+                {TRIP_DESTINATIONS.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            </label>
 
-          <label className="block text-[12px] font-semibold uppercase tracking-[0.08em] text-on-surface-variant">
-            Pickup Area
-            <select
-              value={pickupArea}
-              onChange={(event) => setPickupArea(event.target.value)}
-              className="mt-2 w-full rounded-lg border border-input-border bg-surface-lowest px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
-            >
-              <option value="">Any pickup area</option>
-              {TRIP_PICKUP_AREAS.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          </label>
+            <label className="block text-[12px] font-semibold uppercase tracking-[0.08em] text-on-surface-variant">
+              Pickup Area
+              <select
+                value={pickupArea}
+                onChange={(event) => setPickupArea(event.target.value)}
+                className="mt-2 w-full rounded-lg border border-input-border bg-surface-lowest px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
+              >
+                <option value="">Any pickup area</option>
+                {TRIP_PICKUP_AREAS.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            </label>
 
-          <label className="block text-[12px] font-semibold uppercase tracking-[0.08em] text-on-surface-variant">
-            Date
-            <input
-              type="date"
-              value={date}
-              onChange={(event) => setDate(event.target.value)}
-              className="mt-2 w-full rounded-lg border border-input-border px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
-            />
-          </label>
-        </div>
-
-        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-end">
-          <button
-            type="button"
-            onClick={handleCreate}
-            className="inline-flex items-center justify-center gap-2 rounded-lg border border-card-border px-4 py-2 text-body-sm font-semibold text-on-surface-variant hover:bg-surface-container-low"
-          >
-            <Plus className="h-4 w-4" />
-            {canCreateTrips ? 'Create Trip' : 'Suggest a Trip'}
-          </button>
-          <button
-            type="button"
-            onClick={handleSearch}
-            className="inline-flex items-center justify-center gap-2 rounded-lg bg-secondary px-4 py-2 text-body-sm font-semibold text-on-secondary hover:opacity-90"
-          >
-            <Search className="h-4 w-4" />
-            Search
-          </button>
-        </div>
-      </section>
-
-      {hasSearched ? (
-        <section className="rounded-xl border border-card-border bg-surface-lowest shadow-card">
-          <div className="border-b border-outline-variant p-4">
-            <h2 className="text-title-sm text-on-background">
-              {isLoading ? 'Searching...' : `${matches.length} matching trip${matches.length === 1 ? '' : 's'}`}
-            </h2>
+            <label className="block text-[12px] font-semibold uppercase tracking-[0.08em] text-on-surface-variant">
+              Date
+              <input
+                type="date"
+                value={date}
+                onChange={(event) => setDate(event.target.value)}
+                className="mt-2 w-full rounded-lg border border-input-border px-3 py-2 text-body-sm font-normal normal-case tracking-normal text-on-surface outline-none focus:border-input-border-focus focus:shadow-focus"
+              />
+            </label>
           </div>
 
-          {error ? (
-            <div className="p-6 text-body-sm text-error">{error}</div>
+          <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:justify-end">
+            <button
+              type="button"
+              onClick={handleCreate}
+              className="inline-flex items-center justify-center gap-2 rounded-lg border border-card-border px-4 py-2 text-body-sm font-semibold text-on-surface-variant hover:bg-surface-container-low"
+            >
+              <Plus className="h-4 w-4" />
+              {canCreateTrips ? 'Create Trip' : 'Suggest a Trip'}
+            </button>
+            <button
+              type="button"
+              onClick={handleSearch}
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-secondary px-4 py-2 text-body-sm font-semibold text-on-secondary hover:opacity-90"
+            >
+              <Search className="h-4 w-4" />
+              Search
+            </button>
+          </div>
+        </div>
+
+        <div className="p-6">
+          {!hasSearched ? (
+            <p className="text-body-sm text-on-surface-variant">
+              Use the filters above to search for trips, or create a new one.
+            </p>
+          ) : error ? (
+            <div className="text-body-sm text-error">{error}</div>
           ) : matches.length === 0 ? (
-            <div className="p-6">
+            <div>
               <p className="text-body-sm text-on-surface-variant">
                 No trips match these details yet. You can create one with the same criteria.
               </p>
@@ -198,8 +195,8 @@ export default function TripFinderPage() {
               ))}
             </ul>
           )}
-        </section>
-      ) : null}
+        </div>
+      </section>
     </div>
   );
 }

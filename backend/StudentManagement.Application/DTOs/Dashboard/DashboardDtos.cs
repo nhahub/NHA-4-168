@@ -75,6 +75,7 @@ public class StudentApplicationDto
 {
      public long StudentId { get; set; }
     public string StudentName { get; set; } = string.Empty;
+    public long StudentSsn { get; set; }
     public int CourseId { get; set; }
     public string CourseName { get; set; } = string.Empty;
     public DateTime? AppliedOn { get; set; }
