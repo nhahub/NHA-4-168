@@ -1,4 +1,4 @@
-import { Bell, BusFront, BookOpen, GraduationCap, HelpCircle, Loader2, LogOut, Menu, MapPinned, Moon, Search, Settings, Sun, User } from 'lucide-react'
+import { Bell, BusFront, BookOpen, GraduationCap, Loader2, LogOut, Menu, MapPinned, Moon, Search, Settings, Sun, User } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useNotifications } from '../hooks/useNotifications'

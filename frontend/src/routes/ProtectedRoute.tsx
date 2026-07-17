@@ -12,7 +12,6 @@ interface ProtectedRouteProps {
 export default function ProtectedRoute({ children, allowedRoles = [] }: ProtectedRouteProps) {
   const { isAuthenticated, isLoading, user } = useAuth();
   const location = useLocation();
-  const from = (location.state as { from?: string } | null)?.from ?? '/student-dashboard';
 
   if (isLoading) {
     return (

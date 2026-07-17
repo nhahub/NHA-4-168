@@ -6,7 +6,6 @@ import enrollmentService, {
   type EnrollmentDto,
 } from "../../services/api/enrollmentService";
 import { Pencil } from "lucide-react";
-import paymentService from "../../services/api/paymentService";
 
 import { courseService } from "../../services/api/courseService";
 
@@ -53,7 +52,6 @@ const [newCourseId, setNewCourseId] = useState<number | "">("");
 const [creating, setCreating] = useState(false);
 const [newStudentName, setNewStudentName] = useState("");
 const [newCourseName, setNewCourseName] = useState("");
-const [students, setStudents] = useState([]);
 
 
 
@@ -324,8 +322,7 @@ const handleCreateEnrollment = async () => {
       courseId: Number(newCourseId),
     });
 
-    const course = await courseService.getCourse(Number(newCourseId));
-
+    await courseService.getCourse(Number(newCourseId));
 
 
     setEnrollments((prev)=>[

@@ -50,14 +50,7 @@ function ArrowIcon() {
   );
 }
 
-function SchoolIcon() {
-  return (
-    <svg className="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-      <path d="M12 3 2 8l10 5 10-5-10-5Z" />
-      <path d="M6 10.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-5.5" />
-    </svg>
-  );
-}
+
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -68,7 +61,6 @@ export default function LoginPage() {
   const { login, isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const from = (location.state as { from?: string } | null)?.from ?? '/student-dashboard';
   const signupSuccess = Boolean((location.state as { signupSuccess?: boolean } | null)?.signupSuccess);
 
   useEffect(() => {
