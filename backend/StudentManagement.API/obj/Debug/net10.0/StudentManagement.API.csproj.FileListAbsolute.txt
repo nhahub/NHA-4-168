@@ -830,3 +830,9 @@ E:\I'm done with this\NHA-4-168\backend\StudentManagement.API\obj\Debug\net10.0\
 E:\I'm done with this\NHA-4-168\backend\StudentManagement.API\obj\Debug\net10.0\StudentManagement.API.pdb
 E:\I'm done with this\NHA-4-168\backend\StudentManagement.API\obj\Debug\net10.0\StudentManagement.API.genruntimeconfig.cache
 E:\I'm done with this\NHA-4-168\backend\StudentManagement.API\obj\Debug\net10.0\ref\StudentManagement.API.dll
+D:\Uniflow\3\NHA-4-168\backend\StudentManagement.API\obj\Debug\net10.0\compressed\f1kkcvt7is-{0}-ol0jajxuxf-ol0jajxuxf.gz
+D:\Uniflow\3\NHA-4-168\backend\StudentManagement.API\obj\Debug\net10.0\compressed\peaqa2edyx-{0}-wx2c0a29ox-wx2c0a29ox.gz
+D:\Uniflow\3\NHA-4-168\backend\StudentManagement.API\obj\Debug\net10.0\compressed\xa4a1slpg2-{0}-180dmtdpho-180dmtdpho.gz
+D:\Uniflow\3\NHA-4-168\backend\StudentManagement.API\obj\Debug\net10.0\compressed\smlnw8pchw-{0}-gz8wlyv3qd-gz8wlyv3qd.gz
+D:\Uniflow\3\NHA-4-168\backend\StudentManagement.API\obj\Debug\net10.0\compressed\97olpkmfps-{0}-vv9kl3lx46-vv9kl3lx46.gz
+D:\Uniflow\3\NHA-4-168\backend\StudentManagement.API\bin\Debug\net10.0\StudentManagement.API.staticwebassets.runtime.json

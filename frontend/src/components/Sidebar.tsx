@@ -2,6 +2,7 @@ import { BusFront, BookOpen, GraduationCap, LayoutDashboard, Users, Wallet, X } 
 import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { isAdmin, isStudent, isInstructor, isDriver } from '../utils/auth'
+import Logo from '../assets/Logo.png';
 
 type SidebarProps = {
   isOpen: boolean
@@ -87,7 +88,7 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
           <div className="flex items-start justify-between gap-4 px-6 py-8 lg:items-center">
             <div className="flex items-center gap-3">
               <img
-                src="src\assets\Logo.png"
+                src={Logo} 
                 alt="UniVerse logo"
                 className="h-10 w-10 shrink-0 rounded-lg object-contain"
               />

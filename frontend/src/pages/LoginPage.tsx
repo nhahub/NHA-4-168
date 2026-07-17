@@ -5,6 +5,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { authService } from '../services/api/authService';
 import { getApiErrorMessage } from '../utils/errorMessage';
 import { isAdmin, isInstructor, isDriver } from '../utils/auth';
+import Logo from '../assets/Logo.png';
 
 function MailIcon() {
   return (
@@ -124,7 +125,7 @@ export default function LoginPage() {
         {/* Branding header */}
         <div className="mb-10 text-center">
           <div className="flex items-center gap-3 justify-center mb-4">
-              <img src="src\assets\Logo.png" alt="UniVerse logo" className="h-16 w-16 shrink-0 rounded-lg object-contain"/>
+              <img src={Logo} alt="UniVerse logo" className="h-16 w-16 shrink-0 rounded-lg object-contain"/>
           </div>
           <h1 className="text-3xl font-bold text-on-background mb-8">UniVerse</h1>
           <p className="text-body-md text-on-surface-variant">

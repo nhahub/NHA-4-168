@@ -99,9 +99,9 @@ function AdminDashboardPage() {
   const applications = applicationsQuery.data ?? [];
   const activities = activitiesQuery.data ?? [];
 
-  // ── Export Report ─────────────────────────────────────────────
+// ── Export Report ─────────────────────────────────────────────
   function handleExportReport() {
-    const url = 'http://localhost:5000/api/dashboard/export';
+    const url = `${import.meta.env.VITE_API_URL || 'http://localhost:5000/api/auth/login/api'}/dashboard/export`;
     const link = document.createElement('a');
     link.href = url;
     link.setAttribute('download', `dashboard-report-${new Date().toISOString().slice(0, 10)}.csv`);
