@@ -136,10 +136,15 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
+
+app.UseDefaultFiles();   // يخلي index.html يتقدم تلقائي على "/"
+app.UseStaticFiles();    // يخلي wwwroot/assets تتقدم (js, css, svg...)
+
 app.UseRouting();
 app.UseCors("ReactDev");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+app.MapFallbackToFile("index.html"); // أي route مش API ولا static file، يرجع index.html (عشان React Router)
 
 app.Run();

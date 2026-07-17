@@ -5,7 +5,7 @@ let getToken: (() => string | null) | null = null;
 let logout: (() => void) | null = null;
 
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
+  baseURL: import.meta.env.VITE_API_URL || '/api',
   timeout: 10000,
 });
 
