@@ -53,11 +53,15 @@ builder.Services.AddAuthorization();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// ── CORS (React dev server on Vite default port) ──────────────────────────────
+// ── CORS (React dev server on Vite default port + production same-domain) ─────
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("ReactDev", policy =>
-        policy.WithOrigins("http://localhost:5173")
+        policy.WithOrigins(
+                "http://localhost:5173",
+                "https://universe-app.runasp.net",
+                "http://universe-app.runasp.net"
+              )
               .AllowAnyHeader()
               .AllowAnyMethod()
     );
@@ -136,10 +140,23 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
+
+// ── Serve the React (Vite) build as static files ───────────────────────────────
+// UseDefaultFiles must come BEFORE UseStaticFiles, and looks for index.html
+// automatically when a directory (e.g. "/") is requested.
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 app.UseRouting();
 app.UseCors("ReactDev");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+
+// ── SPA fallback ────────────────────────────────────────────────────────────────
+// Any route that isn't an API route or an existing static file (e.g. a React
+// Router client-side route like /students/5) should still return index.html
+// so the React app can handle routing on the client.
+app.MapFallbackToFile("index.html");
 
 app.Run();
