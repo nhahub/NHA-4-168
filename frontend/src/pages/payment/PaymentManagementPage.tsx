@@ -10,16 +10,6 @@ import {TrendingUp,Clock3, CircleX,} from "lucide-react";
 
 type PaymentStatus = "Paid" | "Pending" | "Failed";
 
-// interface Payment {
-//   id: string;
-//   student: string;
-//   email: string;
-//   date: string;
-//   service: string;
-//   amount: number;
-//   status: "Paid" | "Pending" | "Failed";
-// }
-
 const getStatusColor = (status: string) => {
     switch (status) {
       case "Paid":
@@ -35,12 +25,15 @@ case "Failed":
 }
     
   };
-   
-    
-  
 
-
-
+function getServiceLabel(payment: PaymentDto) {
+  if (payment.paymentType === "Trip") {
+    return payment.tripDestination
+      ? `Trip: ${payment.tripDestination}`
+      : "Trip";
+  }
+  return payment.courseName ?? "Course";
+}
 
 export default function PaymentManagementPage() {
    const [filter, setFilter] = useState<
@@ -192,20 +185,6 @@ if (loading) {
 
         <div className="flex gap-3">
 
-          {/* <button
-  onClick={() => alert("Coming Soon")}
-  className="px-5 py-3 rounded-xl border border-card-border font-medium hover:bg-surface-container-low transition"
->
-  Export CSV
-</button> */}
-
-          {/* <button
-  onClick={() => alert("Coming Soon")}
-  className="px-5 py-3 rounded-xl bg-secondary text-white font-semibold hover:opacity-90 transition"
->
-  + Manual Entry
-</button> */}
-
         </div>
 
       </div>
@@ -274,13 +253,6 @@ if (loading) {
 
       ))}
 
-      {/* <button
-  disabled
-  className="px-4 py-2 rounded-xl border border-card-border bg-surface-container text-on-surface-variant cursor-not-allowed"
->
-  More Filters
-</button> */}
-
 <input
   type="text"
   placeholder="Search by student..."
@@ -290,14 +262,6 @@ if (loading) {
 />
 
     </div>
-
-    {/* <p className="text-sm text-on-surface-variant">
-      Showing{" "}
-      <span className="font-semibold">
-        {filteredPayments.length}
-      </span>{" "}
-      transaction(s)
-    </p> */}
 
   </div>
 
@@ -364,7 +328,7 @@ if (loading) {
             </td>
 
             <td className="p-4 text-on-surface">
-              {payment.courseName}
+              {getServiceLabel(payment)}
             </td>
 
             <td className="p-4 font-semibold text-on-surface">
@@ -397,17 +361,6 @@ setShowUpdateModal(true);
 >
   Edit
 </button>
-
-{/* <button
-  onClick={() => {
-    setSelectedPayment(payment);
-    setShowRefundModal(true);
-    
-  }}
-  className="px-3 py-2 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition"
->
-  Refund
-</button> */}
 
               </div>
 

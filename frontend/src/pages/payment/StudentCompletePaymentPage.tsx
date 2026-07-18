@@ -5,11 +5,14 @@ import paymentService from "../../services/api/paymentService";
 import type { PaymentDto } from "../../services/api/paymentService";
 import { getApiErrorMessage } from "../../utils/errorMessage";
 import { useToast } from "../../contexts/ToastContext";
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function StudentPaymentPage() {
   const { toast } = useToast();
-  const { enrollmentId } = useParams<{ enrollmentId: string }>();
-  const parsedEnrollmentId = Number(enrollmentId);
+  const { user } = useAuth();
+  const { enrollmentId, tripId } = useParams<{ enrollmentId?: string; tripId?: string }>();
+  const parsedEnrollmentId = enrollmentId ? Number(enrollmentId) : null;
+  const parsedTripId = tripId ? Number(tripId) : null;
 
   const [paymentMethod, setPaymentMethod] =
     useState<"card" | "cash">("card");
@@ -36,13 +39,24 @@ export default function StudentPaymentPage() {
 
   useEffect(() => {
     const loadPayment = async () => {
-      if (Number.isNaN(parsedEnrollmentId) || parsedEnrollmentId <= 0) {
-        setPageError("Invalid enrollment.");
-        setPageLoading(false);
-        return;
-      }
-
       try {
+        if (parsedTripId) {
+          if (!user?.studentSsn) {
+            setPageError("Could not identify the current student.");
+            setPageLoading(false);
+            return;
+          }
+          const data = await paymentService.getByTripAndStudent(parsedTripId, user.studentSsn);
+          setPayment(data);
+          return;
+        }
+
+        if (!parsedEnrollmentId || Number.isNaN(parsedEnrollmentId) || parsedEnrollmentId <= 0) {
+          setPageError("Invalid enrollment.");
+          setPageLoading(false);
+          return;
+        }
+
         const data = await paymentService.getByEnrollment(parsedEnrollmentId);
         setPayment(data);
       } catch (requestError) {
@@ -53,7 +67,7 @@ export default function StudentPaymentPage() {
     };
 
     loadPayment();
-  }, [parsedEnrollmentId]);
+  }, [parsedEnrollmentId, parsedTripId, user?.studentSsn]);
 
   const handlePayment = async () => {
     if (!payment) return;
@@ -117,6 +131,11 @@ export default function StudentPaymentPage() {
   }
 
   const currentPayment = payment as PaymentDto;
+  const isTrip = currentPayment.paymentType === "Trip";
+  const serviceName = isTrip
+    ? `${currentPayment.tripDestination ?? "Trip"}${currentPayment.tripPickupArea ? ` · ${currentPayment.tripPickupArea}` : ""}`
+    : currentPayment.courseName ?? "Course";
+  const serviceLabel = isTrip ? "Ride Booking" : "Course Enrollment Fee";
   const subtotal = currentPayment.amount;
   const processingFee = subtotal > 0 ? 3 : 0;
   const tax = 0;
@@ -165,17 +184,17 @@ export default function StudentPaymentPage() {
                 <div>
 
                   <h2 className="text-xl font-bold">
-                    {currentPayment.courseName}
+                    {serviceName}
                   </h2>
 
                   <p className="text-gray-500 mt-1">
-                    Course Enrollment Fee
+                    {serviceLabel}
                   </p>
 
                 </div>
 
                 <span className="px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-semibold">
-                  Course Payment
+                  {isTrip ? "Trip Payment" : "Course Payment"}
                 </span>
 
               </div>

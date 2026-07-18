@@ -12,7 +12,7 @@ using StudentManagement.Infrastructure.Data;
 namespace StudentManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260713095904_InitialCreate")]
+    [Migration("20260718020358_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -475,7 +475,7 @@ namespace StudentManagement.Infrastructure.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(10,2)");
 
-                    b.Property<int>("EnrollmentId")
+                    b.Property<int?>("EnrollmentId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("PaymentDate")
@@ -492,14 +492,25 @@ namespace StudentManagement.Infrastructure.Migrations
                         .HasColumnType("nvarchar(20)")
                         .HasDefaultValue("Pending");
 
+                    b.Property<long?>("StudentSsn")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("TransactionId")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<int?>("TripId")
+                        .HasColumnType("int");
+
                     b.HasKey("PaymentId");
 
                     b.HasIndex("EnrollmentId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[EnrollmentId] IS NOT NULL");
+
+                    b.HasIndex("StudentSsn");
+
+                    b.HasIndex("TripId");
 
                     b.ToTable("Payments", (string)null);
                 });
@@ -820,10 +831,23 @@ namespace StudentManagement.Infrastructure.Migrations
                     b.HasOne("StudentManagement.Domain.Entities.Enrollment", "Enrollment")
                         .WithOne("Payment")
                         .HasForeignKey("StudentManagement.Domain.Entities.Payment", "EnrollmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("StudentManagement.Domain.Entities.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentSsn")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("StudentManagement.Domain.Entities.Trip", "Trip")
+                        .WithMany()
+                        .HasForeignKey("TripId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Enrollment");
+
+                    b.Navigation("Student");
+
+                    b.Navigation("Trip");
                 });
 
             modelBuilder.Entity("StudentManagement.Domain.Entities.Student", b =>

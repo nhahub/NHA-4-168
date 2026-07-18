@@ -2,7 +2,8 @@ import axiosInstance from "./axiosInstance";
 
 export interface PaymentDto {
   paymentId: number;
-  enrollmentId: number;
+  enrollmentId: number | null;
+  tripId: number | null;
 
   amount: number;
   paymentDate: string;
@@ -13,18 +14,28 @@ export interface PaymentDto {
   transactionId: string;
 
   studentName: string;
-  courseName: string;
-  courseId: number;
-}
 
-// export interface CreatePaymentDto {
-//   studentSsn: number;
-//   serviceId: number;
-//   amount: number;
-// }
+  // Present when this payment came from a course enrollment.
+  courseName: string | null;
+  courseId: number | null;
+
+  // Present when this payment came from a trip booking.
+  tripDestination: string | null;
+  tripPickupArea: string | null;
+
+  paymentType: "Course" | "Trip";
+}
 
 export interface UpdatePaymentStatusDto {
   status: string;
+}
+
+export interface CreatePaymentDto {
+  enrollmentId?: number;
+  tripId?: number;
+  studentSsn?: number;
+  amount: number;
+  paymentMethod: string;
 }
 
 const paymentService = {
@@ -49,6 +60,7 @@ const paymentService = {
   ): Promise<void> => {
     await axiosInstance.patch(`/payments/${id}/status`, data);
   },
+
   getStudentPayments: async (
     studentSsn: number
   ): Promise<PaymentDto[]> => {
@@ -68,12 +80,17 @@ const paymentService = {
 
     return response.data;
   },
-};
 
-export interface CreatePaymentDto {
-  enrollmentId: number;
-  amount: number;
-  paymentMethod: string;
-}
+  getByTripAndStudent: async (
+    tripId: number,
+    studentSsn: number
+  ): Promise<PaymentDto> => {
+    const response = await axiosInstance.get(
+      `/payments/trip/${tripId}/student/${studentSsn}`
+    );
+
+    return response.data;
+  },
+};
 
 export default paymentService;

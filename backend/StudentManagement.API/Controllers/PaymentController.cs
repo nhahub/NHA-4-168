@@ -34,14 +34,14 @@ public class PaymentController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(CreatePaymentDto dto)
+    public async Task<IActionResult> Create([FromBody] CreatePaymentDto dto)
     {
         var result = await _service.CreateAsync(dto);
         return Ok(result);
     }
 
     [HttpPatch("{id}/status")]
-    public async Task<IActionResult> UpdateStatus(int id, UpdatePaymentStatusDto dto)
+    public async Task<IActionResult> UpdateStatus(int id, [FromBody] UpdatePaymentStatusDto dto)
     {
         var updated = await _service.UpdateStatusAsync(id, dto);
 
@@ -61,6 +61,17 @@ public class PaymentController : ControllerBase
     public async Task<ActionResult<PaymentDto>> GetByEnrollment(int enrollmentId)
     {
         var result = await _service.GetByEnrollmentAsync(enrollmentId);
+
+        if (result == null)
+            return NotFound();
+
+        return Ok(result);
+    }
+
+    [HttpGet("trip/{tripId:int}/student/{studentSsn:long}")]
+    public async Task<ActionResult<PaymentDto>> GetByTripAndStudent(int tripId, long studentSsn)
+    {
+        var result = await _service.GetByTripAndStudentAsync(tripId, studentSsn);
 
         if (result == null)
             return NotFound();

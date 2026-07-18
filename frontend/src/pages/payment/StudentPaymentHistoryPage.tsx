@@ -6,6 +6,13 @@ import paymentService, {
 } from "../../services/api/paymentService";
 import { studentService } from "../../services/api/studentService";
 
+function getServiceLabel(payment: PaymentDto) {
+  if (payment.paymentType === "Trip") {
+    return payment.tripDestination ? `Trip: ${payment.tripDestination}` : "Trip";
+  }
+  return payment.courseName ?? "Course";
+}
+
 
 
 export default function StudentPaymentHistoryPage() {
@@ -185,8 +192,8 @@ export default function StudentPaymentHistoryPage() {
             <table className="w-full">
               <thead className="bg-surface-container-low border-b border-outline">
                 <tr>
-                  <th className="px-6 py-4 text-left">Course ID</th>
-                  <th className="px-6 py-4 text-left">Course</th>
+                  <th className="px-6 py-4 text-left">ID</th>
+                  <th className="px-6 py-4 text-left">Service</th>
                   <th className="px-6 py-4 text-left">Amount</th>
                   <th className="px-6 py-4 text-left">Date</th>
                   <th className="px-6 py-4 text-left">Method</th>
@@ -208,11 +215,11 @@ export default function StudentPaymentHistoryPage() {
                       className="border-t border-outline-variant hover:bg-surface-container-low"
                     >
                       <td className="px-6 py-6 font-semibold text-on-surface">
-                        {payment.courseId}
+                        {payment.courseId ?? payment.tripId ?? "—"}
                       </td>
                       <td className="px-6 py-6">
                         <p className="font-semibold text-on-surface">
-                          {payment.courseName}
+                          {getServiceLabel(payment)}
                         </p>
                       </td>
 

@@ -440,7 +440,9 @@ namespace StudentManagement.Infrastructure.Migrations
                 {
                     PaymentId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    EnrollmentId = table.Column<int>(type: "int", nullable: false),
+                    EnrollmentId = table.Column<int>(type: "int", nullable: true),
+                    TripId = table.Column<int>(type: "int", nullable: true),
+                    StudentSsn = table.Column<long>(type: "bigint", nullable: true),
                     Amount = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     PaymentMethod = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
@@ -455,6 +457,18 @@ namespace StudentManagement.Infrastructure.Migrations
                         column: x => x.EnrollmentId,
                         principalTable: "Enrollments",
                         principalColumn: "EnrollmentId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Payments_Students_StudentSsn",
+                        column: x => x.StudentSsn,
+                        principalTable: "Students",
+                        principalColumn: "StudentSsn",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Payments_Trips_TripId",
+                        column: x => x.TripId,
+                        principalTable: "Trips",
+                        principalColumn: "TripId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -549,7 +563,18 @@ namespace StudentManagement.Infrastructure.Migrations
                 name: "IX_Payments_EnrollmentId",
                 table: "Payments",
                 column: "EnrollmentId",
-                unique: true);
+                unique: true,
+                filter: "[EnrollmentId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Payments_StudentSsn",
+                table: "Payments",
+                column: "StudentSsn");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Payments_TripId",
+                table: "Payments",
+                column: "TripId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Students_Email",

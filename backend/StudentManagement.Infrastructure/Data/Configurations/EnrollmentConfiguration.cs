@@ -19,9 +19,8 @@ public class EnrollmentConfiguration : IEntityTypeConfiguration<Enrollment>
                .HasForeignKey(e => e.CourseId)
                .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasOne(e => e.Payment)
-               .WithOne(p => p.Enrollment)
-               .HasForeignKey<Payment>(p => p.EnrollmentId)
-               .OnDelete(DeleteBehavior.Cascade);
+        // The Enrollment <-> Payment relationship is configured on the Payment
+        // side (PaymentConfiguration) since Payment.EnrollmentId is now nullable
+        // and shared with the Trip/Student payment path.
     }
 }

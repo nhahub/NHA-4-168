@@ -1,6 +1,6 @@
 import { Eye, Pencil, Plus, Search } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { BookTripDialog } from '../../features/trips/BookTripDialog';
 import { TripStatusBadge } from '../../features/trips/TripStatusBadge';
@@ -13,6 +13,7 @@ import { loadTripSuggestions } from '../../utils/tripSuggestions';
 
 export default function TripsPage() {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const canManageTrips = isAdmin(user?.roles);
   const [searchParams] = useSearchParams();
   const [trips, setTrips] = useState<TripDto[]>([]);
@@ -123,6 +124,9 @@ export default function TripsPage() {
       const updatedTrip = await tripService.addStudentToTrip(selectedTrip.tripId, { studentSsn });
       setTrips((current) => current.map((trip) => (trip.tripId === updatedTrip.tripId ? updatedTrip : trip)));
       setSelectedTrip(null);
+      // A Pending payment for this booking was created by the backend; send the
+      // student straight to it, same as the course enrollment flow.
+      navigate(`/student/payments/trip/${updatedTrip.tripId}/complete`);
     } catch (requestError) {
       setBookError(getApiErrorMessage(requestError));
     } finally {
