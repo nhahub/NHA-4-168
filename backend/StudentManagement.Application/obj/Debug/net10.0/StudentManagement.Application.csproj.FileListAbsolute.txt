@@ -14,22 +14,6 @@
 /Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Application/obj/Debug/net10.0/refint/StudentManagement.Application.dll
 /Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Application/obj/Debug/net10.0/StudentManagement.Application.pdb
 /Users/amr3006khaled/Documents/NHA-4-168/backend/StudentManagement.Application/obj/Debug/net10.0/ref/StudentManagement.Application.dll
-D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\bin\Debug\net10.0\StudentManagement.Application.deps.json
-D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\bin\Debug\net10.0\StudentManagement.Application.dll
-D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\bin\Debug\net10.0\StudentManagement.Application.pdb
-D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\bin\Debug\net10.0\StudentManagement.Domain.dll
-D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\bin\Debug\net10.0\StudentManagement.Domain.pdb
-D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\obj\Debug\net10.0\StudentManagement.Application.csproj.AssemblyReference.cache
-D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\obj\Debug\net10.0\StudentManagement.Application.GeneratedMSBuildEditorConfig.editorconfig
-D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\obj\Debug\net10.0\StudentManagement.Application.AssemblyInfoInputs.cache
-D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\obj\Debug\net10.0\StudentManagement.Application.AssemblyInfo.cs
-D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\obj\Debug\net10.0\StudentManagement.Application.csproj.CoreCompileInputs.cache
-D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\obj\Debug\net10.0\StudentManagement.Application.sourcelink.json
-D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\obj\Debug\net10.0\StudentM.589D761C.Up2Date
-D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\obj\Debug\net10.0\StudentManagement.Application.dll
-D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\obj\Debug\net10.0\refint\StudentManagement.Application.dll
-D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\obj\Debug\net10.0\StudentManagement.Application.pdb
-D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\obj\Debug\net10.0\ref\StudentManagement.Application.dll
 D:\Programing\NHA-4-168\backend\StudentManagement.Application\bin\ef_tmp\StudentManagement.Application.deps.json
 D:\Programing\NHA-4-168\backend\StudentManagement.Application\bin\ef_tmp\StudentManagement.Application.dll
 D:\Programing\NHA-4-168\backend\StudentManagement.Application\bin\ef_tmp\StudentManagement.Application.pdb
@@ -67,3 +51,19 @@ E:\I'm done with this\NHA-4-168\backend\StudentManagement.Application\obj\Debug\
 E:\I'm done with this\NHA-4-168\backend\StudentManagement.Application\obj\Debug\net10.0\refint\StudentManagement.Application.dll
 E:\I'm done with this\NHA-4-168\backend\StudentManagement.Application\obj\Debug\net10.0\StudentManagement.Application.pdb
 E:\I'm done with this\NHA-4-168\backend\StudentManagement.Application\obj\Debug\net10.0\ref\StudentManagement.Application.dll
+D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\bin\Debug\net10.0\StudentManagement.Application.deps.json
+D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\bin\Debug\net10.0\StudentManagement.Application.dll
+D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\bin\Debug\net10.0\StudentManagement.Application.pdb
+D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\bin\Debug\net10.0\StudentManagement.Domain.dll
+D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\bin\Debug\net10.0\StudentManagement.Domain.pdb
+D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\obj\Debug\net10.0\StudentManagement.Application.csproj.AssemblyReference.cache
+D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\obj\Debug\net10.0\StudentManagement.Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\obj\Debug\net10.0\StudentManagement.Application.AssemblyInfoInputs.cache
+D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\obj\Debug\net10.0\StudentManagement.Application.AssemblyInfo.cs
+D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\obj\Debug\net10.0\StudentManagement.Application.csproj.CoreCompileInputs.cache
+D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\obj\Debug\net10.0\StudentManagement.Application.sourcelink.json
+D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\obj\Debug\net10.0\StudentM.589D761C.Up2Date
+D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\obj\Debug\net10.0\StudentManagement.Application.dll
+D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\obj\Debug\net10.0\refint\StudentManagement.Application.dll
+D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\obj\Debug\net10.0\StudentManagement.Application.pdb
+D:\Uniflow\3\NHA-4-168\backend\StudentManagement.Application\obj\Debug\net10.0\ref\StudentManagement.Application.dll

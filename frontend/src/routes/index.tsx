@@ -102,6 +102,7 @@ export const routes: RouteObject[] = [
   { path: '/student/payments', element: <ProtectedRoute allowedRoles={['student', 'admin']}><StudentPaymentHistoryPage /></ProtectedRoute> },
   { path: '/student/rate-instructors', element: <ProtectedRoute allowedRoles={['student', 'admin']}><RateInstructorsPage /></ProtectedRoute> },
   { path: '/student/payments/:enrollmentId/complete', element: <ProtectedRoute allowedRoles={['student', 'admin']}><StudentCompletePaymentPage /></ProtectedRoute> },
+  { path: '/student/payments/trip/:tripId/complete', element: <ProtectedRoute allowedRoles={['student', 'admin']}><StudentCompletePaymentPage /></ProtectedRoute> },
   { path: '/driver/trips', element: <ProtectedRoute allowedRoles={['admin', 'driver']}><DriverTripsPage /></ProtectedRoute> },
   { path: '/driver/my-trips', element: <ProtectedRoute allowedRoles={['admin', 'driver']}><DriverMyTripsPage /></ProtectedRoute> },
   { path: '/driver/payments', element: <ProtectedRoute allowedRoles={['admin', 'driver']}><DriverPaymentsPage /></ProtectedRoute> },

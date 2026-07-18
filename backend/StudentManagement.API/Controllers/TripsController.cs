@@ -2,6 +2,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.JsonWebTokens;
+using StudentManagement.API.Services;
 using StudentManagement.Application.DTOs.Trip;
 using StudentManagement.Application.Interfaces;
 using StudentManagement.Domain.Exceptions;
@@ -15,11 +16,13 @@ public class TripsController : ControllerBase
 {
     private readonly ITripService _tripService;
     private readonly IDriverService _driverService;
+    private readonly PaymentService _paymentService;
 
-    public TripsController(ITripService tripService, IDriverService driverService)
+    public TripsController(ITripService tripService, IDriverService driverService, PaymentService paymentService)
     {
         _tripService = tripService;
         _driverService = driverService;
+        _paymentService = paymentService;
     }
 
     [HttpGet]
@@ -79,6 +82,12 @@ public class TripsController : ControllerBase
     public async Task<ActionResult<TripDto>> AddStudent(int id, [FromBody] AddStudentToTripDto dto)
     {
         var updated = await _tripService.AddStudentAsync(id, dto);
+
+        // Mirror the enrollment flow: booking a seat creates a Pending payment for
+        // that student's share (this trip's price), which they then complete on
+        // the payment page. Only counts toward revenue once marked "Paid".
+        await _paymentService.CreatePaymentForTripAsync(id, dto.StudentSsn, updated.Price ?? 0m);
+
         return Ok(updated);
     }
 

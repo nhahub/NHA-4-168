@@ -20,18 +20,14 @@ public class DashboardService : IDashboardService
 
     public async Task<DashboardSummaryDto> GetSummaryAsync()
     {
-        // Course enrollment payments aren't split here; only the admin's share
-        // (CourseAdminRevenueRate) counts as revenue. The rest is the instructor's earnings.
-        var paymentsRevenue = (await _context.Payments
+        // Payments now cover both course-enrollment and trip-booking transactions
+        // (Payment.TripId is set for trip bookings). Only the admin's share
+        // (CourseAdminRevenueRate) counts as revenue; the rest is the
+        // instructor's/driver's earnings. A payment only counts once its
+        // Status is "Paid" — Pending bookings/enrollments contribute nothing yet.
+        var totalRevenue = (await _context.Payments
             .Where(payment => payment.Status == "Paid")
             .SumAsync(payment => (decimal?)payment.Amount) ?? 0m) * CourseAdminRevenueRate;
-
-        // Trip bookings aren't recorded as Payments (they're not tied to an Enrollment),
-        // so we add their revenue here: every row in TripStudents represents one booked
-        // seat, charged at that trip's price. Only the admin's share (CourseAdminRevenueRate)
-        // counts as revenue; the rest is the driver's earnings.
-        var tripsRevenue = await _context.TripStudents
-            .SumAsync(tripStudent => (decimal?)tripStudent.Trip.Price * CourseAdminRevenueRate) ?? 0m;
 
         return await _context.Students
             .AsNoTracking()
@@ -43,7 +39,7 @@ public class DashboardService : IDashboardService
                 PendingPayments = _context.Payments.Count(payment => payment.Status == "Pending"),
                 PendingServiceRequests = _context.StudentServices.Count(serviceRequest => serviceRequest.Status == "Pending"),
                 ActiveRides = _context.Trips.Count(ride => ride.Status == "Active" || ride.Status == "Pending"),
-                TotalRevenue = paymentsRevenue + tripsRevenue
+                TotalRevenue = totalRevenue
             })
             .FirstAsync();
     }
