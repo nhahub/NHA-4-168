@@ -1,5 +1,5 @@
 # UniVerse
-# dpmain link : http://universe-app.runasp.net/login
+# domain link : http://universe-app.runasp.net/login
 ## Project Structure
 
 ```text
